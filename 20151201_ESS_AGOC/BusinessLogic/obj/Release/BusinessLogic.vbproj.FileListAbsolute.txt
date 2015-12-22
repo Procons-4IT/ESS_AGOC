@@ -1,0 +1,276 @@
+F:\20150805_HRMS_AGOC\BusinessLogic\bin\Release\BusinessLogic.dll
+F:\20150805_HRMS_AGOC\BusinessLogic\bin\Release\BusinessLogic.pdb
+F:\20150805_HRMS_AGOC\BusinessLogic\bin\Release\BusinessLogic.xml
+F:\20150805_HRMS_AGOC\BusinessLogic\bin\Release\DataAccess.dll
+F:\20150805_HRMS_AGOC\BusinessLogic\bin\Release\EN.dll
+F:\20150805_HRMS_AGOC\BusinessLogic\bin\Release\DataAccess.pdb
+F:\20150805_HRMS_AGOC\BusinessLogic\bin\Release\DataAccess.xml
+F:\20150805_HRMS_AGOC\BusinessLogic\bin\Release\EN.pdb
+F:\20150805_HRMS_AGOC\BusinessLogic\bin\Release\EN.xml
+F:\20150805_HRMS_AGOC\BusinessLogic\obj\Release\BusinessLogic.vbprojResolveAssemblyReference.cache
+F:\20150805_HRMS_AGOC\BusinessLogic\obj\Release\BusinessLogic.Resources.resources
+F:\20150805_HRMS_AGOC\BusinessLogic\obj\Release\BusinessLogic.vbproj.GenerateResource.Cache
+F:\20150805_HRMS_AGOC\BusinessLogic\obj\Release\BusinessLogic.dll
+F:\20150805_HRMS_AGOC\BusinessLogic\obj\Release\BusinessLogic.xml
+F:\20150805_HRMS_AGOC\BusinessLogic\obj\Release\BusinessLogic.pdb
+E:\Projects\Web Developments\HRMS\SourceCode\20150805_ESS_AGOC\BusinessLogic\bin\Release\BusinessLogic.dll
+E:\Projects\Web Developments\HRMS\SourceCode\20150805_ESS_AGOC\BusinessLogic\bin\Release\BusinessLogic.pdb
+E:\Projects\Web Developments\HRMS\SourceCode\20150805_ESS_AGOC\BusinessLogic\bin\Release\BusinessLogic.xml
+E:\Projects\Web Developments\HRMS\SourceCode\20150805_ESS_AGOC\BusinessLogic\bin\Release\DataAccess.dll
+E:\Projects\Web Developments\HRMS\SourceCode\20150805_ESS_AGOC\BusinessLogic\bin\Release\EN.dll
+E:\Projects\Web Developments\HRMS\SourceCode\20150805_ESS_AGOC\BusinessLogic\bin\Release\DataAccess.pdb
+E:\Projects\Web Developments\HRMS\SourceCode\20150805_ESS_AGOC\BusinessLogic\bin\Release\DataAccess.xml
+E:\Projects\Web Developments\HRMS\SourceCode\20150805_ESS_AGOC\BusinessLogic\bin\Release\EN.pdb
+E:\Projects\Web Developments\HRMS\SourceCode\20150805_ESS_AGOC\BusinessLogic\bin\Release\EN.xml
+E:\Projects\Web Developments\HRMS\SourceCode\20150805_ESS_AGOC\BusinessLogic\obj\Release\BusinessLogic.vbprojResolveAssemblyReference.cache
+E:\Projects\Web Developments\HRMS\SourceCode\20150805_ESS_AGOC\BusinessLogic\obj\Release\BusinessLogic.Resources.resources
+E:\Projects\Web Developments\HRMS\SourceCode\20150805_ESS_AGOC\BusinessLogic\obj\Release\BusinessLogic.vbproj.GenerateResource.Cache
+E:\Projects\Web Developments\HRMS\SourceCode\20150805_ESS_AGOC\BusinessLogic\obj\Release\BusinessLogic.dll
+E:\Projects\Web Developments\HRMS\SourceCode\20150805_ESS_AGOC\BusinessLogic\obj\Release\BusinessLogic.xml
+E:\Projects\Web Developments\HRMS\SourceCode\20150805_ESS_AGOC\BusinessLogic\obj\Release\BusinessLogic.pdb
+E:\Projects\Web Developments\HRMS\SourceCode\20150807_ESS_AGOC\BusinessLogic\obj\Release\BusinessLogic.vbprojResolveAssemblyReference.cache
+E:\Projects\Web Developments\HRMS\SourceCode\20150807_ESS_AGOC\BusinessLogic\obj\Release\BusinessLogic.Resources.resources
+E:\Projects\Web Developments\HRMS\SourceCode\20150807_ESS_AGOC\BusinessLogic\obj\Release\BusinessLogic.vbproj.GenerateResource.Cache
+E:\Projects\Web Developments\HRMS\SourceCode\20150807_ESS_AGOC\BusinessLogic\obj\Release\BusinessLogic.dll
+E:\Projects\Web Developments\HRMS\SourceCode\20150807_ESS_AGOC\BusinessLogic\obj\Release\BusinessLogic.xml
+E:\Projects\Web Developments\HRMS\SourceCode\20150807_ESS_AGOC\BusinessLogic\obj\Release\BusinessLogic.pdb
+E:\Projects\Web Developments\HRMS\SourceCode\20150812_ESS_AGOC\BusinessLogic\bin\Release\BusinessLogic.dll
+E:\Projects\Web Developments\HRMS\SourceCode\20150812_ESS_AGOC\BusinessLogic\bin\Release\BusinessLogic.pdb
+E:\Projects\Web Developments\HRMS\SourceCode\20150812_ESS_AGOC\BusinessLogic\bin\Release\BusinessLogic.xml
+E:\Projects\Web Developments\HRMS\SourceCode\20150812_ESS_AGOC\BusinessLogic\bin\Release\DataAccess.dll
+E:\Projects\Web Developments\HRMS\SourceCode\20150812_ESS_AGOC\BusinessLogic\bin\Release\EN.dll
+E:\Projects\Web Developments\HRMS\SourceCode\20150812_ESS_AGOC\BusinessLogic\bin\Release\DataAccess.pdb
+E:\Projects\Web Developments\HRMS\SourceCode\20150812_ESS_AGOC\BusinessLogic\bin\Release\DataAccess.xml
+E:\Projects\Web Developments\HRMS\SourceCode\20150812_ESS_AGOC\BusinessLogic\bin\Release\EN.pdb
+E:\Projects\Web Developments\HRMS\SourceCode\20150812_ESS_AGOC\BusinessLogic\bin\Release\EN.xml
+E:\Projects\Web Developments\HRMS\SourceCode\20150812_ESS_AGOC\BusinessLogic\obj\Release\BusinessLogic.vbprojResolveAssemblyReference.cache
+E:\Projects\Web Developments\HRMS\SourceCode\20150812_ESS_AGOC\BusinessLogic\obj\Release\BusinessLogic.Resources.resources
+E:\Projects\Web Developments\HRMS\SourceCode\20150812_ESS_AGOC\BusinessLogic\obj\Release\BusinessLogic.vbproj.GenerateResource.Cache
+E:\Projects\Web Developments\HRMS\SourceCode\20150812_ESS_AGOC\BusinessLogic\obj\Release\BusinessLogic.dll
+E:\Projects\Web Developments\HRMS\SourceCode\20150812_ESS_AGOC\BusinessLogic\obj\Release\BusinessLogic.xml
+E:\Projects\Web Developments\HRMS\SourceCode\20150812_ESS_AGOC\BusinessLogic\obj\Release\BusinessLogic.pdb
+E:\Projects\Web Developments\HRMS\SourceCode\20150817_ESS_AGOC\BusinessLogic\bin\Release\BusinessLogic.dll
+E:\Projects\Web Developments\HRMS\SourceCode\20150817_ESS_AGOC\BusinessLogic\bin\Release\BusinessLogic.pdb
+E:\Projects\Web Developments\HRMS\SourceCode\20150817_ESS_AGOC\BusinessLogic\bin\Release\BusinessLogic.xml
+E:\Projects\Web Developments\HRMS\SourceCode\20150817_ESS_AGOC\BusinessLogic\bin\Release\DataAccess.dll
+E:\Projects\Web Developments\HRMS\SourceCode\20150817_ESS_AGOC\BusinessLogic\bin\Release\EN.dll
+E:\Projects\Web Developments\HRMS\SourceCode\20150817_ESS_AGOC\BusinessLogic\bin\Release\DataAccess.pdb
+E:\Projects\Web Developments\HRMS\SourceCode\20150817_ESS_AGOC\BusinessLogic\bin\Release\DataAccess.xml
+E:\Projects\Web Developments\HRMS\SourceCode\20150817_ESS_AGOC\BusinessLogic\bin\Release\EN.pdb
+E:\Projects\Web Developments\HRMS\SourceCode\20150817_ESS_AGOC\BusinessLogic\bin\Release\EN.xml
+E:\Projects\Web Developments\HRMS\SourceCode\20150817_ESS_AGOC\BusinessLogic\obj\Release\BusinessLogic.vbprojResolveAssemblyReference.cache
+E:\Projects\Web Developments\HRMS\SourceCode\20150817_ESS_AGOC\BusinessLogic\obj\Release\BusinessLogic.Resources.resources
+E:\Projects\Web Developments\HRMS\SourceCode\20150817_ESS_AGOC\BusinessLogic\obj\Release\BusinessLogic.vbproj.GenerateResource.Cache
+E:\Projects\Web Developments\HRMS\SourceCode\20150817_ESS_AGOC\BusinessLogic\obj\Release\BusinessLogic.dll
+E:\Projects\Web Developments\HRMS\SourceCode\20150817_ESS_AGOC\BusinessLogic\obj\Release\BusinessLogic.xml
+E:\Projects\Web Developments\HRMS\SourceCode\20150817_ESS_AGOC\BusinessLogic\obj\Release\BusinessLogic.pdb
+E:\Projects\Web Developments\HRMS\SourceCode\20150819_ESS_AGOC\BusinessLogic\bin\Release\BusinessLogic.dll
+E:\Projects\Web Developments\HRMS\SourceCode\20150819_ESS_AGOC\BusinessLogic\bin\Release\BusinessLogic.pdb
+E:\Projects\Web Developments\HRMS\SourceCode\20150819_ESS_AGOC\BusinessLogic\bin\Release\BusinessLogic.xml
+E:\Projects\Web Developments\HRMS\SourceCode\20150819_ESS_AGOC\BusinessLogic\bin\Release\DataAccess.dll
+E:\Projects\Web Developments\HRMS\SourceCode\20150819_ESS_AGOC\BusinessLogic\bin\Release\EN.dll
+E:\Projects\Web Developments\HRMS\SourceCode\20150819_ESS_AGOC\BusinessLogic\bin\Release\DataAccess.pdb
+E:\Projects\Web Developments\HRMS\SourceCode\20150819_ESS_AGOC\BusinessLogic\bin\Release\DataAccess.xml
+E:\Projects\Web Developments\HRMS\SourceCode\20150819_ESS_AGOC\BusinessLogic\bin\Release\EN.pdb
+E:\Projects\Web Developments\HRMS\SourceCode\20150819_ESS_AGOC\BusinessLogic\bin\Release\EN.xml
+E:\Projects\Web Developments\HRMS\SourceCode\20150819_ESS_AGOC\BusinessLogic\obj\Release\BusinessLogic.vbprojResolveAssemblyReference.cache
+E:\Projects\Web Developments\HRMS\SourceCode\20150819_ESS_AGOC\BusinessLogic\obj\Release\BusinessLogic.Resources.resources
+E:\Projects\Web Developments\HRMS\SourceCode\20150819_ESS_AGOC\BusinessLogic\obj\Release\BusinessLogic.vbproj.GenerateResource.Cache
+E:\Projects\Web Developments\HRMS\SourceCode\20150819_ESS_AGOC\BusinessLogic\obj\Release\BusinessLogic.dll
+E:\Projects\Web Developments\HRMS\SourceCode\20150819_ESS_AGOC\BusinessLogic\obj\Release\BusinessLogic.xml
+E:\Projects\Web Developments\HRMS\SourceCode\20150819_ESS_AGOC\BusinessLogic\obj\Release\BusinessLogic.pdb
+E:\Projects\Web Developments\HRMS\SourceCode\20150824_ESS_AGOC\BusinessLogic\bin\Release\BusinessLogic.dll
+E:\Projects\Web Developments\HRMS\SourceCode\20150824_ESS_AGOC\BusinessLogic\bin\Release\BusinessLogic.pdb
+E:\Projects\Web Developments\HRMS\SourceCode\20150824_ESS_AGOC\BusinessLogic\bin\Release\BusinessLogic.xml
+E:\Projects\Web Developments\HRMS\SourceCode\20150824_ESS_AGOC\BusinessLogic\bin\Release\DataAccess.dll
+E:\Projects\Web Developments\HRMS\SourceCode\20150824_ESS_AGOC\BusinessLogic\bin\Release\EN.dll
+E:\Projects\Web Developments\HRMS\SourceCode\20150824_ESS_AGOC\BusinessLogic\bin\Release\DataAccess.pdb
+E:\Projects\Web Developments\HRMS\SourceCode\20150824_ESS_AGOC\BusinessLogic\bin\Release\DataAccess.xml
+E:\Projects\Web Developments\HRMS\SourceCode\20150824_ESS_AGOC\BusinessLogic\bin\Release\EN.pdb
+E:\Projects\Web Developments\HRMS\SourceCode\20150824_ESS_AGOC\BusinessLogic\bin\Release\EN.xml
+E:\Projects\Web Developments\HRMS\SourceCode\20150824_ESS_AGOC\BusinessLogic\obj\Release\BusinessLogic.vbprojResolveAssemblyReference.cache
+E:\Projects\Web Developments\HRMS\SourceCode\20150824_ESS_AGOC\BusinessLogic\obj\Release\BusinessLogic.Resources.resources
+E:\Projects\Web Developments\HRMS\SourceCode\20150824_ESS_AGOC\BusinessLogic\obj\Release\BusinessLogic.vbproj.GenerateResource.Cache
+E:\Projects\Web Developments\HRMS\SourceCode\20150824_ESS_AGOC\BusinessLogic\obj\Release\BusinessLogic.dll
+E:\Projects\Web Developments\HRMS\SourceCode\20150824_ESS_AGOC\BusinessLogic\obj\Release\BusinessLogic.xml
+E:\Projects\Web Developments\HRMS\SourceCode\20150824_ESS_AGOC\BusinessLogic\obj\Release\BusinessLogic.pdb
+E:\Projects\Web Developments\HRMS\SourceCode\20150826_ESS_AGOC\BusinessLogic\bin\Release\BusinessLogic.dll
+E:\Projects\Web Developments\HRMS\SourceCode\20150826_ESS_AGOC\BusinessLogic\bin\Release\BusinessLogic.pdb
+E:\Projects\Web Developments\HRMS\SourceCode\20150826_ESS_AGOC\BusinessLogic\bin\Release\BusinessLogic.xml
+E:\Projects\Web Developments\HRMS\SourceCode\20150826_ESS_AGOC\BusinessLogic\bin\Release\DataAccess.dll
+E:\Projects\Web Developments\HRMS\SourceCode\20150826_ESS_AGOC\BusinessLogic\bin\Release\EN.dll
+E:\Projects\Web Developments\HRMS\SourceCode\20150826_ESS_AGOC\BusinessLogic\bin\Release\DataAccess.pdb
+E:\Projects\Web Developments\HRMS\SourceCode\20150826_ESS_AGOC\BusinessLogic\bin\Release\DataAccess.xml
+E:\Projects\Web Developments\HRMS\SourceCode\20150826_ESS_AGOC\BusinessLogic\bin\Release\EN.pdb
+E:\Projects\Web Developments\HRMS\SourceCode\20150826_ESS_AGOC\BusinessLogic\bin\Release\EN.xml
+E:\Projects\Web Developments\HRMS\SourceCode\20150826_ESS_AGOC\BusinessLogic\obj\Release\BusinessLogic.vbprojResolveAssemblyReference.cache
+E:\Projects\Web Developments\HRMS\SourceCode\20150826_ESS_AGOC\BusinessLogic\obj\Release\BusinessLogic.Resources.resources
+E:\Projects\Web Developments\HRMS\SourceCode\20150826_ESS_AGOC\BusinessLogic\obj\Release\BusinessLogic.vbproj.GenerateResource.Cache
+E:\Projects\Web Developments\HRMS\SourceCode\20150826_ESS_AGOC\BusinessLogic\obj\Release\BusinessLogic.dll
+E:\Projects\Web Developments\HRMS\SourceCode\20150826_ESS_AGOC\BusinessLogic\obj\Release\BusinessLogic.xml
+E:\Projects\Web Developments\HRMS\SourceCode\20150826_ESS_AGOC\BusinessLogic\obj\Release\BusinessLogic.pdb
+E:\Projects\Web Developments\HRMS\SourceCode\20150914_ESS_AGOC\BusinessLogic\bin\Release\BusinessLogic.dll
+E:\Projects\Web Developments\HRMS\SourceCode\20150914_ESS_AGOC\BusinessLogic\bin\Release\BusinessLogic.pdb
+E:\Projects\Web Developments\HRMS\SourceCode\20150914_ESS_AGOC\BusinessLogic\bin\Release\BusinessLogic.xml
+E:\Projects\Web Developments\HRMS\SourceCode\20150914_ESS_AGOC\BusinessLogic\bin\Release\DataAccess.dll
+E:\Projects\Web Developments\HRMS\SourceCode\20150914_ESS_AGOC\BusinessLogic\bin\Release\EN.dll
+E:\Projects\Web Developments\HRMS\SourceCode\20150914_ESS_AGOC\BusinessLogic\bin\Release\DataAccess.pdb
+E:\Projects\Web Developments\HRMS\SourceCode\20150914_ESS_AGOC\BusinessLogic\bin\Release\DataAccess.xml
+E:\Projects\Web Developments\HRMS\SourceCode\20150914_ESS_AGOC\BusinessLogic\bin\Release\EN.pdb
+E:\Projects\Web Developments\HRMS\SourceCode\20150914_ESS_AGOC\BusinessLogic\bin\Release\EN.xml
+E:\Projects\Web Developments\HRMS\SourceCode\20150914_ESS_AGOC\BusinessLogic\obj\Release\BusinessLogic.vbprojResolveAssemblyReference.cache
+E:\Projects\Web Developments\HRMS\SourceCode\20150914_ESS_AGOC\BusinessLogic\obj\Release\BusinessLogic.Resources.resources
+E:\Projects\Web Developments\HRMS\SourceCode\20150914_ESS_AGOC\BusinessLogic\obj\Release\BusinessLogic.vbproj.GenerateResource.Cache
+E:\Projects\Web Developments\HRMS\SourceCode\20150914_ESS_AGOC\BusinessLogic\obj\Release\BusinessLogic.dll
+E:\Projects\Web Developments\HRMS\SourceCode\20150914_ESS_AGOC\BusinessLogic\obj\Release\BusinessLogic.xml
+E:\Projects\Web Developments\HRMS\SourceCode\20150914_ESS_AGOC\BusinessLogic\obj\Release\BusinessLogic.pdb
+G:\International Projects_SAP9.0\Procons-4IT\Human Resource\ESS\ESS Phase II\AGOC\20150915_ESS AGOC\20150914_ESS_AGOC\BusinessLogic\bin\Release\BusinessLogic.dll
+G:\International Projects_SAP9.0\Procons-4IT\Human Resource\ESS\ESS Phase II\AGOC\20150915_ESS AGOC\20150914_ESS_AGOC\BusinessLogic\bin\Release\BusinessLogic.pdb
+G:\International Projects_SAP9.0\Procons-4IT\Human Resource\ESS\ESS Phase II\AGOC\20150915_ESS AGOC\20150914_ESS_AGOC\BusinessLogic\bin\Release\BusinessLogic.xml
+G:\International Projects_SAP9.0\Procons-4IT\Human Resource\ESS\ESS Phase II\AGOC\20150915_ESS AGOC\20150914_ESS_AGOC\BusinessLogic\bin\Release\DataAccess.dll
+G:\International Projects_SAP9.0\Procons-4IT\Human Resource\ESS\ESS Phase II\AGOC\20150915_ESS AGOC\20150914_ESS_AGOC\BusinessLogic\bin\Release\EN.dll
+G:\International Projects_SAP9.0\Procons-4IT\Human Resource\ESS\ESS Phase II\AGOC\20150915_ESS AGOC\20150914_ESS_AGOC\BusinessLogic\bin\Release\DataAccess.pdb
+G:\International Projects_SAP9.0\Procons-4IT\Human Resource\ESS\ESS Phase II\AGOC\20150915_ESS AGOC\20150914_ESS_AGOC\BusinessLogic\bin\Release\DataAccess.xml
+G:\International Projects_SAP9.0\Procons-4IT\Human Resource\ESS\ESS Phase II\AGOC\20150915_ESS AGOC\20150914_ESS_AGOC\BusinessLogic\bin\Release\EN.pdb
+G:\International Projects_SAP9.0\Procons-4IT\Human Resource\ESS\ESS Phase II\AGOC\20150915_ESS AGOC\20150914_ESS_AGOC\BusinessLogic\bin\Release\EN.xml
+G:\International Projects_SAP9.0\Procons-4IT\Human Resource\ESS\ESS Phase II\AGOC\20150915_ESS AGOC\20150914_ESS_AGOC\BusinessLogic\obj\Release\BusinessLogic.vbprojResolveAssemblyReference.cache
+G:\International Projects_SAP9.0\Procons-4IT\Human Resource\ESS\ESS Phase II\AGOC\20150915_ESS AGOC\20150914_ESS_AGOC\BusinessLogic\obj\Release\BusinessLogic.Resources.resources
+G:\International Projects_SAP9.0\Procons-4IT\Human Resource\ESS\ESS Phase II\AGOC\20150915_ESS AGOC\20150914_ESS_AGOC\BusinessLogic\obj\Release\BusinessLogic.vbproj.GenerateResource.Cache
+G:\International Projects_SAP9.0\Procons-4IT\Human Resource\ESS\ESS Phase II\AGOC\20150915_ESS AGOC\20150914_ESS_AGOC\BusinessLogic\obj\Release\BusinessLogic.dll
+G:\International Projects_SAP9.0\Procons-4IT\Human Resource\ESS\ESS Phase II\AGOC\20150915_ESS AGOC\20150914_ESS_AGOC\BusinessLogic\obj\Release\BusinessLogic.xml
+G:\International Projects_SAP9.0\Procons-4IT\Human Resource\ESS\ESS Phase II\AGOC\20150915_ESS AGOC\20150914_ESS_AGOC\BusinessLogic\obj\Release\BusinessLogic.pdb
+E:\Projects\Web Developments\HRMS\SourceCode\20150915_ESS_AGOC\BusinessLogic\bin\Release\BusinessLogic.dll
+E:\Projects\Web Developments\HRMS\SourceCode\20150915_ESS_AGOC\BusinessLogic\bin\Release\BusinessLogic.pdb
+E:\Projects\Web Developments\HRMS\SourceCode\20150915_ESS_AGOC\BusinessLogic\bin\Release\BusinessLogic.xml
+E:\Projects\Web Developments\HRMS\SourceCode\20150915_ESS_AGOC\BusinessLogic\bin\Release\DataAccess.dll
+E:\Projects\Web Developments\HRMS\SourceCode\20150915_ESS_AGOC\BusinessLogic\bin\Release\EN.dll
+E:\Projects\Web Developments\HRMS\SourceCode\20150915_ESS_AGOC\BusinessLogic\bin\Release\DataAccess.pdb
+E:\Projects\Web Developments\HRMS\SourceCode\20150915_ESS_AGOC\BusinessLogic\bin\Release\DataAccess.xml
+E:\Projects\Web Developments\HRMS\SourceCode\20150915_ESS_AGOC\BusinessLogic\bin\Release\EN.pdb
+E:\Projects\Web Developments\HRMS\SourceCode\20150915_ESS_AGOC\BusinessLogic\bin\Release\EN.xml
+E:\Projects\Web Developments\HRMS\SourceCode\20150915_ESS_AGOC\BusinessLogic\obj\Release\BusinessLogic.vbprojResolveAssemblyReference.cache
+E:\Projects\Web Developments\HRMS\SourceCode\20150915_ESS_AGOC\BusinessLogic\obj\Release\BusinessLogic.Resources.resources
+E:\Projects\Web Developments\HRMS\SourceCode\20150915_ESS_AGOC\BusinessLogic\obj\Release\BusinessLogic.vbproj.GenerateResource.Cache
+E:\Projects\Web Developments\HRMS\SourceCode\20150915_ESS_AGOC\BusinessLogic\obj\Release\BusinessLogic.dll
+E:\Projects\Web Developments\HRMS\SourceCode\20150915_ESS_AGOC\BusinessLogic\obj\Release\BusinessLogic.xml
+E:\Projects\Web Developments\HRMS\SourceCode\20150915_ESS_AGOC\BusinessLogic\obj\Release\BusinessLogic.pdb
+E:\Projects\Web Developments\HRMS\SourceCode\20151112_ESS_AGOC\BusinessLogic\bin\Release\BusinessLogic.dll
+E:\Projects\Web Developments\HRMS\SourceCode\20151112_ESS_AGOC\BusinessLogic\bin\Release\BusinessLogic.pdb
+E:\Projects\Web Developments\HRMS\SourceCode\20151112_ESS_AGOC\BusinessLogic\bin\Release\BusinessLogic.xml
+E:\Projects\Web Developments\HRMS\SourceCode\20151112_ESS_AGOC\BusinessLogic\bin\Release\DataAccess.dll
+E:\Projects\Web Developments\HRMS\SourceCode\20151112_ESS_AGOC\BusinessLogic\bin\Release\EN.dll
+E:\Projects\Web Developments\HRMS\SourceCode\20151112_ESS_AGOC\BusinessLogic\bin\Release\DataAccess.pdb
+E:\Projects\Web Developments\HRMS\SourceCode\20151112_ESS_AGOC\BusinessLogic\bin\Release\DataAccess.xml
+E:\Projects\Web Developments\HRMS\SourceCode\20151112_ESS_AGOC\BusinessLogic\bin\Release\EN.pdb
+E:\Projects\Web Developments\HRMS\SourceCode\20151112_ESS_AGOC\BusinessLogic\bin\Release\EN.xml
+E:\Projects\Web Developments\HRMS\SourceCode\20151112_ESS_AGOC\BusinessLogic\obj\Release\BusinessLogic.vbprojResolveAssemblyReference.cache
+E:\Projects\Web Developments\HRMS\SourceCode\20151112_ESS_AGOC\BusinessLogic\obj\Release\BusinessLogic.Resources.resources
+E:\Projects\Web Developments\HRMS\SourceCode\20151112_ESS_AGOC\BusinessLogic\obj\Release\BusinessLogic.vbproj.GenerateResource.Cache
+E:\Projects\Web Developments\HRMS\SourceCode\20151112_ESS_AGOC\BusinessLogic\obj\Release\BusinessLogic.dll
+E:\Projects\Web Developments\HRMS\SourceCode\20151112_ESS_AGOC\BusinessLogic\obj\Release\BusinessLogic.xml
+E:\Projects\Web Developments\HRMS\SourceCode\20151112_ESS_AGOC\BusinessLogic\obj\Release\BusinessLogic.pdb
+E:\Projects\Web Developments\HRMS\SourceCode\20151114_ESS_AGOC\BusinessLogic\bin\Release\BusinessLogic.dll
+E:\Projects\Web Developments\HRMS\SourceCode\20151114_ESS_AGOC\BusinessLogic\bin\Release\BusinessLogic.pdb
+E:\Projects\Web Developments\HRMS\SourceCode\20151114_ESS_AGOC\BusinessLogic\bin\Release\BusinessLogic.xml
+E:\Projects\Web Developments\HRMS\SourceCode\20151114_ESS_AGOC\BusinessLogic\bin\Release\DataAccess.dll
+E:\Projects\Web Developments\HRMS\SourceCode\20151114_ESS_AGOC\BusinessLogic\bin\Release\EN.dll
+E:\Projects\Web Developments\HRMS\SourceCode\20151114_ESS_AGOC\BusinessLogic\bin\Release\DataAccess.pdb
+E:\Projects\Web Developments\HRMS\SourceCode\20151114_ESS_AGOC\BusinessLogic\bin\Release\DataAccess.xml
+E:\Projects\Web Developments\HRMS\SourceCode\20151114_ESS_AGOC\BusinessLogic\bin\Release\EN.pdb
+E:\Projects\Web Developments\HRMS\SourceCode\20151114_ESS_AGOC\BusinessLogic\bin\Release\EN.xml
+E:\Projects\Web Developments\HRMS\SourceCode\20151114_ESS_AGOC\BusinessLogic\obj\Release\BusinessLogic.vbprojResolveAssemblyReference.cache
+E:\Projects\Web Developments\HRMS\SourceCode\20151114_ESS_AGOC\BusinessLogic\obj\Release\BusinessLogic.Resources.resources
+E:\Projects\Web Developments\HRMS\SourceCode\20151114_ESS_AGOC\BusinessLogic\obj\Release\BusinessLogic.vbproj.GenerateResource.Cache
+E:\Projects\Web Developments\HRMS\SourceCode\20151114_ESS_AGOC\BusinessLogic\obj\Release\BusinessLogic.dll
+E:\Projects\Web Developments\HRMS\SourceCode\20151114_ESS_AGOC\BusinessLogic\obj\Release\BusinessLogic.xml
+E:\Projects\Web Developments\HRMS\SourceCode\20151114_ESS_AGOC\BusinessLogic\obj\Release\BusinessLogic.pdb
+E:\Projects\Web Developments\HRMS\SourceCode\20151116_ESS_AGOC\BusinessLogic\bin\Release\BusinessLogic.dll
+E:\Projects\Web Developments\HRMS\SourceCode\20151116_ESS_AGOC\BusinessLogic\bin\Release\BusinessLogic.pdb
+E:\Projects\Web Developments\HRMS\SourceCode\20151116_ESS_AGOC\BusinessLogic\bin\Release\BusinessLogic.xml
+E:\Projects\Web Developments\HRMS\SourceCode\20151116_ESS_AGOC\BusinessLogic\bin\Release\DataAccess.dll
+E:\Projects\Web Developments\HRMS\SourceCode\20151116_ESS_AGOC\BusinessLogic\bin\Release\EN.dll
+E:\Projects\Web Developments\HRMS\SourceCode\20151116_ESS_AGOC\BusinessLogic\bin\Release\DataAccess.pdb
+E:\Projects\Web Developments\HRMS\SourceCode\20151116_ESS_AGOC\BusinessLogic\bin\Release\DataAccess.xml
+E:\Projects\Web Developments\HRMS\SourceCode\20151116_ESS_AGOC\BusinessLogic\bin\Release\EN.pdb
+E:\Projects\Web Developments\HRMS\SourceCode\20151116_ESS_AGOC\BusinessLogic\bin\Release\EN.xml
+E:\Projects\Web Developments\HRMS\SourceCode\20151116_ESS_AGOC\BusinessLogic\obj\Release\BusinessLogic.vbprojResolveAssemblyReference.cache
+E:\Projects\Web Developments\HRMS\SourceCode\20151116_ESS_AGOC\BusinessLogic\obj\Release\BusinessLogic.Resources.resources
+E:\Projects\Web Developments\HRMS\SourceCode\20151116_ESS_AGOC\BusinessLogic\obj\Release\BusinessLogic.vbproj.GenerateResource.Cache
+E:\Projects\Web Developments\HRMS\SourceCode\20151116_ESS_AGOC\BusinessLogic\obj\Release\BusinessLogic.dll
+E:\Projects\Web Developments\HRMS\SourceCode\20151116_ESS_AGOC\BusinessLogic\obj\Release\BusinessLogic.xml
+E:\Projects\Web Developments\HRMS\SourceCode\20151116_ESS_AGOC\BusinessLogic\obj\Release\BusinessLogic.pdb
+E:\Projects\Web Developments\HRMS\SourceCode\20151117_ESS_AGOC\BusinessLogic\bin\Release\BusinessLogic.dll
+E:\Projects\Web Developments\HRMS\SourceCode\20151117_ESS_AGOC\BusinessLogic\bin\Release\BusinessLogic.pdb
+E:\Projects\Web Developments\HRMS\SourceCode\20151117_ESS_AGOC\BusinessLogic\bin\Release\BusinessLogic.xml
+E:\Projects\Web Developments\HRMS\SourceCode\20151117_ESS_AGOC\BusinessLogic\bin\Release\DataAccess.dll
+E:\Projects\Web Developments\HRMS\SourceCode\20151117_ESS_AGOC\BusinessLogic\bin\Release\EN.dll
+E:\Projects\Web Developments\HRMS\SourceCode\20151117_ESS_AGOC\BusinessLogic\bin\Release\DataAccess.pdb
+E:\Projects\Web Developments\HRMS\SourceCode\20151117_ESS_AGOC\BusinessLogic\bin\Release\DataAccess.xml
+E:\Projects\Web Developments\HRMS\SourceCode\20151117_ESS_AGOC\BusinessLogic\bin\Release\EN.pdb
+E:\Projects\Web Developments\HRMS\SourceCode\20151117_ESS_AGOC\BusinessLogic\bin\Release\EN.xml
+E:\Projects\Web Developments\HRMS\SourceCode\20151117_ESS_AGOC\BusinessLogic\obj\Release\BusinessLogic.vbprojResolveAssemblyReference.cache
+E:\Projects\Web Developments\HRMS\SourceCode\20151117_ESS_AGOC\BusinessLogic\obj\Release\BusinessLogic.Resources.resources
+E:\Projects\Web Developments\HRMS\SourceCode\20151117_ESS_AGOC\BusinessLogic\obj\Release\BusinessLogic.vbproj.GenerateResource.Cache
+E:\Projects\Web Developments\HRMS\SourceCode\20151117_ESS_AGOC\BusinessLogic\obj\Release\BusinessLogic.dll
+E:\Projects\Web Developments\HRMS\SourceCode\20151117_ESS_AGOC\BusinessLogic\obj\Release\BusinessLogic.xml
+E:\Projects\Web Developments\HRMS\SourceCode\20151117_ESS_AGOC\BusinessLogic\obj\Release\BusinessLogic.pdb
+E:\Projects\Web Developments\HRMS\SourceCode\20151118_ESS_AGOC\BusinessLogic\bin\Release\BusinessLogic.dll
+E:\Projects\Web Developments\HRMS\SourceCode\20151118_ESS_AGOC\BusinessLogic\bin\Release\BusinessLogic.pdb
+E:\Projects\Web Developments\HRMS\SourceCode\20151118_ESS_AGOC\BusinessLogic\bin\Release\BusinessLogic.xml
+E:\Projects\Web Developments\HRMS\SourceCode\20151118_ESS_AGOC\BusinessLogic\bin\Release\DataAccess.dll
+E:\Projects\Web Developments\HRMS\SourceCode\20151118_ESS_AGOC\BusinessLogic\bin\Release\EN.dll
+E:\Projects\Web Developments\HRMS\SourceCode\20151118_ESS_AGOC\BusinessLogic\bin\Release\DataAccess.pdb
+E:\Projects\Web Developments\HRMS\SourceCode\20151118_ESS_AGOC\BusinessLogic\bin\Release\DataAccess.xml
+E:\Projects\Web Developments\HRMS\SourceCode\20151118_ESS_AGOC\BusinessLogic\bin\Release\EN.pdb
+E:\Projects\Web Developments\HRMS\SourceCode\20151118_ESS_AGOC\BusinessLogic\bin\Release\EN.xml
+E:\Projects\Web Developments\HRMS\SourceCode\20151118_ESS_AGOC\BusinessLogic\obj\Release\BusinessLogic.vbprojResolveAssemblyReference.cache
+E:\Projects\Web Developments\HRMS\SourceCode\20151118_ESS_AGOC\BusinessLogic\obj\Release\BusinessLogic.Resources.resources
+E:\Projects\Web Developments\HRMS\SourceCode\20151118_ESS_AGOC\BusinessLogic\obj\Release\BusinessLogic.vbproj.GenerateResource.Cache
+E:\Projects\Web Developments\HRMS\SourceCode\20151118_ESS_AGOC\BusinessLogic\obj\Release\BusinessLogic.dll
+E:\Projects\Web Developments\HRMS\SourceCode\20151118_ESS_AGOC\BusinessLogic\obj\Release\BusinessLogic.xml
+E:\Projects\Web Developments\HRMS\SourceCode\20151118_ESS_AGOC\BusinessLogic\obj\Release\BusinessLogic.pdb
+E:\Projects\Web Developments\HRMS\SourceCode\20151119_ESS_AGOC\BusinessLogic\bin\Release\BusinessLogic.dll
+E:\Projects\Web Developments\HRMS\SourceCode\20151119_ESS_AGOC\BusinessLogic\bin\Release\BusinessLogic.pdb
+E:\Projects\Web Developments\HRMS\SourceCode\20151119_ESS_AGOC\BusinessLogic\bin\Release\BusinessLogic.xml
+E:\Projects\Web Developments\HRMS\SourceCode\20151119_ESS_AGOC\BusinessLogic\bin\Release\DataAccess.dll
+E:\Projects\Web Developments\HRMS\SourceCode\20151119_ESS_AGOC\BusinessLogic\bin\Release\EN.dll
+E:\Projects\Web Developments\HRMS\SourceCode\20151119_ESS_AGOC\BusinessLogic\bin\Release\DataAccess.pdb
+E:\Projects\Web Developments\HRMS\SourceCode\20151119_ESS_AGOC\BusinessLogic\bin\Release\DataAccess.xml
+E:\Projects\Web Developments\HRMS\SourceCode\20151119_ESS_AGOC\BusinessLogic\bin\Release\EN.pdb
+E:\Projects\Web Developments\HRMS\SourceCode\20151119_ESS_AGOC\BusinessLogic\bin\Release\EN.xml
+E:\Projects\Web Developments\HRMS\SourceCode\20151119_ESS_AGOC\BusinessLogic\obj\Release\BusinessLogic.vbprojResolveAssemblyReference.cache
+E:\Projects\Web Developments\HRMS\SourceCode\20151119_ESS_AGOC\BusinessLogic\obj\Release\BusinessLogic.Resources.resources
+E:\Projects\Web Developments\HRMS\SourceCode\20151119_ESS_AGOC\BusinessLogic\obj\Release\BusinessLogic.vbproj.GenerateResource.Cache
+E:\Projects\Web Developments\HRMS\SourceCode\20151119_ESS_AGOC\BusinessLogic\obj\Release\BusinessLogic.dll
+E:\Projects\Web Developments\HRMS\SourceCode\20151119_ESS_AGOC\BusinessLogic\obj\Release\BusinessLogic.xml
+E:\Projects\Web Developments\HRMS\SourceCode\20151119_ESS_AGOC\BusinessLogic\obj\Release\BusinessLogic.pdb
+E:\Projects\Web Developments\HRMS\SourceCode\20151125_ESS_AGOC\BusinessLogic\bin\Release\BusinessLogic.dll
+E:\Projects\Web Developments\HRMS\SourceCode\20151125_ESS_AGOC\BusinessLogic\bin\Release\BusinessLogic.pdb
+E:\Projects\Web Developments\HRMS\SourceCode\20151125_ESS_AGOC\BusinessLogic\bin\Release\BusinessLogic.xml
+E:\Projects\Web Developments\HRMS\SourceCode\20151125_ESS_AGOC\BusinessLogic\bin\Release\DataAccess.dll
+E:\Projects\Web Developments\HRMS\SourceCode\20151125_ESS_AGOC\BusinessLogic\bin\Release\EN.dll
+E:\Projects\Web Developments\HRMS\SourceCode\20151125_ESS_AGOC\BusinessLogic\bin\Release\DataAccess.pdb
+E:\Projects\Web Developments\HRMS\SourceCode\20151125_ESS_AGOC\BusinessLogic\bin\Release\DataAccess.xml
+E:\Projects\Web Developments\HRMS\SourceCode\20151125_ESS_AGOC\BusinessLogic\bin\Release\EN.pdb
+E:\Projects\Web Developments\HRMS\SourceCode\20151125_ESS_AGOC\BusinessLogic\bin\Release\EN.xml
+E:\Projects\Web Developments\HRMS\SourceCode\20151125_ESS_AGOC\BusinessLogic\obj\Release\BusinessLogic.vbprojResolveAssemblyReference.cache
+E:\Projects\Web Developments\HRMS\SourceCode\20151125_ESS_AGOC\BusinessLogic\obj\Release\BusinessLogic.Resources.resources
+E:\Projects\Web Developments\HRMS\SourceCode\20151125_ESS_AGOC\BusinessLogic\obj\Release\BusinessLogic.vbproj.GenerateResource.Cache
+E:\Projects\Web Developments\HRMS\SourceCode\20151125_ESS_AGOC\BusinessLogic\obj\Release\BusinessLogic.dll
+E:\Projects\Web Developments\HRMS\SourceCode\20151125_ESS_AGOC\BusinessLogic\obj\Release\BusinessLogic.xml
+E:\Projects\Web Developments\HRMS\SourceCode\20151125_ESS_AGOC\BusinessLogic\obj\Release\BusinessLogic.pdb
+E:\Projects\Web Developments\HRMS\SourceCode\20151127_ESS_AGOC\BusinessLogic\bin\Release\BusinessLogic.dll
+E:\Projects\Web Developments\HRMS\SourceCode\20151127_ESS_AGOC\BusinessLogic\bin\Release\BusinessLogic.pdb
+E:\Projects\Web Developments\HRMS\SourceCode\20151127_ESS_AGOC\BusinessLogic\bin\Release\BusinessLogic.xml
+E:\Projects\Web Developments\HRMS\SourceCode\20151127_ESS_AGOC\BusinessLogic\bin\Release\DataAccess.dll
+E:\Projects\Web Developments\HRMS\SourceCode\20151127_ESS_AGOC\BusinessLogic\bin\Release\EN.dll
+E:\Projects\Web Developments\HRMS\SourceCode\20151127_ESS_AGOC\BusinessLogic\bin\Release\DataAccess.pdb
+E:\Projects\Web Developments\HRMS\SourceCode\20151127_ESS_AGOC\BusinessLogic\bin\Release\DataAccess.xml
+E:\Projects\Web Developments\HRMS\SourceCode\20151127_ESS_AGOC\BusinessLogic\bin\Release\EN.pdb
+E:\Projects\Web Developments\HRMS\SourceCode\20151127_ESS_AGOC\BusinessLogic\bin\Release\EN.xml
+E:\Projects\Web Developments\HRMS\SourceCode\20151127_ESS_AGOC\BusinessLogic\obj\Release\BusinessLogic.vbprojResolveAssemblyReference.cache
+E:\Projects\Web Developments\HRMS\SourceCode\20151127_ESS_AGOC\BusinessLogic\obj\Release\BusinessLogic.Resources.resources
+E:\Projects\Web Developments\HRMS\SourceCode\20151127_ESS_AGOC\BusinessLogic\obj\Release\BusinessLogic.vbproj.GenerateResource.Cache
+E:\Projects\Web Developments\HRMS\SourceCode\20151127_ESS_AGOC\BusinessLogic\obj\Release\BusinessLogic.dll
+E:\Projects\Web Developments\HRMS\SourceCode\20151127_ESS_AGOC\BusinessLogic\obj\Release\BusinessLogic.xml
+E:\Projects\Web Developments\HRMS\SourceCode\20151127_ESS_AGOC\BusinessLogic\obj\Release\BusinessLogic.pdb

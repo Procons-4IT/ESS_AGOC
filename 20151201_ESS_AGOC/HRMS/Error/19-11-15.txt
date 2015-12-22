@@ -1,0 +1,1083 @@
+
+Log Entry : 
+11/19/2015 11:21:52
+Error in: http://0.0.0.0:32529/Login.aspx. Error Message:Connection to license service failed; license service address is not valid, or license service is stopped (or does not respond)
+__________________________
+
+Log Entry : 
+11/19/2015 11:22:16
+Error in: http://0.0.0.0:32529/favicon.ico. Error Message:Error in: http://0.0.0.0:32529/favicon.ico. Error Message:File does not exist.
+__________________________
+
+Log Entry : 
+11/19/2015 11:23:01
+Error in: http://0.0.0.0:32529/Login.aspx. Error Message:String reference not set to an instance of a String.
+Parameter name: s
+__________________________
+
+Log Entry : 
+11/19/2015 11:23:10
+Error in: http://0.0.0.0:32529/Styles/images/Bottom_texture.jpg. Error Message:Error in: http://0.0.0.0:32529/Styles/images/Bottom_texture.jpg. Error Message:File does not exist.
+__________________________
+
+Log Entry : 
+11/19/2015 11:23:29
+Error in: http://0.0.0.0:32529/Images/GreenssHovesr.png. Error Message:Error in: http://0.0.0.0:32529/Images/GreenssHovesr.png. Error Message:File does not exist.
+__________________________
+
+Log Entry : 
+11/19/2015 11:23:31
+Error in: http://0.0.0.0:32529/Images/GressenHover.png. Error Message:Error in: http://0.0.0.0:32529/Images/GressenHover.png. Error Message:File does not exist.
+__________________________
+
+Log Entry : 
+11/19/2015 11:23:45
+Error in: http://0.0.0.0:32529/Styles/images/Bottom_texture.jpg. Error Message:Error in: http://0.0.0.0:32529/Styles/images/Bottom_texture.jpg. Error Message:File does not exist.
+__________________________
+
+Log Entry : 
+11/19/2015 11:23:45
+Error in: http://0.0.0.0:32529/ESS/images/h_bg.png. Error Message:Error in: http://0.0.0.0:32529/ESS/images/h_bg.png. Error Message:File does not exist.
+__________________________
+
+Log Entry : 
+11/19/2015 11:23:48
+Error in: http://0.0.0.0:32529/Images/GreenssHovesr.png. Error Message:Error in: http://0.0.0.0:32529/Images/GreenssHovesr.png. Error Message:File does not exist.
+__________________________
+
+Log Entry : 
+11/19/2015 11:23:49
+Error in: http://0.0.0.0:32529/Images/GressenHover.png. Error Message:Error in: http://0.0.0.0:32529/Images/GressenHover.png. Error Message:File does not exist.
+__________________________
+
+Log Entry : 
+11/19/2015 11:23:52
+Error in: http://0.0.0.0:32529/Styles/images/Bottom_texture.jpg. Error Message:Error in: http://0.0.0.0:32529/Styles/images/Bottom_texture.jpg. Error Message:File does not exist.
+__________________________
+
+Log Entry : 
+11/19/2015 11:23:52
+Error in: http://0.0.0.0:32529/ESS/images/h_bg.png. Error Message:Error in: http://0.0.0.0:32529/ESS/images/h_bg.png. Error Message:File does not exist.
+__________________________
+
+Log Entry : 
+11/19/2015 11:23:53
+Error in: http://0.0.0.0:32529/Images/GreenssHovesr.png. Error Message:Error in: http://0.0.0.0:32529/Images/GreenssHovesr.png. Error Message:File does not exist.
+__________________________
+
+Log Entry : 
+11/19/2015 11:23:53
+Error in: http://0.0.0.0:32529/Images/GressenHover.png. Error Message:Error in: http://0.0.0.0:32529/Images/GressenHover.png. Error Message:File does not exist.
+__________________________
+
+Log Entry : 
+11/19/2015 11:23:56
+Error in: http://0.0.0.0:32529/Styles/images/Bottom_texture.jpg. Error Message:Error in: http://0.0.0.0:32529/Styles/images/Bottom_texture.jpg. Error Message:File does not exist.
+__________________________
+
+Log Entry : 
+11/19/2015 11:23:56
+Error in: http://0.0.0.0:32529/ESS/images/h_bg.png. Error Message:Error in: http://0.0.0.0:32529/ESS/images/h_bg.png. Error Message:File does not exist.
+__________________________
+
+Log Entry : 
+11/19/2015 11:23:57
+Error in: http://0.0.0.0:32529/Images/GreenssHovesr.png. Error Message:Error in: http://0.0.0.0:32529/Images/GreenssHovesr.png. Error Message:File does not exist.
+__________________________
+
+Log Entry : 
+11/19/2015 11:23:58
+Error in: http://0.0.0.0:32529/Images/GressenHover.png. Error Message:Error in: http://0.0.0.0:32529/Images/GressenHover.png. Error Message:File does not exist.
+__________________________
+
+Log Entry : 
+11/19/2015 11:24:01
+Error in: http://0.0.0.0:32529/Styles/images/Bottom_texture.jpg. Error Message:Error in: http://0.0.0.0:32529/Styles/images/Bottom_texture.jpg. Error Message:File does not exist.
+__________________________
+
+Log Entry : 
+11/19/2015 11:24:01
+Error in: http://0.0.0.0:32529/ESS/images/h_bg.png. Error Message:Error in: http://0.0.0.0:32529/ESS/images/h_bg.png. Error Message:File does not exist.
+__________________________
+
+Log Entry : 
+11/19/2015 11:24:02
+Error in: http://0.0.0.0:32529/Images/GreenssHovesr.png. Error Message:Error in: http://0.0.0.0:32529/Images/GreenssHovesr.png. Error Message:File does not exist.
+__________________________
+
+Log Entry : 
+11/19/2015 11:24:03
+Error in: http://0.0.0.0:32529/Images/GressenHover.png. Error Message:Error in: http://0.0.0.0:32529/Images/GressenHover.png. Error Message:File does not exist.
+__________________________
+
+Log Entry : 
+11/19/2015 11:28:47
+Error in: http://0.0.0.0:32529/images/h_bg.png. Error Message:Error in: http://0.0.0.0:32529/images/h_bg.png. Error Message:File does not exist.
+__________________________
+
+Log Entry : 
+11/19/2015 11:28:47
+Error in: http://0.0.0.0:32529/Styles/images/Bottom_texture.jpg. Error Message:Error in: http://0.0.0.0:32529/Styles/images/Bottom_texture.jpg. Error Message:File does not exist.
+__________________________
+
+Log Entry : 
+11/19/2015 11:29:42
+Error in: http://0.0.0.0:32529/images/h_bg.png. Error Message:Error in: http://0.0.0.0:32529/images/h_bg.png. Error Message:File does not exist.
+__________________________
+
+Log Entry : 
+11/19/2015 11:31:02
+Error in: http://0.0.0.0:32529/images/h_bg.png. Error Message:Error in: http://0.0.0.0:32529/images/h_bg.png. Error Message:File does not exist.
+__________________________
+
+Log Entry : 
+11/19/2015 11:32:10
+Error in: http://0.0.0.0:32529/images/h_bg.png. Error Message:Error in: http://0.0.0.0:32529/images/h_bg.png. Error Message:File does not exist.
+__________________________
+
+Log Entry : 
+11/19/2015 11:33:17
+Error in: http://0.0.0.0:32529/images/h_bg.png. Error Message:Error in: http://0.0.0.0:32529/images/h_bg.png. Error Message:File does not exist.
+__________________________
+
+Log Entry : 
+11/19/2015 11:34:04
+Error in: http://0.0.0.0:32529/images/h_bg.png. Error Message:Error in: http://0.0.0.0:32529/images/h_bg.png. Error Message:File does not exist.
+__________________________
+
+Log Entry : 
+11/19/2015 11:35:20
+Error in: http://0.0.0.0:32529/images/h_bg.png. Error Message:Error in: http://0.0.0.0:32529/images/h_bg.png. Error Message:File does not exist.
+__________________________
+
+Log Entry : 
+11/19/2015 11:35:20
+Error in: http://0.0.0.0:32529/Styles/images/Bottom_texture.jpg. Error Message:Error in: http://0.0.0.0:32529/Styles/images/Bottom_texture.jpg. Error Message:File does not exist.
+__________________________
+
+Log Entry : 
+11/19/2015 11:35:25
+Error in: http://0.0.0.0:32529/images/h_bg.png. Error Message:Error in: http://0.0.0.0:32529/images/h_bg.png. Error Message:File does not exist.
+__________________________
+
+Log Entry : 
+11/19/2015 11:35:30
+Error in: http://0.0.0.0:32529/images/h_bg.png. Error Message:Error in: http://0.0.0.0:32529/images/h_bg.png. Error Message:File does not exist.
+__________________________
+
+Log Entry : 
+11/19/2015 11:35:34
+Error in: http://0.0.0.0:32529/images/h_bg.png. Error Message:Error in: http://0.0.0.0:32529/images/h_bg.png. Error Message:File does not exist.
+__________________________
+
+Log Entry : 
+11/19/2015 11:35:38
+Error in: http://0.0.0.0:32529/images/h_bg.png. Error Message:Error in: http://0.0.0.0:32529/images/h_bg.png. Error Message:File does not exist.
+__________________________
+
+Log Entry : 
+11/19/2015 11:39:42
+Error in: http://0.0.0.0:32529/images/h_bg.png. Error Message:Error in: http://0.0.0.0:32529/images/h_bg.png. Error Message:File does not exist.
+__________________________
+
+Log Entry : 
+11/19/2015 11:39:43
+Error in: http://0.0.0.0:32529/Styles/images/Bottom_texture.jpg. Error Message:Error in: http://0.0.0.0:32529/Styles/images/Bottom_texture.jpg. Error Message:File does not exist.
+__________________________
+
+Log Entry : 
+11/19/2015 11:39:49
+Error in: http://0.0.0.0:32529/images/h_bg.png. Error Message:Error in: http://0.0.0.0:32529/images/h_bg.png. Error Message:File does not exist.
+__________________________
+
+Log Entry : 
+11/19/2015 11:39:54
+Error in: http://0.0.0.0:32529/images/h_bg.png. Error Message:Error in: http://0.0.0.0:32529/images/h_bg.png. Error Message:File does not exist.
+__________________________
+
+Log Entry : 
+11/19/2015 11:39:58
+Error in: http://0.0.0.0:32529/images/h_bg.png. Error Message:Error in: http://0.0.0.0:32529/images/h_bg.png. Error Message:File does not exist.
+__________________________
+
+Log Entry : 
+11/19/2015 11:45:16
+Error in: http://0.0.0.0:32529/images/h_bg.png. Error Message:Error in: http://0.0.0.0:32529/images/h_bg.png. Error Message:File does not exist.
+__________________________
+
+Log Entry : 
+11/19/2015 11:45:17
+Error in: http://0.0.0.0:32529/Styles/images/Bottom_texture.jpg. Error Message:Error in: http://0.0.0.0:32529/Styles/images/Bottom_texture.jpg. Error Message:File does not exist.
+__________________________
+
+Log Entry : 
+11/19/2015 11:45:30
+Error in: http://0.0.0.0:32529/images/h_bg.png. Error Message:Error in: http://0.0.0.0:32529/images/h_bg.png. Error Message:File does not exist.
+__________________________
+
+Log Entry : 
+11/19/2015 11:45:31
+Error in: http://0.0.0.0:32529/Styles/images/Bottom_texture.jpg. Error Message:Error in: http://0.0.0.0:32529/Styles/images/Bottom_texture.jpg. Error Message:File does not exist.
+__________________________
+
+Log Entry : 
+11/19/2015 11:45:34
+Error in: http://0.0.0.0:32529/images/h_bg.png. Error Message:Error in: http://0.0.0.0:32529/images/h_bg.png. Error Message:File does not exist.
+__________________________
+
+Log Entry : 
+11/19/2015 11:45:40
+Error in: http://0.0.0.0:32529/images/h_bg.png. Error Message:Error in: http://0.0.0.0:32529/images/h_bg.png. Error Message:File does not exist.
+__________________________
+
+Log Entry : 
+11/19/2015 11:45:44
+Error in: http://0.0.0.0:32529/images/h_bg.png. Error Message:Error in: http://0.0.0.0:32529/images/h_bg.png. Error Message:File does not exist.
+__________________________
+
+Log Entry : 
+11/19/2015 11:45:48
+Error in: http://0.0.0.0:32529/images/h_bg.png. Error Message:Error in: http://0.0.0.0:32529/images/h_bg.png. Error Message:File does not exist.
+__________________________
+
+Log Entry : 
+11/19/2015 11:49:24
+Error in: http://0.0.0.0:32529/images/h_bg.png. Error Message:Error in: http://0.0.0.0:32529/images/h_bg.png. Error Message:File does not exist.
+__________________________
+
+Log Entry : 
+11/19/2015 11:49:24
+Error in: http://0.0.0.0:32529/Styles/images/Bottom_texture.jpg. Error Message:The process cannot access the file 'E:\Projects\Web Developments\HRMS\SourceCode\20151119_ESS_AGOC\HRMS\Error\19-11-15.txt' because it is being used by another process.
+__________________________
+
+Log Entry : 
+11/19/2015 11:49:33
+Error in: http://0.0.0.0:32529/images/h_bg.png. Error Message:Error in: http://0.0.0.0:32529/images/h_bg.png. Error Message:File does not exist.
+__________________________
+
+Log Entry : 
+11/19/2015 11:49:43
+Error in: http://0.0.0.0:32529/images/h_bg.png. Error Message:Error in: http://0.0.0.0:32529/images/h_bg.png. Error Message:File does not exist.
+__________________________
+
+Log Entry : 
+11/19/2015 11:49:47
+Error in: http://0.0.0.0:32529/images/h_bg.png. Error Message:Error in: http://0.0.0.0:32529/images/h_bg.png. Error Message:File does not exist.
+__________________________
+
+Log Entry : 
+11/19/2015 11:49:52
+Error in: http://0.0.0.0:32529/images/h_bg.png. Error Message:Error in: http://0.0.0.0:32529/images/h_bg.png. Error Message:File does not exist.
+__________________________
+
+Log Entry : 
+11/19/2015 11:53:44
+Error in: http://0.0.0.0:32529/Login.aspx. Error Message:String reference not set to an instance of a String.
+Parameter name: s
+__________________________
+
+Log Entry : 
+11/19/2015 11:53:48
+Error in: http://0.0.0.0:32529/Styles/images/Bottom_texture.jpg. Error Message:Error in: http://0.0.0.0:32529/Styles/images/Bottom_texture.jpg. Error Message:File does not exist.
+__________________________
+
+Log Entry : 
+11/19/2015 11:54:11
+Error in: http://0.0.0.0:32529/Images/GreenssHovesr.png. Error Message:Error in: http://0.0.0.0:32529/Images/GreenssHovesr.png. Error Message:File does not exist.
+__________________________
+
+Log Entry : 
+11/19/2015 11:54:13
+Error in: http://0.0.0.0:32529/Images/GressenHover.png. Error Message:Error in: http://0.0.0.0:32529/Images/GressenHover.png. Error Message:File does not exist.
+__________________________
+
+Log Entry : 
+11/19/2015 11:54:16
+Error in: http://0.0.0.0:32529/images/h_bg.png. Error Message:Error in: http://0.0.0.0:32529/images/h_bg.png. Error Message:File does not exist.
+__________________________
+
+Log Entry : 
+11/19/2015 11:54:16
+Error in: http://0.0.0.0:32529/Styles/images/Bottom_texture.jpg. Error Message:Error in: http://0.0.0.0:32529/Styles/images/Bottom_texture.jpg. Error Message:File does not exist.
+__________________________
+
+Log Entry : 
+11/19/2015 11:54:19
+Error in: http://0.0.0.0:32529/images/h_bg.png. Error Message:Error in: http://0.0.0.0:32529/images/h_bg.png. Error Message:File does not exist.
+__________________________
+
+Log Entry : 
+11/19/2015 11:54:25
+Error in: http://0.0.0.0:32529/images/h_bg.png. Error Message:Error in: http://0.0.0.0:32529/images/h_bg.png. Error Message:File does not exist.
+__________________________
+
+Log Entry : 
+11/19/2015 11:54:26
+Error in: http://0.0.0.0:32529/Images/GreenssHovesr.png. Error Message:Error in: http://0.0.0.0:32529/Images/GreenssHovesr.png. Error Message:File does not exist.
+__________________________
+
+Log Entry : 
+11/19/2015 11:54:28
+Error in: http://0.0.0.0:32529/Images/GressenHover.png. Error Message:Error in: http://0.0.0.0:32529/Images/GressenHover.png. Error Message:File does not exist.
+__________________________
+
+Log Entry : 
+11/19/2015 11:54:31
+Error in: http://0.0.0.0:32529/Styles/images/Bottom_texture.jpg. Error Message:Error in: http://0.0.0.0:32529/Styles/images/Bottom_texture.jpg. Error Message:File does not exist.
+__________________________
+
+Log Entry : 
+11/19/2015 11:54:31
+Error in: http://0.0.0.0:32529/images/h_bg.png. Error Message:Error in: http://0.0.0.0:32529/images/h_bg.png. Error Message:File does not exist.
+__________________________
+
+Log Entry : 
+11/19/2015 11:54:33
+Error in: http://0.0.0.0:32529/images/h_bg.png. Error Message:Error in: http://0.0.0.0:32529/images/h_bg.png. Error Message:File does not exist.
+__________________________
+
+Log Entry : 
+11/19/2015 11:54:42
+Error in: http://0.0.0.0:32529/images/h_bg.png. Error Message:Error in: http://0.0.0.0:32529/images/h_bg.png. Error Message:File does not exist.
+__________________________
+
+Log Entry : 
+11/19/2015 11:54:43
+Error in: http://0.0.0.0:32529/Images/GreenssHovesr.png. Error Message:Error in: http://0.0.0.0:32529/Images/GreenssHovesr.png. Error Message:File does not exist.
+__________________________
+
+Log Entry : 
+11/19/2015 11:54:45
+Error in: http://0.0.0.0:32529/Images/GressenHover.png. Error Message:Error in: http://0.0.0.0:32529/Images/GressenHover.png. Error Message:File does not exist.
+__________________________
+
+Log Entry : 
+11/19/2015 11:54:48
+Error in: http://0.0.0.0:32529/images/h_bg.png. Error Message:Error in: http://0.0.0.0:32529/images/h_bg.png. Error Message:File does not exist.
+__________________________
+
+Log Entry : 
+11/19/2015 11:54:48
+Error in: http://0.0.0.0:32529/Styles/images/Bottom_texture.jpg. Error Message:Error in: http://0.0.0.0:32529/Styles/images/Bottom_texture.jpg. Error Message:File does not exist.
+__________________________
+
+Log Entry : 
+11/19/2015 11:54:54
+Error in: http://0.0.0.0:32529/ExpensesClaimReq.aspx. Error Message:String or binary data would be truncated.
+The statement has been terminated.
+__________________________
+
+Log Entry : 
+11/19/2015 11:54:54
+Error in: http://0.0.0.0:32529/images/h_bg.png. Error Message:Error in: http://0.0.0.0:32529/images/h_bg.png. Error Message:File does not exist.
+__________________________
+
+Log Entry : 
+11/19/2015 11:55:03
+Error in: http://0.0.0.0:32529/images/h_bg.png. Error Message:Error in: http://0.0.0.0:32529/images/h_bg.png. Error Message:File does not exist.
+__________________________
+
+Log Entry : 
+11/19/2015 11:55:03
+Error in: http://0.0.0.0:32529/Styles/images/Bottom_texture.jpg. Error Message:Error in: http://0.0.0.0:32529/Styles/images/Bottom_texture.jpg. Error Message:File does not exist.
+__________________________
+
+Log Entry : 
+11/19/2015 11:55:05
+Error in: http://0.0.0.0:32529/images/h_bg.png. Error Message:Error in: http://0.0.0.0:32529/images/h_bg.png. Error Message:File does not exist.
+__________________________
+
+Log Entry : 
+11/19/2015 11:55:10
+Error in: http://0.0.0.0:32529/images/h_bg.png. Error Message:Error in: http://0.0.0.0:32529/images/h_bg.png. Error Message:File does not exist.
+__________________________
+
+Log Entry : 
+11/19/2015 11:55:13
+Error in: http://0.0.0.0:32529/images/h_bg.png. Error Message:Error in: http://0.0.0.0:32529/images/h_bg.png. Error Message:File does not exist.
+__________________________
+
+Log Entry : 
+11/19/2015 11:55:18
+Error in: http://0.0.0.0:32529/images/h_bg.png. Error Message:Error in: http://0.0.0.0:32529/images/h_bg.png. Error Message:File does not exist.
+__________________________
+
+Log Entry : 
+11/19/2015 11:55:21
+Error in: http://0.0.0.0:32529/images/h_bg.png. Error Message:Error in: http://0.0.0.0:32529/images/h_bg.png. Error Message:File does not exist.
+__________________________
+
+Log Entry : 
+11/19/2015 11:55:22
+Error in: http://0.0.0.0:32529/Images/GreenssHovesr.png. Error Message:Error in: http://0.0.0.0:32529/Images/GreenssHovesr.png. Error Message:File does not exist.
+__________________________
+
+Log Entry : 
+11/19/2015 11:55:23
+Error in: http://0.0.0.0:32529/Images/GressenHover.png. Error Message:Error in: http://0.0.0.0:32529/Images/GressenHover.png. Error Message:File does not exist.
+__________________________
+
+Log Entry : 
+11/19/2015 11:55:26
+Error in: http://0.0.0.0:32529/images/h_bg.png. Error Message:Error in: http://0.0.0.0:32529/images/h_bg.png. Error Message:File does not exist.
+__________________________
+
+Log Entry : 
+11/19/2015 11:55:26
+Error in: http://0.0.0.0:32529/Styles/images/Bottom_texture.jpg. Error Message:The process cannot access the file 'E:\Projects\Web Developments\HRMS\SourceCode\20151119_ESS_AGOC\HRMS\Error\19-11-15.txt' because it is being used by another process.
+__________________________
+
+Log Entry : 
+11/19/2015 11:55:26
+Error in: http://0.0.0.0:32529/Images/GreenssHovesr.png. Error Message:Error in: http://0.0.0.0:32529/Images/GreenssHovesr.png. Error Message:File does not exist.
+__________________________
+
+Log Entry : 
+11/19/2015 11:55:28
+Error in: http://0.0.0.0:32529/Images/GressenHover.png. Error Message:Error in: http://0.0.0.0:32529/Images/GressenHover.png. Error Message:File does not exist.
+__________________________
+
+Log Entry : 
+11/19/2015 11:55:30
+Error in: http://0.0.0.0:32529/images/h_bg.png. Error Message:Error in: http://0.0.0.0:32529/images/h_bg.png. Error Message:File does not exist.
+__________________________
+
+Log Entry : 
+11/19/2015 11:55:30
+Error in: http://0.0.0.0:32529/Styles/images/Bottom_texture.jpg. Error Message:Error in: http://0.0.0.0:32529/Styles/images/Bottom_texture.jpg. Error Message:File does not exist.
+__________________________
+
+Log Entry : 
+11/19/2015 11:55:34
+Error in: http://0.0.0.0:32529/images/h_bg.png. Error Message:Error in: http://0.0.0.0:32529/images/h_bg.png. Error Message:File does not exist.
+__________________________
+
+Log Entry : 
+11/19/2015 11:55:59
+Error in: http://0.0.0.0:32529/images/h_bg.png. Error Message:Error in: http://0.0.0.0:32529/images/h_bg.png. Error Message:File does not exist.
+__________________________
+
+Log Entry : 
+11/19/2015 11:56:16
+Error in: http://0.0.0.0:32529/images/h_bg.png. Error Message:Error in: http://0.0.0.0:32529/images/h_bg.png. Error Message:File does not exist.
+__________________________
+
+Log Entry : 
+11/19/2015 11:56:26
+Error in: http://0.0.0.0:32529/Images/GreenssHovesr.png. Error Message:Error in: http://0.0.0.0:32529/Images/GreenssHovesr.png. Error Message:File does not exist.
+__________________________
+
+Log Entry : 
+11/19/2015 11:56:29
+Error in: http://0.0.0.0:32529/Images/GressenHover.png. Error Message:Error in: http://0.0.0.0:32529/Images/GressenHover.png. Error Message:File does not exist.
+__________________________
+
+Log Entry : 
+11/19/2015 11:56:32
+Error in: http://0.0.0.0:32529/Styles/images/Bottom_texture.jpg. Error Message:Error in: http://0.0.0.0:32529/Styles/images/Bottom_texture.jpg. Error Message:File does not exist.
+__________________________
+
+Log Entry : 
+11/19/2015 11:56:32
+Error in: http://0.0.0.0:32529/images/h_bg.png. Error Message:Error in: http://0.0.0.0:32529/images/h_bg.png. Error Message:File does not exist.
+__________________________
+
+Log Entry : 
+11/19/2015 11:56:39
+Error in: http://0.0.0.0:32529/Images/GreenssHovesr.png. Error Message:Error in: http://0.0.0.0:32529/Images/GreenssHovesr.png. Error Message:File does not exist.
+__________________________
+
+Log Entry : 
+11/19/2015 11:56:40
+Error in: http://0.0.0.0:32529/Images/GressenHover.png. Error Message:Error in: http://0.0.0.0:32529/Images/GressenHover.png. Error Message:File does not exist.
+__________________________
+
+Log Entry : 
+11/19/2015 11:56:43
+Error in: http://0.0.0.0:32529/images/h_bg.png. Error Message:Error in: http://0.0.0.0:32529/images/h_bg.png. Error Message:File does not exist.
+__________________________
+
+Log Entry : 
+11/19/2015 11:56:43
+Error in: http://0.0.0.0:32529/Styles/images/Bottom_texture.jpg. Error Message:Error in: http://0.0.0.0:32529/Styles/images/Bottom_texture.jpg. Error Message:File does not exist.
+__________________________
+
+Log Entry : 
+11/19/2015 11:56:48
+Error in: http://0.0.0.0:32529/images/h_bg.png. Error Message:Error in: http://0.0.0.0:32529/images/h_bg.png. Error Message:File does not exist.
+__________________________
+
+Log Entry : 
+11/19/2015 11:56:48
+Error in: http://0.0.0.0:32529/Styles/images/Bottom_texture.jpg. Error Message:Error in: http://0.0.0.0:32529/Styles/images/Bottom_texture.jpg. Error Message:File does not exist.
+__________________________
+
+Log Entry : 
+11/19/2015 11:56:49
+Error in: http://0.0.0.0:32529/Images/GreenssHovesr.png. Error Message:Error in: http://0.0.0.0:32529/Images/GreenssHovesr.png. Error Message:File does not exist.
+__________________________
+
+Log Entry : 
+11/19/2015 11:56:52
+Error in: http://0.0.0.0:32529/Images/GressenHover.png. Error Message:Error in: http://0.0.0.0:32529/Images/GressenHover.png. Error Message:File does not exist.
+__________________________
+
+Log Entry : 
+11/19/2015 11:56:56
+Error in: http://0.0.0.0:32529/Styles/images/Bottom_texture.jpg. Error Message:Error in: http://0.0.0.0:32529/Styles/images/Bottom_texture.jpg. Error Message:File does not exist.
+__________________________
+
+Log Entry : 
+11/19/2015 11:56:56
+Error in: http://0.0.0.0:32529/images/h_bg.png. Error Message:The process cannot access the file 'E:\Projects\Web Developments\HRMS\SourceCode\20151119_ESS_AGOC\HRMS\Error\19-11-15.txt' because it is being used by another process.
+__________________________
+
+Log Entry : 
+11/19/2015 11:57:01
+Error in: http://0.0.0.0:32529/images/h_bg.png. Error Message:Error in: http://0.0.0.0:32529/images/h_bg.png. Error Message:File does not exist.
+__________________________
+
+Log Entry : 
+11/19/2015 11:57:06
+Error in: http://0.0.0.0:32529/images/h_bg.png. Error Message:Error in: http://0.0.0.0:32529/images/h_bg.png. Error Message:File does not exist.
+__________________________
+
+Log Entry : 
+11/19/2015 11:57:06
+Error in: http://0.0.0.0:32529/Images/GreenssHovesr.png. Error Message:Error in: http://0.0.0.0:32529/Images/GreenssHovesr.png. Error Message:File does not exist.
+__________________________
+
+Log Entry : 
+11/19/2015 11:57:10
+Error in: http://0.0.0.0:32529/Images/GressenHover.png. Error Message:Error in: http://0.0.0.0:32529/Images/GressenHover.png. Error Message:File does not exist.
+__________________________
+
+Log Entry : 
+11/19/2015 11:57:12
+Error in: http://0.0.0.0:32529/images/h_bg.png. Error Message:Error in: http://0.0.0.0:32529/images/h_bg.png. Error Message:File does not exist.
+__________________________
+
+Log Entry : 
+11/19/2015 11:57:12
+Error in: http://0.0.0.0:32529/Styles/images/Bottom_texture.jpg. Error Message:The process cannot access the file 'E:\Projects\Web Developments\HRMS\SourceCode\20151119_ESS_AGOC\HRMS\Error\19-11-15.txt' because it is being used by another process.
+__________________________
+
+Log Entry : 
+11/19/2015 11:57:17
+Error in: http://0.0.0.0:32529/images/h_bg.png. Error Message:Error in: http://0.0.0.0:32529/images/h_bg.png. Error Message:File does not exist.
+__________________________
+
+Log Entry : 
+11/19/2015 11:57:24
+Error in: http://0.0.0.0:32529/Images/GreenssHovesr.png. Error Message:Error in: http://0.0.0.0:32529/Images/GreenssHovesr.png. Error Message:File does not exist.
+__________________________
+
+Log Entry : 
+11/19/2015 11:57:26
+Error in: http://0.0.0.0:32529/images/h_bg.png. Error Message:Error in: http://0.0.0.0:32529/images/h_bg.png. Error Message:File does not exist.
+__________________________
+
+Log Entry : 
+11/19/2015 11:57:34
+Error in: http://0.0.0.0:32529/images/h_bg.png. Error Message:Error in: http://0.0.0.0:32529/images/h_bg.png. Error Message:File does not exist.
+__________________________
+
+Log Entry : 
+11/19/2015 11:57:42
+Error in: http://0.0.0.0:32529/images/h_bg.png. Error Message:Error in: http://0.0.0.0:32529/images/h_bg.png. Error Message:File does not exist.
+__________________________
+
+Log Entry : 
+11/19/2015 11:57:56
+Error in: http://0.0.0.0:32529/Images/GressenHover.png. Error Message:Error in: http://0.0.0.0:32529/Images/GressenHover.png. Error Message:File does not exist.
+__________________________
+
+Log Entry : 
+11/19/2015 11:57:59
+Error in: http://0.0.0.0:32529/Styles/images/Bottom_texture.jpg. Error Message:Error in: http://0.0.0.0:32529/Styles/images/Bottom_texture.jpg. Error Message:File does not exist.
+__________________________
+
+Log Entry : 
+11/19/2015 11:57:59
+Error in: http://0.0.0.0:32529/images/h_bg.png. Error Message:Error in: http://0.0.0.0:32529/images/h_bg.png. Error Message:File does not exist.
+__________________________
+
+Log Entry : 
+11/19/2015 11:58:05
+Error in: http://0.0.0.0:32529/images/h_bg.png. Error Message:Error in: http://0.0.0.0:32529/images/h_bg.png. Error Message:File does not exist.
+__________________________
+
+Log Entry : 
+11/19/2015 11:58:07
+Error in: http://0.0.0.0:32529/Images/GreenssHovesr.png. Error Message:Error in: http://0.0.0.0:32529/Images/GreenssHovesr.png. Error Message:File does not exist.
+__________________________
+
+Log Entry : 
+11/19/2015 11:58:10
+Error in: http://0.0.0.0:32529/Images/GressenHover.png. Error Message:Error in: http://0.0.0.0:32529/Images/GressenHover.png. Error Message:File does not exist.
+__________________________
+
+Log Entry : 
+11/19/2015 11:58:13
+Error in: http://0.0.0.0:32529/Styles/images/Bottom_texture.jpg. Error Message:Error in: http://0.0.0.0:32529/Styles/images/Bottom_texture.jpg. Error Message:File does not exist.
+__________________________
+
+Log Entry : 
+11/19/2015 11:58:13
+Error in: http://0.0.0.0:32529/images/h_bg.png. Error Message:Error in: http://0.0.0.0:32529/images/h_bg.png. Error Message:File does not exist.
+__________________________
+
+Log Entry : 
+11/19/2015 11:59:10
+Error in: http://0.0.0.0:32529/Images/GreenssHovesr.png. Error Message:Error in: http://0.0.0.0:32529/Images/GreenssHovesr.png. Error Message:File does not exist.
+__________________________
+
+Log Entry : 
+11/19/2015 11:59:13
+Error in: http://0.0.0.0:32529/images/h_bg.png. Error Message:Error in: http://0.0.0.0:32529/images/h_bg.png. Error Message:File does not exist.
+__________________________
+
+Log Entry : 
+11/19/2015 11:59:21
+Error in: http://0.0.0.0:32529/images/h_bg.png. Error Message:Error in: http://0.0.0.0:32529/images/h_bg.png. Error Message:File does not exist.
+__________________________
+
+Log Entry : 
+11/19/2015 11:59:29
+Error in: http://0.0.0.0:32529/images/h_bg.png. Error Message:Error in: http://0.0.0.0:32529/images/h_bg.png. Error Message:File does not exist.
+__________________________
+
+Log Entry : 
+11/19/2015 11:59:39
+Error in: http://0.0.0.0:32529/images/h_bg.png. Error Message:Error in: http://0.0.0.0:32529/images/h_bg.png. Error Message:File does not exist.
+__________________________
+
+Log Entry : 
+11/19/2015 11:59:51
+Error in: http://0.0.0.0:32529/images/h_bg.png. Error Message:Error in: http://0.0.0.0:32529/images/h_bg.png. Error Message:File does not exist.
+__________________________
+
+Log Entry : 
+11/19/2015 11:59:59
+Error in: http://0.0.0.0:32529/images/h_bg.png. Error Message:Error in: http://0.0.0.0:32529/images/h_bg.png. Error Message:File does not exist.
+__________________________
+
+Log Entry : 
+11/19/2015 12:00:07
+Error in: http://0.0.0.0:32529/images/h_bg.png. Error Message:Error in: http://0.0.0.0:32529/images/h_bg.png. Error Message:File does not exist.
+__________________________
+
+Log Entry : 
+11/19/2015 12:00:12
+Error in: http://0.0.0.0:32529/Images/GressenHover.png. Error Message:Error in: http://0.0.0.0:32529/Images/GressenHover.png. Error Message:File does not exist.
+__________________________
+
+Log Entry : 
+11/19/2015 12:00:16
+Error in: http://0.0.0.0:32529/images/h_bg.png. Error Message:Error in: http://0.0.0.0:32529/images/h_bg.png. Error Message:File does not exist.
+__________________________
+
+Log Entry : 
+11/19/2015 12:00:16
+Error in: http://0.0.0.0:32529/Styles/images/Bottom_texture.jpg. Error Message:Error in: http://0.0.0.0:32529/Styles/images/Bottom_texture.jpg. Error Message:File does not exist.
+__________________________
+
+Log Entry : 
+11/19/2015 12:00:18
+Error in: http://0.0.0.0:32529/images/h_bg.png. Error Message:Error in: http://0.0.0.0:32529/images/h_bg.png. Error Message:File does not exist.
+__________________________
+
+Log Entry : 
+11/19/2015 12:00:20
+Error in: http://0.0.0.0:32529/images/h_bg.png. Error Message:Error in: http://0.0.0.0:32529/images/h_bg.png. Error Message:File does not exist.
+__________________________
+
+Log Entry : 
+11/19/2015 12:00:26
+Error in: http://0.0.0.0:32529/images/h_bg.png. Error Message:Error in: http://0.0.0.0:32529/images/h_bg.png. Error Message:File does not exist.
+__________________________
+
+Log Entry : 
+11/19/2015 12:00:27
+Error in: http://0.0.0.0:32529/Styles/images/Bottom_texture.jpg. Error Message:Error in: http://0.0.0.0:32529/Styles/images/Bottom_texture.jpg. Error Message:File does not exist.
+__________________________
+
+Log Entry : 
+11/19/2015 12:00:29
+Error in: http://0.0.0.0:32529/images/h_bg.png. Error Message:Error in: http://0.0.0.0:32529/images/h_bg.png. Error Message:File does not exist.
+__________________________
+
+Log Entry : 
+11/19/2015 12:00:30
+Error in: http://0.0.0.0:32529/images/h_bg.png. Error Message:Error in: http://0.0.0.0:32529/images/h_bg.png. Error Message:File does not exist.
+__________________________
+
+Log Entry : 
+11/19/2015 12:00:35
+Error in: http://0.0.0.0:32529/images/h_bg.png. Error Message:Error in: http://0.0.0.0:32529/images/h_bg.png. Error Message:File does not exist.
+__________________________
+
+Log Entry : 
+11/19/2015 12:00:35
+Error in: http://0.0.0.0:32529/Styles/images/Bottom_texture.jpg. Error Message:The process cannot access the file 'E:\Projects\Web Developments\HRMS\SourceCode\20151119_ESS_AGOC\HRMS\Error\19-11-15.txt' because it is being used by another process.
+__________________________
+
+Log Entry : 
+11/19/2015 12:00:38
+Error in: http://0.0.0.0:32529/images/h_bg.png. Error Message:Error in: http://0.0.0.0:32529/images/h_bg.png. Error Message:File does not exist.
+__________________________
+
+Log Entry : 
+11/19/2015 12:00:42
+Error in: http://0.0.0.0:32529/images/h_bg.png. Error Message:Error in: http://0.0.0.0:32529/images/h_bg.png. Error Message:File does not exist.
+__________________________
+
+Log Entry : 
+11/19/2015 12:01:00
+Error in: http://0.0.0.0:32529/images/h_bg.png. Error Message:Error in: http://0.0.0.0:32529/images/h_bg.png. Error Message:File does not exist.
+__________________________
+
+Log Entry : 
+11/19/2015 12:01:01
+Error in: http://0.0.0.0:32529/Styles/images/Bottom_texture.jpg. Error Message:Error in: http://0.0.0.0:32529/Styles/images/Bottom_texture.jpg. Error Message:File does not exist.
+__________________________
+
+Log Entry : 
+11/19/2015 12:02:03
+Error in: http://0.0.0.0:32529/Images/GreenssHovesr.png. Error Message:Error in: http://0.0.0.0:32529/Images/GreenssHovesr.png. Error Message:File does not exist.
+__________________________
+
+Log Entry : 
+11/19/2015 12:02:05
+Error in: http://0.0.0.0:32529/Images/GressenHover.png. Error Message:Error in: http://0.0.0.0:32529/Images/GressenHover.png. Error Message:File does not exist.
+__________________________
+
+Log Entry : 
+11/19/2015 12:02:09
+Error in: http://0.0.0.0:32529/Styles/images/Bottom_texture.jpg. Error Message:Error in: http://0.0.0.0:32529/Styles/images/Bottom_texture.jpg. Error Message:File does not exist.
+__________________________
+
+Log Entry : 
+11/19/2015 12:02:09
+Error in: http://0.0.0.0:32529/images/h_bg.png. Error Message:Error in: http://0.0.0.0:32529/images/h_bg.png. Error Message:File does not exist.
+__________________________
+
+Log Entry : 
+11/19/2015 12:02:11
+Error in: http://0.0.0.0:32529/images/h_bg.png. Error Message:Error in: http://0.0.0.0:32529/images/h_bg.png. Error Message:File does not exist.
+__________________________
+
+Log Entry : 
+11/19/2015 12:02:15
+Error in: http://0.0.0.0:32529/images/h_bg.png. Error Message:Error in: http://0.0.0.0:32529/images/h_bg.png. Error Message:File does not exist.
+__________________________
+
+Log Entry : 
+11/19/2015 12:02:15
+Error in: http://0.0.0.0:32529/Styles/images/Bottom_texture.jpg. Error Message:Error in: http://0.0.0.0:32529/Styles/images/Bottom_texture.jpg. Error Message:File does not exist.
+__________________________
+
+Log Entry : 
+11/19/2015 12:02:18
+Error in: http://0.0.0.0:32529/images/h_bg.png. Error Message:Error in: http://0.0.0.0:32529/images/h_bg.png. Error Message:File does not exist.
+__________________________
+
+Log Entry : 
+11/19/2015 12:02:21
+Error in: http://0.0.0.0:32529/images/h_bg.png. Error Message:Error in: http://0.0.0.0:32529/images/h_bg.png. Error Message:File does not exist.
+__________________________
+
+Log Entry : 
+11/19/2015 12:02:32
+Error in: http://0.0.0.0:32529/Images/GreenssHovesr.png. Error Message:Error in: http://0.0.0.0:32529/Images/GreenssHovesr.png. Error Message:File does not exist.
+__________________________
+
+Log Entry : 
+11/19/2015 12:02:34
+Error in: http://0.0.0.0:32529/Images/GressenHover.png. Error Message:Error in: http://0.0.0.0:32529/Images/GressenHover.png. Error Message:File does not exist.
+__________________________
+
+Log Entry : 
+11/19/2015 12:02:38
+Error in: http://0.0.0.0:32529/Styles/images/Bottom_texture.jpg. Error Message:Error in: http://0.0.0.0:32529/Styles/images/Bottom_texture.jpg. Error Message:File does not exist.
+__________________________
+
+Log Entry : 
+11/19/2015 12:02:38
+Error in: http://0.0.0.0:32529/images/h_bg.png. Error Message:The process cannot access the file 'E:\Projects\Web Developments\HRMS\SourceCode\20151119_ESS_AGOC\HRMS\Error\19-11-15.txt' because it is being used by another process.
+__________________________
+
+Log Entry : 
+11/19/2015 12:02:42
+Error in: http://0.0.0.0:32529/Images/GreenssHovesr.png. Error Message:Error in: http://0.0.0.0:32529/Images/GreenssHovesr.png. Error Message:File does not exist.
+__________________________
+
+Log Entry : 
+11/19/2015 12:02:45
+Error in: http://0.0.0.0:32529/Images/GressenHover.png. Error Message:Error in: http://0.0.0.0:32529/Images/GressenHover.png. Error Message:File does not exist.
+__________________________
+
+Log Entry : 
+11/19/2015 12:02:48
+Error in: http://0.0.0.0:32529/images/h_bg.png. Error Message:Error in: http://0.0.0.0:32529/images/h_bg.png. Error Message:File does not exist.
+__________________________
+
+Log Entry : 
+11/19/2015 12:02:48
+Error in: http://0.0.0.0:32529/Styles/images/Bottom_texture.jpg. Error Message:Error in: http://0.0.0.0:32529/Styles/images/Bottom_texture.jpg. Error Message:File does not exist.
+__________________________
+
+Log Entry : 
+11/19/2015 12:02:53
+Error in: http://0.0.0.0:32529/images/h_bg.png. Error Message:Error in: http://0.0.0.0:32529/images/h_bg.png. Error Message:File does not exist.
+__________________________
+
+Log Entry : 
+11/19/2015 12:03:04
+Error in: http://0.0.0.0:32529/images/h_bg.png. Error Message:Error in: http://0.0.0.0:32529/images/h_bg.png. Error Message:File does not exist.
+__________________________
+
+Log Entry : 
+11/19/2015 12:03:13
+Error in: http://0.0.0.0:32529/images/h_bg.png. Error Message:Error in: http://0.0.0.0:32529/images/h_bg.png. Error Message:File does not exist.
+__________________________
+
+Log Entry : 
+11/19/2015 12:03:18
+Error in: http://0.0.0.0:32529/Images/GreenssHovesr.png. Error Message:Error in: http://0.0.0.0:32529/Images/GreenssHovesr.png. Error Message:File does not exist.
+__________________________
+
+Log Entry : 
+11/19/2015 12:03:23
+Error in: http://0.0.0.0:32529/images/h_bg.png. Error Message:Error in: http://0.0.0.0:32529/images/h_bg.png. Error Message:File does not exist.
+__________________________
+
+Log Entry : 
+11/19/2015 12:03:29
+Error in: http://0.0.0.0:32529/Images/GressenHover.png. Error Message:Error in: http://0.0.0.0:32529/Images/GressenHover.png. Error Message:File does not exist.
+__________________________
+
+Log Entry : 
+11/19/2015 12:03:32
+Error in: http://0.0.0.0:32529/Styles/images/Bottom_texture.jpg. Error Message:Error in: http://0.0.0.0:32529/Styles/images/Bottom_texture.jpg. Error Message:File does not exist.
+__________________________
+
+Log Entry : 
+11/19/2015 12:03:32
+Error in: http://0.0.0.0:32529/images/h_bg.png. Error Message:Error in: http://0.0.0.0:32529/images/h_bg.png. Error Message:File does not exist.
+__________________________
+
+Log Entry : 
+11/19/2015 12:03:36
+Error in: http://0.0.0.0:32529/images/h_bg.png. Error Message:Error in: http://0.0.0.0:32529/images/h_bg.png. Error Message:File does not exist.
+__________________________
+
+Log Entry : 
+11/19/2015 12:03:42
+Error in: http://0.0.0.0:32529/images/h_bg.png. Error Message:Error in: http://0.0.0.0:32529/images/h_bg.png. Error Message:File does not exist.
+__________________________
+
+Log Entry : 
+11/19/2015 12:03:50
+Error in: http://0.0.0.0:32529/images/h_bg.png. Error Message:Error in: http://0.0.0.0:32529/images/h_bg.png. Error Message:File does not exist.
+__________________________
+
+Log Entry : 
+11/19/2015 12:03:55
+Error in: http://0.0.0.0:32529/images/h_bg.png. Error Message:Error in: http://0.0.0.0:32529/images/h_bg.png. Error Message:File does not exist.
+__________________________
+
+Log Entry : 
+11/19/2015 12:04:00
+Error in: http://0.0.0.0:32529/images/h_bg.png. Error Message:Error in: http://0.0.0.0:32529/images/h_bg.png. Error Message:File does not exist.
+__________________________
+
+Log Entry : 
+11/19/2015 12:04:04
+Error in: http://0.0.0.0:32529/Images/GreenssHovesr.png. Error Message:Error in: http://0.0.0.0:32529/Images/GreenssHovesr.png. Error Message:File does not exist.
+__________________________
+
+Log Entry : 
+11/19/2015 12:04:08
+Error in: http://0.0.0.0:32529/Images/GressenHover.png. Error Message:Error in: http://0.0.0.0:32529/Images/GressenHover.png. Error Message:File does not exist.
+__________________________
+
+Log Entry : 
+11/19/2015 12:04:12
+Error in: http://0.0.0.0:32529/Styles/images/Bottom_texture.jpg. Error Message:Error in: http://0.0.0.0:32529/Styles/images/Bottom_texture.jpg. Error Message:File does not exist.
+__________________________
+
+Log Entry : 
+11/19/2015 12:04:12
+Error in: http://0.0.0.0:32529/images/h_bg.png. Error Message:Error in: http://0.0.0.0:32529/images/h_bg.png. Error Message:File does not exist.
+__________________________
+
+Log Entry : 
+11/19/2015 12:04:16
+Error in: http://0.0.0.0:32529/images/h_bg.png. Error Message:Error in: http://0.0.0.0:32529/images/h_bg.png. Error Message:File does not exist.
+__________________________
+
+Log Entry : 
+11/19/2015 12:04:26
+Error in: http://0.0.0.0:32529/images/h_bg.png. Error Message:Error in: http://0.0.0.0:32529/images/h_bg.png. Error Message:File does not exist.
+__________________________
+
+Log Entry : 
+11/19/2015 12:04:50
+Error in: http://0.0.0.0:32529/Images/GreenssHovesr.png. Error Message:Error in: http://0.0.0.0:32529/Images/GreenssHovesr.png. Error Message:File does not exist.
+__________________________
+
+Log Entry : 
+11/19/2015 12:04:52
+Error in: http://0.0.0.0:32529/Images/GressenHover.png. Error Message:Error in: http://0.0.0.0:32529/Images/GressenHover.png. Error Message:File does not exist.
+__________________________
+
+Log Entry : 
+11/19/2015 12:04:55
+Error in: http://0.0.0.0:32529/Styles/images/Bottom_texture.jpg. Error Message:Error in: http://0.0.0.0:32529/Styles/images/Bottom_texture.jpg. Error Message:File does not exist.
+__________________________
+
+Log Entry : 
+11/19/2015 12:04:55
+Error in: http://0.0.0.0:32529/images/h_bg.png. Error Message:Error in: http://0.0.0.0:32529/images/h_bg.png. Error Message:File does not exist.
+__________________________
+
+Log Entry : 
+11/19/2015 12:04:59
+Error in: http://0.0.0.0:32529/Images/GreenssHovesr.png. Error Message:Error in: http://0.0.0.0:32529/Images/GreenssHovesr.png. Error Message:File does not exist.
+__________________________
+
+Log Entry : 
+11/19/2015 12:04:59
+Error in: http://0.0.0.0:32529/Images/GressenHover.png. Error Message:Error in: http://0.0.0.0:32529/Images/GressenHover.png. Error Message:File does not exist.
+__________________________
+
+Log Entry : 
+11/19/2015 12:05:03
+Error in: http://0.0.0.0:32529/Styles/images/Bottom_texture.jpg. Error Message:Error in: http://0.0.0.0:32529/Styles/images/Bottom_texture.jpg. Error Message:File does not exist.
+__________________________
+
+Log Entry : 
+11/19/2015 12:05:03
+Error in: http://0.0.0.0:32529/images/h_bg.png. Error Message:Error in: http://0.0.0.0:32529/images/h_bg.png. Error Message:File does not exist.
+__________________________
+
+Log Entry : 
+11/19/2015 12:05:07
+Error in: http://0.0.0.0:32529/Styles/images/Bottom_texture.jpg. Error Message:Error in: http://0.0.0.0:32529/Styles/images/Bottom_texture.jpg. Error Message:File does not exist.
+__________________________
+
+Log Entry : 
+11/19/2015 12:05:07
+Error in: http://0.0.0.0:32529/images/h_bg.png. Error Message:Error in: http://0.0.0.0:32529/images/h_bg.png. Error Message:File does not exist.
+__________________________
+
+Log Entry : 
+11/19/2015 12:05:13
+Error in: http://0.0.0.0:32529/Images/GreenssHovesr.png. Error Message:Error in: http://0.0.0.0:32529/Images/GreenssHovesr.png. Error Message:File does not exist.
+__________________________
+
+Log Entry : 
+11/19/2015 12:05:15
+Error in: http://0.0.0.0:32529/Images/GressenHover.png. Error Message:Error in: http://0.0.0.0:32529/Images/GressenHover.png. Error Message:File does not exist.
+__________________________
+
+Log Entry : 
+11/19/2015 12:05:18
+Error in: http://0.0.0.0:32529/Styles/images/Bottom_texture.jpg. Error Message:Error in: http://0.0.0.0:32529/Styles/images/Bottom_texture.jpg. Error Message:File does not exist.
+__________________________
+
+Log Entry : 
+11/19/2015 12:05:18
+Error in: http://0.0.0.0:32529/images/h_bg.png. Error Message:Error in: http://0.0.0.0:32529/images/h_bg.png. Error Message:File does not exist.
+__________________________
+
+Log Entry : 
+11/19/2015 12:05:22
+Error in: http://0.0.0.0:32529/images/h_bg.png. Error Message:Error in: http://0.0.0.0:32529/images/h_bg.png. Error Message:File does not exist.
+__________________________
+
+Log Entry : 
+11/19/2015 12:05:30
+Error in: http://0.0.0.0:32529/images/h_bg.png. Error Message:Error in: http://0.0.0.0:32529/images/h_bg.png. Error Message:File does not exist.
+__________________________
+
+Log Entry : 
+11/19/2015 12:05:41
+Error in: http://0.0.0.0:32529/images/h_bg.png. Error Message:Error in: http://0.0.0.0:32529/images/h_bg.png. Error Message:File does not exist.
+__________________________
+
+Log Entry : 
+11/19/2015 12:08:02
+Error in: http://0.0.0.0:32529/Images/GreenssHovesr.png. Error Message:Error in: http://0.0.0.0:32529/Images/GreenssHovesr.png. Error Message:File does not exist.
+__________________________
+
+Log Entry : 
+11/19/2015 12:08:03
+Error in: http://0.0.0.0:32529/Images/GressenHover.png. Error Message:Error in: http://0.0.0.0:32529/Images/GressenHover.png. Error Message:File does not exist.
+__________________________
+
+Log Entry : 
+11/19/2015 12:08:07
+Error in: http://0.0.0.0:32529/Styles/images/Bottom_texture.jpg. Error Message:Error in: http://0.0.0.0:32529/Styles/images/Bottom_texture.jpg. Error Message:File does not exist.
+__________________________
+
+Log Entry : 
+11/19/2015 12:08:07
+Error in: http://0.0.0.0:32529/images/h_bg.png. Error Message:The process cannot access the file 'E:\Projects\Web Developments\HRMS\SourceCode\20151119_ESS_AGOC\HRMS\Error\19-11-15.txt' because it is being used by another process.
+__________________________
+
+Log Entry : 
+11/19/2015 12:08:12
+Error in: http://0.0.0.0:32529/images/h_bg.png. Error Message:Error in: http://0.0.0.0:32529/images/h_bg.png. Error Message:File does not exist.
+__________________________
+
+Log Entry : 
+11/19/2015 12:08:43
+Error in: http://0.0.0.0:32529/images/h_bg.png. Error Message:Error in: http://0.0.0.0:32529/images/h_bg.png. Error Message:File does not exist.
+__________________________
+
+Log Entry : 
+11/19/2015 12:08:45
+Error in: http://0.0.0.0:32529/Images/GreenssHovesr.png. Error Message:Error in: http://0.0.0.0:32529/Images/GreenssHovesr.png. Error Message:File does not exist.
+__________________________
+
+Log Entry : 
+11/19/2015 12:08:45
+Error in: http://0.0.0.0:32529/Images/GressenHover.png. Error Message:Error in: http://0.0.0.0:32529/Images/GressenHover.png. Error Message:File does not exist.
+__________________________
+
+Log Entry : 
+11/19/2015 12:08:48
+Error in: http://0.0.0.0:32529/Styles/images/Bottom_texture.jpg. Error Message:Error in: http://0.0.0.0:32529/Styles/images/Bottom_texture.jpg. Error Message:File does not exist.
+__________________________
+
+Log Entry : 
+11/19/2015 12:08:48
+Error in: http://0.0.0.0:32529/images/h_bg.png. Error Message:Error in: http://0.0.0.0:32529/images/h_bg.png. Error Message:File does not exist.
+__________________________
+
+Log Entry : 
+11/19/2015 12:08:53
+Error in: http://0.0.0.0:32529/images/h_bg.png. Error Message:Error in: http://0.0.0.0:32529/images/h_bg.png. Error Message:File does not exist.
+__________________________
+
+Log Entry : 
+11/19/2015 12:09:06
+Error in: http://0.0.0.0:32529/images/h_bg.png. Error Message:Error in: http://0.0.0.0:32529/images/h_bg.png. Error Message:File does not exist.
+__________________________
+
+Log Entry : 
+11/19/2015 12:09:28
+Error in: http://0.0.0.0:32529/ESS/images/h_bg.png. Error Message:Error in: http://0.0.0.0:32529/ESS/images/h_bg.png. Error Message:File does not exist.
+__________________________
+
+Log Entry : 
+11/19/2015 12:10:03
+Error in: http://0.0.0.0:32529/Images/GressenHover.png. Error Message:Error in: http://0.0.0.0:32529/Images/GressenHover.png. Error Message:File does not exist.
+__________________________
+
+Log Entry : 
+11/19/2015 12:10:03
+Error in: http://0.0.0.0:32529/Images/GreenssHovesr.png. Error Message:Error in: http://0.0.0.0:32529/Images/GreenssHovesr.png. Error Message:File does not exist.
+__________________________
