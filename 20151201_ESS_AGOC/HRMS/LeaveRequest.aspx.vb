@@ -97,7 +97,7 @@ Public Class LeaveRequest
                 If txtfrmdate.Text = "" Then
                     objEN.Year = Now.Date.Year
                 Else
-                    objEN.FromDate = Date.ParseExact(txtfrmdate.Text.Trim().Replace("-", "/"), "dd/MM/yyyy", CultureInfo.InvariantCulture)
+                    objEN.FromDate = dbCon.GetDate(txtfrmdate.Text.Trim()) ' Date.ParseExact(txtfrmdate.Text.Trim().Replace("-", "/"), "dd/MM/yyyy", CultureInfo.InvariantCulture)
                     objEN.Year = objEN.FromDate.Year
                 End If
                 objEN.RStatus = objBL.getCutoff(objEN)
@@ -189,13 +189,13 @@ Public Class LeaveRequest
             End If
             objEN.LeaveBalance = CInt(txtlveBal.Text.Trim())
             If objEN.StartDate <> "" Then
-                objEN.FromDate = Date.ParseExact(objEN.StartDate, "dd/MM/yyyy", CultureInfo.InvariantCulture) ' Date.Parse(objEN.StartDate)
+                objEN.FromDate = dbCon.GetDate(objEN.StartDate) ' Date.ParseExact(objEN.StartDate, "dd/MM/yyyy", CultureInfo.InvariantCulture) ' Date.Parse(objEN.StartDate)
             End If
             If objEN.EndDate <> "" Then
-                objEN.ToDate = Date.ParseExact(objEN.EndDate, "dd/MM/yyyy", CultureInfo.InvariantCulture)
+                objEN.ToDate = dbCon.GetDate(objEN.EndDate) ' Date.ParseExact(objEN.EndDate, "dd/MM/yyyy", CultureInfo.InvariantCulture)
             End If
             If objEN.RejoinDate <> "" Then
-                objEN.RejoinDt = Date.ParseExact(objEN.RejoinDate, "dd/MM/yyyy", CultureInfo.InvariantCulture) ' 
+                objEN.RejoinDt = dbCon.GetDate(objEN.RejoinDate) ' Date.ParseExact(objEN.RejoinDate, "dd/MM/yyyy", CultureInfo.InvariantCulture) ' 
             End If
             If objEN.LeaveCode = "" Then
                 dbCon.strmsg = "alert('Leave type is missing...')"
@@ -218,11 +218,15 @@ Public Class LeaveRequest
             Else
                 Dim strmsg As String = objVal.validateLeaveEntries(objEN.Empid, objEN.LeaveCode, objEN.FromDate, objEN.ToDate, objEN.SapCompany)
                 Dim strLeave As String = objVal.validateLeave(objEN.LeaveCode, objEN.LeaveBalance, objEN.NoofDays, objEN.SapCompany)
+                dbCon.strmsg = dbCon.expenceclaimValidations(objEN.Empid, "Leave", objEN.FromDate, objEN.ToDate, objEN.SapCompany)
                 If strmsg <> "Success" Then
                     dbCon.strmsg = "alert('" & strmsg & "')"
                     mess(dbCon.strmsg)
                 ElseIf strLeave <> "Success" Then
                     dbCon.strmsg = "alert('" & strLeave & "')"
+                    mess(dbCon.strmsg)
+                ElseIf dbCon.strmsg <> "" Then
+                    dbCon.strmsg = "alert('" & dbCon.strmsg & "')"
                     mess(dbCon.strmsg)
                 Else
                     objEN.Year = objEN.FromDate.Year
@@ -327,19 +331,19 @@ Public Class LeaveRequest
             objEN.StartDate = txtfrmdate.Text.Trim().Replace("-", "/")
             objEN.EndDate = txttodate.Text.Trim().Replace("-", "/")
             If objEN.StartDate <> "" And objEN.EndDate <> "" Then
-                objEN.FromDate = Date.ParseExact(objEN.StartDate, "dd/MM/yyyy", CultureInfo.InvariantCulture) ' Date.Parse(objEN.StartDate)
-                objEN.ToDate = Date.ParseExact(objEN.EndDate, "dd/MM/yyyy", CultureInfo.InvariantCulture)
+                objEN.FromDate = dbCon.GetDate(objEN.StartDate) ' Date.ParseExact(objEN.StartDate, "dd/MM/yyyy", CultureInfo.InvariantCulture) ' Date.Parse(objEN.StartDate)
+                objEN.ToDate = dbCon.GetDate(objEN.EndDate) ' Date.ParseExact(objEN.EndDate, "dd/MM/yyyy", CultureInfo.InvariantCulture)
                 txtnodays.Text = objBL.getNodays(objEN)
                 If objEN.FromDate = objEN.ToDate Then
-                    txtnodays.Enabled = True
+                    txtnodays.Enabled = False
                 Else
                     txtnodays.Enabled = False
                 End If
                 intDiff = CDbl(txtnodays.Text.Trim())
                 Dim dblHolidaysCount As Double = objBL.getHolidayCount(objEN)
                 txtotalbal.Text = dblHolidaysCount
-                objEN.FromDate = Date.ParseExact(objEN.StartDate, "dd/MM/yyyy", CultureInfo.InvariantCulture) ' Date.Parse(objEN.StartDate)
-                objEN.ToDate = Date.ParseExact(objEN.EndDate, "dd/MM/yyyy", CultureInfo.InvariantCulture)
+                objEN.FromDate = dbCon.GetDate(objEN.StartDate) ' Date.ParseExact(objEN.StartDate, "dd/MM/yyyy", CultureInfo.InvariantCulture) ' Date.Parse(objEN.StartDate)
+                objEN.ToDate = dbCon.GetDate(objEN.EndDate) ' Date.ParseExact(objEN.EndDate, "dd/MM/yyyy", CultureInfo.InvariantCulture)
                 Dim dblHolidays As Double = objBL.getHolidayCount(objEN)
                 intDiff = intDiff - dblHolidays
                 txtnodays.Text = intDiff
@@ -361,8 +365,8 @@ Public Class LeaveRequest
             objEN.SapCompany = Session("SAPCompany")
             objEN.CutOff = txtcutoff.Text.Trim()
             If objEN.StartDate <> "" And objEN.EndDate <> "" Then
-                objEN.FromDate = Date.ParseExact(objEN.StartDate, "dd/MM/yyyy", CultureInfo.InvariantCulture) ' Date.Parse(objEN.StartDate)
-                objEN.ToDate = Date.ParseExact(objEN.EndDate, "dd/MM/yyyy", CultureInfo.InvariantCulture)
+                objEN.FromDate = dbCon.GetDate(objEN.StartDate) 'Date.ParseExact(objEN.StartDate, "dd/MM/yyyy", CultureInfo.InvariantCulture) ' Date.Parse(objEN.StartDate)
+                objEN.ToDate = dbCon.GetDate(objEN.EndDate) ' Date.ParseExact(objEN.EndDate, "dd/MM/yyyy", CultureInfo.InvariantCulture)
                 txtnodays.Text = objBL.getNodays(objEN)
 
                 objEN.Empid = Session("UserCode").ToString()
@@ -380,7 +384,7 @@ Public Class LeaveRequest
                     txtlveBal.Text = objEN.Status
                 End If
                 If objEN.FromDate = objEN.ToDate Then
-                    txtnodays.Enabled = True
+                    txtnodays.Enabled = False
                 Else
                     txtnodays.Enabled = False
                 End If
@@ -388,14 +392,14 @@ Public Class LeaveRequest
                 intDiff = CDbl(txtnodays.Text.Trim())
                 Dim dblHolidaysCount As Double = objBL.getHolidaysinLeaveDays(objEN)
                 txtotalbal.Text = dblHolidaysCount
-                objEN.FromDate = Date.ParseExact(objEN.StartDate, "dd/MM/yyyy", CultureInfo.InvariantCulture) ' Date.Parse(objEN.StartDate)
-                objEN.ToDate = Date.ParseExact(objEN.EndDate, "dd/MM/yyyy", CultureInfo.InvariantCulture)
+                objEN.FromDate = dbCon.GetDate(objEN.StartDate) ' Date.ParseExact(objEN.StartDate, "dd/MM/yyyy", CultureInfo.InvariantCulture) ' Date.Parse(objEN.StartDate)
+                objEN.ToDate = dbCon.GetDate(objEN.EndDate) ' Date.ParseExact(objEN.EndDate, "dd/MM/yyyy", CultureInfo.InvariantCulture)
                 Dim dblHolidays As Double = objBL.getHolidayCount(objEN)
                 intDiff = intDiff - dblHolidays
                 txtnodays.Text = intDiff
 
             ElseIf objEN.StartDate <> "" Then
-                objEN.FromDate = Date.ParseExact(objEN.StartDate, "dd/MM/yyyy", CultureInfo.InvariantCulture) ' Date.Parse(objEN.StartDate)
+                objEN.FromDate = dbCon.GetDate(objEN.StartDate) ' Date.ParseExact(objEN.StartDate, "dd/MM/yyyy", CultureInfo.InvariantCulture) ' Date.Parse(objEN.StartDate)
                 objEN.Empid = Session("UserCode").ToString()
                 objEN.LeaveCode = txtlvecode.Text.Trim()
                 If objEN.StartDate = "" Then

@@ -216,11 +216,12 @@
                                       <%--  <li><a href="MBankTimeReq.aspx">Bank Time</a></li>
                                         <li><a href="ReturnLveRequest.aspx">Return From Leave </a></li>--%>
                                         <li><a href="MLoanRequest.aspx">Loan</a></li>
+                                         <li id="Loanee" runat="server"><a href="LoaneeExpenses.aspx">Loanee Expenses</a></li>
                                         <%--  <li><a href="PermissionRequest.aspx">Permission/Leave by hours Request </a></li>--%>
                                         <%-- <li><a href="miscellaneousreq.aspx">Miscellaneous  Request</a></li>--%>
                                     </ul>
                                 </li>
-                                <li class="level1-li"><a class="level1-a drop" href="#">Manager Self Service</a>
+                                <li id="MgrApp" runat="server" class="level1-li"><a class="level1-a drop" href="#">Manager Self Service</a>
                                     <ul class="level2">
                                         <li><a href="#" class="fly">Appraisal</a>
                                             <ul class="level3">
@@ -248,10 +249,10 @@
                                                         <li><a href="PosChangeApproval.aspx">Employee Position Change</a></li>
                                                     </ul>
                                                 </li>
-                                                <li><a href="TravelApproval.aspx">Business Travel Management</a>
-                                                   
+                                                <li><a href="TravelApproval.aspx">Business Travel Management</a>                                                 
                                                 </li>
                                                  <li><a href="ExpensesClaimApproval.aspx">Expenses Claim</a></li>
+                                                  <li><a href="LoaneeExpenseApproval.aspx">Loanee Expenses Claim</a></li>
                                                 <li><a href="#" class="fly">Requests</a>
                                                     <ul class="level4">
                                                         <li><a href="LeaveRequestApproval.aspx">Leave Approval</a></li>
@@ -270,7 +271,7 @@
                                         <li><a href="TeamList.aspx">Team List &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a></li>
                                     </ul>
                                 </li>
-                                <li class="level1-li"><a class="level1-a" href="HRandAdmin.aspx">HR Notification</a></li>
+                                <li id="MgrNotify" runat="server" class="level1-li"><a class="level1-a" href="HRandAdmin.aspx">HR Notification</a></li>
                                 <li class="level1-li"><a class="level1-a" href="ContactUs.aspx">ContactUs</a></li>
                                 <li class="level1-li"><a class="level1-a" href="ChangePassword.aspx">Change Password</a></li>
                                 <li class="level1-li"><a class="level1-a" href="Login.aspx">Logout</a></li>

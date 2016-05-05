@@ -180,20 +180,20 @@
                                                                                             </div>
                                                                                         </ItemTemplate>
                                                                                     </asp:TemplateField>
-                                                                                      <asp:TemplateField HeaderText="Current Approver">
-                                                                                            <ItemTemplate>
-                                                                                                <div align="left">
-                                                                                                    &nbsp;<asp:Label ID="lblcurappName" runat="server" Text='<%#Bind("CurAPPName") %>'></asp:Label>
-                                                                                                </div>
-                                                                                            </ItemTemplate>
-                                                                                        </asp:TemplateField>
-                                                                                        <asp:TemplateField HeaderText="Next Approver">
-                                                                                            <ItemTemplate>
-                                                                                                <div align="left">
-                                                                                                    &nbsp;<asp:Label ID="lblnxtappName" runat="server" Text='<%#Bind("NextAppName") %>'></asp:Label>
-                                                                                                </div>
-                                                                                            </ItemTemplate>
-                                                                                        </asp:TemplateField>
+                                                                                    <asp:TemplateField HeaderText="Current Approver">
+                                                                                        <ItemTemplate>
+                                                                                            <div align="left">
+                                                                                                &nbsp;<asp:Label ID="lblcurappName" runat="server" Text='<%#Bind("CurAPPName") %>'></asp:Label>
+                                                                                            </div>
+                                                                                        </ItemTemplate>
+                                                                                    </asp:TemplateField>
+                                                                                    <asp:TemplateField HeaderText="Next Approver">
+                                                                                        <ItemTemplate>
+                                                                                            <div align="left">
+                                                                                                &nbsp;<asp:Label ID="lblnxtappName" runat="server" Text='<%#Bind("NextAppName") %>'></asp:Label>
+                                                                                            </div>
+                                                                                        </ItemTemplate>
+                                                                                    </asp:TemplateField>
                                                                                 </Columns>
                                                                                 <HeaderStyle HorizontalAlign="Center" Height="25px" BackColor="#CCCCCC" />
                                                                             </asp:GridView>
@@ -307,45 +307,47 @@
                                                                             </div>
                                                                         </td>
                                                                         <td>
-                                                                            <table width="100%" border="0" cellspacing="0" cellpadding="3" class="main_content">
-                                                                                <tr>
-                                                                                    <td>
-                                                                                        <a class="txtbox" style="text-decoration: underline; font-weight: bold;">Approvar Status</a>
-                                                                                    </td>
-                                                                                    <td>
-                                                                                        <asp:TextBox ID="txtcode" CssClass="txtbox" runat="server" Visible="false"></asp:TextBox>
-                                                                                        <asp:TextBox ID="txtempid" CssClass="txtbox" runat="server" Visible="false"></asp:TextBox>
-                                                                                    </td>
-                                                                                </tr>
-                                                                                <tr>
-                                                                                    <td>
-                                                                                        Approval Status
-                                                                                    </td>
-                                                                                    <td>
-                                                                                        <asp:DropDownList ID="ddlAppStatus" runat="server" CssClass="txtbox1">
-                                                                                            <asp:ListItem Value="P">Pending</asp:ListItem>
-                                                                                            <asp:ListItem Value="A">Approved</asp:ListItem>
-                                                                                            <asp:ListItem Value="R">Rejected</asp:ListItem>
-                                                                                        </asp:DropDownList>
-                                                                                    </td>
-                                                                                </tr>
-                                                                                <tr>
-                                                                                    <td>
-                                                                                        Remarks
-                                                                                    </td>
-                                                                                    <td>
-                                                                                        <asp:TextBox ID="txtcomments" CssClass="txtbox" runat="server" Height="80px" TextMode="MultiLine"></asp:TextBox>
-                                                                                    </td>
-                                                                                </tr>
-                                                                                <tr>
-                                                                                    <td colspan="2">
-                                                                                        <br />
-                                                                                        <asp:Button ID="btnAdd" CssClass="btn" Width="125px" runat="server" Text="Save & Submit"
-                                                                                            OnClientClick="return Confirmation();" />
-                                                                                        <asp:Button ID="btncancel" CssClass="btn" Width="85px" runat="server" Text="Cancel" />
-                                                                                    </td>
-                                                                                </tr>
-                                                                            </table>
+                                                                            <div id="dtAppStatus" runat="server" visible="false">
+                                                                                <table width="100%" border="0" cellspacing="0" cellpadding="3" class="main_content">
+                                                                                    <tr>
+                                                                                        <td>
+                                                                                            <a class="txtbox" style="text-decoration: underline; font-weight: bold;">Approvar Status</a>
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            <asp:TextBox ID="txtcode" CssClass="txtbox" runat="server" Visible="false"></asp:TextBox>
+                                                                                            <asp:TextBox ID="txtempid" CssClass="txtbox" runat="server" Visible="false"></asp:TextBox>
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                    <tr>
+                                                                                        <td>
+                                                                                            Approval Status
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            <asp:DropDownList ID="ddlAppStatus" runat="server" CssClass="txtbox1">
+                                                                                                <asp:ListItem Value="P">Pending</asp:ListItem>
+                                                                                                <asp:ListItem Value="A">Approved</asp:ListItem>
+                                                                                                <asp:ListItem Value="R">Rejected</asp:ListItem>
+                                                                                            </asp:DropDownList>
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                    <tr>
+                                                                                        <td>
+                                                                                            Remarks
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            <asp:TextBox ID="txtcomments" CssClass="txtbox" runat="server" Height="80px" TextMode="MultiLine"></asp:TextBox>
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                    <tr>
+                                                                                        <td colspan="2">
+                                                                                            <br />
+                                                                                            <asp:Button ID="btnAdd" CssClass="btn" Width="125px" runat="server" Text="Save & Submit"
+                                                                                                OnClientClick="return Confirmation();" />
+                                                                                            <asp:Button ID="btncancel" CssClass="btn" Width="85px" runat="server" Text="Cancel" />
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                </table>
+                                                                            </div>
                                                                         </td>
                                                                     </tr>
                                                                 </table>
@@ -474,20 +476,20 @@
                                                                                             </div>
                                                                                         </ItemTemplate>
                                                                                     </asp:TemplateField>
-                                                                                      <asp:TemplateField HeaderText="Current Approver">
-                                                                                            <ItemTemplate>
-                                                                                                <div align="left">
-                                                                                                    &nbsp;<asp:Label ID="lblscurappName" runat="server" Text='<%#Bind("CurAPPName") %>'></asp:Label>
-                                                                                                </div>
-                                                                                            </ItemTemplate>
-                                                                                        </asp:TemplateField>
-                                                                                        <asp:TemplateField HeaderText="Next Approver">
-                                                                                            <ItemTemplate>
-                                                                                                <div align="left">
-                                                                                                    &nbsp;<asp:Label ID="lblsnxtappName" runat="server" Text='<%#Bind("NextAppName") %>'></asp:Label>
-                                                                                                </div>
-                                                                                            </ItemTemplate>
-                                                                                        </asp:TemplateField>
+                                                                                    <asp:TemplateField HeaderText="Current Approver">
+                                                                                        <ItemTemplate>
+                                                                                            <div align="left">
+                                                                                                &nbsp;<asp:Label ID="lblscurappName" runat="server" Text='<%#Bind("CurAPPName") %>'></asp:Label>
+                                                                                            </div>
+                                                                                        </ItemTemplate>
+                                                                                    </asp:TemplateField>
+                                                                                    <asp:TemplateField HeaderText="Next Approver">
+                                                                                        <ItemTemplate>
+                                                                                            <div align="left">
+                                                                                                &nbsp;<asp:Label ID="lblsnxtappName" runat="server" Text='<%#Bind("NextAppName") %>'></asp:Label>
+                                                                                            </div>
+                                                                                        </ItemTemplate>
+                                                                                    </asp:TemplateField>
                                                                                 </Columns>
                                                                                 <HeaderStyle HorizontalAlign="Center" Height="25px" BackColor="#CCCCCC" />
                                                                             </asp:GridView>

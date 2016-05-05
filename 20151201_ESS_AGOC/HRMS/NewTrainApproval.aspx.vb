@@ -82,6 +82,11 @@ Public Class NewTrainApproval
         If e.Row.RowType = DataControlRowType.DataRow Then
             e.Row.Attributes("Style") = "cursor:pointer"
             e.Row.ToolTip = "Click first column for selecting this row."
+
+            Dim lblcomments As LinkButton = CType(e.Row.FindControl("lbleddate"), LinkButton)
+            If lblcomments.ToolTip = "" Then
+                lblcomments.Text = ""
+            End If
         End If
     End Sub
 
@@ -102,6 +107,7 @@ Public Class NewTrainApproval
                     row1.BackColor = Color.White
                 Else
                     row1.BackColor = Color.Orange
+                    dtAppStatus.Visible = True
                 End If
             Next
             ddlAppStatus.SelectedValue = "P"
@@ -224,6 +230,7 @@ Public Class NewTrainApproval
                     dbCon.strmsg = "alert('" & dbCon.strmsg & "')"
                     mess(dbCon.strmsg)
                 End If
+                dtAppStatus.Visible = False
             Else
                 dbCon.strmsg = "alert('Select the request no...')"
                 mess(dbCon.strmsg)
@@ -241,5 +248,14 @@ Public Class NewTrainApproval
         objEN.HeaderType = "Train"
         objEN.HistoryType = "NewTra"
         ReqApproval(objEN)
+    End Sub
+
+    Private Sub grdSummary_RowDataBound(sender As Object, e As System.Web.UI.WebControls.GridViewRowEventArgs) Handles grdSummary.RowDataBound
+        If e.Row.RowType = DataControlRowType.DataRow Then
+            Dim lblcomments As LinkButton = CType(e.Row.FindControl("lblSeddate"), LinkButton)
+            If lblcomments.ToolTip = "" Then
+                lblcomments.Text = ""
+            End If
+        End If
     End Sub
 End Class

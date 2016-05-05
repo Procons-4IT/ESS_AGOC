@@ -322,11 +322,29 @@ Public Class TravelRequest
             End If
             objEN.SapCompany = Session("SAPCompany")
             oRec = objEN.SapCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset)
-            dbcon.strQuery = "select * from [@Z_HR_OTRAREQ] where U_Z_EmpId='" & txtempid.Text.Trim() & "' and '" & dtFrom.ToString("yyyy-MM-dd") & "' between U_Z_TraStDate and U_Z_TraEndDate"
-            oRec.DoQuery(dbcon.strQuery)
-            If oRec.RecordCount > 0 Then
-                dbcon.strmsg = "alert('A travel request is already approved for the selected date, do you want to continue?')"
+            If btnUpdate.Enabled = False Then
+                dbcon.strQuery = "select * from [@Z_HR_OTRAREQ] where U_Z_AppStatus <>'R' and U_Z_EmpId='" & txtempid.Text.Trim() & "' and U_Z_TraStDate between '" & dtFrom.ToString("yyyy-MM-dd") & "' and '" & dtTo.ToString("yyyy-MM-dd") & "'"
+                oRec.DoQuery(dbcon.strQuery)
+                If oRec.RecordCount > 0 Then
+                    dbcon.strmsg = "alert('You have an Approved/Pending BTA for this date …., you cannot proceed with another BTA')"
+                    mess(dbcon.strmsg)
+                    Return False
+                End If
+
+                dbcon.strQuery = "select * from [@Z_HR_OTRAREQ] where U_Z_AppStatus <>'R' and U_Z_EmpId='" & txtempid.Text.Trim() & "' and U_Z_TraEndDate between '" & dtFrom.ToString("yyyy-MM-dd") & "' and '" & dtTo.ToString("yyyy-MM-dd") & "'"
+                oRec.DoQuery(dbcon.strQuery)
+                If oRec.RecordCount > 0 Then
+                    dbcon.strmsg = "alert('You have an Approved/Pending BTA for this date …., you cannot proceed with another BTA')"
+                    mess(dbcon.strmsg)
+                    Return False
+                End If
+            End If
+           
+            dbcon.strmsg = dbcon.expenceclaimValidations(txtempid.Text.Trim(), "BTA", dtFrom, dtTo, objEN.SapCompany)
+            If dbcon.strmsg <> "" Then
+                dbcon.strmsg = "alert('" & dbcon.strmsg & "')"
                 mess(dbcon.strmsg)
+                Return False
             End If
             Return True
         Catch ex As Exception
@@ -335,7 +353,6 @@ Public Class TravelRequest
         End Try
     End Function
     Protected Sub btnsubmit_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnsubmit.Click
-        System.Threading.Thread.Sleep(2000)
         If Session("UserCode") Is Nothing Or Session("SAPCompany") Is Nothing Then
             Response.Redirect("Login.aspx?sessionExpired=true", True)
         Else
@@ -580,6 +597,11 @@ Public Class TravelRequest
                 Liview.Visible = True
             Else
                 Liview.Visible = False
+            End If
+
+            Dim lblcomments As LinkButton = CType(e.Row.FindControl("lbltripremarks"), LinkButton)
+            If lblcomments.ToolTip = "" Then
+                lblcomments.Text = ""
             End If
         End If
     End Sub

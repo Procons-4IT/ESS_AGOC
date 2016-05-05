@@ -45,7 +45,8 @@ Public Class LoginDA
         Try
             objDA.con.Open()
             Password = objDA.Encrypt(objen.Password, objDA.key)
-            objDA.cmd = New SqlCommand("select U_Z_EMPID  from [@Z_HR_LOGIN] WHERE U_Z_UID='" & objen.Userid & "' AND U_Z_PWD='" & Password & "' and isnull(U_Z_ESSAPPROVER,'E')='M'", objDA.con)
+            ' objDA.cmd = New SqlCommand("select U_Z_EMPID  from [@Z_HR_LOGIN] WHERE U_Z_UID='" & objen.Userid & "' AND U_Z_PWD='" & Password & "' and isnull(U_Z_ESSAPPROVER,'E')='M'", objDA.con)
+            objDA.cmd = New SqlCommand("select U_Z_EMPID  from [@Z_HR_LOGIN] WHERE U_Z_UID='" & objen.Userid & "' AND U_Z_PWD='" & Password & "'", objDA.con)
             objDA.cmd.CommandType = CommandType.Text
             Dim status As String
             status = objDA.cmd.ExecuteScalar()
@@ -196,5 +197,46 @@ Public Class LoginDA
             DBConnectionDA.WriteError(ex.Message)
         End Try
       
+    End Function
+    Public Function GetEmployeeType(ByVal objen As LoginEN) As String
+        Dim ReturnValue As String = ""
+        Try
+            objDA.con.Open()
+            objDA.strQuery = "select ISNULL(U_Z_ESSAPPROVER,'E')  from [@Z_HR_LOGIN] where ""U_Z_EMPID""='" & objen.Userid & "'"
+            objDA.cmd = New SqlCommand(objDA.strQuery, objDA.con)
+            objDA.cmd.CommandType = CommandType.Text
+            ReturnValue = objDA.cmd.ExecuteScalar()
+            objDA.con.Close()
+            Return ReturnValue
+        Catch ex As Exception
+            DBConnectionDA.WriteError(ex.Message)
+            Throw ex
+        End Try
+    End Function
+    Public Function GetLoaneeAppTemp(ByVal UserCode As String) As String
+        Dim ReturnValue As String = ""
+        Try
+            objDA.con.Open()
+            'objDA.strQuery = "select ISNULL(U_Z_ESSAPPROVER,'E')  from [@Z_HR_LOGIN] where ""U_Z_EMPID""='" & objen.Userid & "'"
+            objDA.strQuery = "select T1.U_Z_OUser from [@Z_HR_OAPPT] T0 JOIN [@Z_HR_APPT1] T1 ON T0.DocEntry=T1.DocEntry where T0.U_Z_DocType='Loanee' and T1.U_Z_OUser='" & UserCode & "'"
+            objDA.cmd = New SqlCommand(objDA.strQuery, objDA.con)
+            objDA.cmd.CommandType = CommandType.Text
+            ReturnValue = objDA.cmd.ExecuteScalar()
+            objDA.con.Close()
+            If ReturnValue = "" Then
+                objDA.strQuery = "select T0.""U_Z_EMPID"",T0.""U_Z_EMPNAME"" from ""@Z_HR_LOGIN"" T0 JOIN ""@Z_HR_LOGIN1"" T1 ON T0.""DocEntry""=T1.""DocEntry"" where T1.""U_Z_EMPID""='" & UserCode.Trim() & "' and T1.""U_Z_DocType""='Loanee'"
+                ' objDA.strQuery += "   Union ALL "
+                ' objDA.strQuery += " select T0.""U_Z_EMPID"",T0.""U_Z_EMPNAME"" from ""@Z_HR_LOGIN"" T0 where T0.""U_Z_LoaneExp"" ='Y' and T0.""U_Z_EMPID""='" & UserCode.Trim() & "' "
+                objDA.sqlda = New SqlDataAdapter(objDA.strQuery, objDA.con)
+                objDA.sqlda.Fill(objDA.dss5)
+                If objDA.dss5.Tables(0).Rows.Count > 0 Then
+                    Return "Test"
+                End If
+            End If
+            Return ReturnValue
+        Catch ex As Exception
+            DBConnectionDA.WriteError(ex.Message)
+            Throw ex
+        End Try
     End Function
 End Class

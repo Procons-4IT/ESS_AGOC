@@ -58,6 +58,7 @@ Public Class DBConnectionDA
     Public sqlreader As SqlDataReader
     Dim HANAConnection As OdbcConnection = New OdbcConnection()
     Public key As String = "!@#$%^*()"
+    Public DBName As String = ConfigurationManager.AppSettings("CompanyDB").ToString()
     Public Sub New()
         'readxml()
         objen.DBConnection = "data source=" & ConfigurationManager.AppSettings("SAPServer") & ";Integrated Security=SSPI;database=" & ConfigurationManager.AppSettings("CompanyDB") & ";User id=" & ConfigurationManager.AppSettings("DbUserName") & "; password=" & ConfigurationManager.AppSettings("DbPassword")
@@ -131,6 +132,19 @@ Public Class DBConnectionDA
             strPwd = strLicenseText
         End Try
         Return strPwd
+    End Function
+    Public Function GetDate(ByVal strDate As String) As DateTime
+        Try
+            Dim stdate As String = strDate.Trim().Replace("-", "/").Replace(".", "/")
+            stdate = stdate.Trim().Replace("/", "")
+            Dim stda As String = stdate.Substring(0, 2)
+            Dim stmon As String = stdate.Substring(2, 2)
+            Dim styear As String = stdate.Substring(4, 4)
+            Dim dttime As New DateTime(CInt(styear), CInt(stmon), CInt(stda))
+            Return dttime.Date
+        Catch ex As Exception
+            DBConnectionDA.WriteError(ex.Message & strDate)
+        End Try
     End Function
     Public Function Connection() As String
         Try
@@ -417,7 +431,7 @@ Public Class DBConnectionDA
             Select Case DocType
                 Case "EmpLife", "Rec"
                     strQuery = "Select * from ""@Z_HR_OAPPT"" T0 left join ""@Z_HR_APPT3"" T1 on T0.""DocEntry""=T1.""DocEntry"" where T0.""U_Z_Active""='Y' and T0.""U_Z_DocType""='" & DocType.ToString() & "' and T1.""U_Z_DeptCode""='" & Empid & "' "
-                Case "ExpCli", "Train", "TraReq", "LveReq", "LoanReq"
+                Case "ExpCli", "Train", "TraReq", "LveReq", "LoanReq", "Loanee"
                     If DocType = "LveReq" Then
                         If LeaveType <> "" Then
                             strQuery = "Select * from ""@Z_HR_OAPPT"" T0 left join ""@Z_HR_APPT1"" T1 on T0.""DocEntry""=T1.""DocEntry"" where T0.""U_Z_LveType""='" & LeaveType & "' and  T0.""U_Z_Active""='Y' and T0.""U_Z_DocType""='" & DocType.ToString() & "' and T1.""U_Z_OUser""='" & Empid & "' "
@@ -451,7 +465,7 @@ Public Class DBConnectionDA
             Select Case DocType
                 Case "EmpLife", "Rec"
                     strQuery = "Select * from ""@Z_HR_OAPPT"" T0 left join ""@Z_HR_APPT3"" T1 on T0.""DocEntry""=T1.""DocEntry"" where isnull(T0.""U_Z_Active"",'N')='Y' and T0.""U_Z_DocType""='" & DocType.ToString() & "' and T1.""U_Z_DeptCode""='" & Empid & "' "
-                Case "ExpCli", "Train", "TraReq", "LveReq", "LoanReq"
+                Case "ExpCli", "Train", "TraReq", "LveReq", "LoanReq", "Loanee"
                     If DocType = "LveReq" Then
                         If LeaveType <> "" Then
                             strQuery = "Select * from ""@Z_HR_OAPPT"" T0 left join ""@Z_HR_APPT1"" T1 on T0.""DocEntry""=T1.""DocEntry"" where T0.""U_Z_LveType""='" & LeaveType & "' and  isnull(T0.""U_Z_Active"",'N')='Y' and T0.""U_Z_DocType""='" & DocType.ToString() & "' and T1.""U_Z_OUser""='" & Empid & "' "
@@ -484,7 +498,7 @@ Public Class DBConnectionDA
             Select Case DocType
                 Case "EmpLife", "Rec"
                     strQuery = "Select * from ""@Z_HR_OAPPT"" T0 left join ""@Z_HR_APPT3"" T1 on T0.""DocEntry""=T1.""DocEntry"" where isnull(T0.""U_Z_Active"",'N')='Y' and T0.""U_Z_DocType""='" & DocType.ToString() & "' and T1.""U_Z_DeptCode""='" & Empid & "' "
-                Case "ExpCli", "Train", "TraReq", "LveReq", "LoanReq"
+                Case "ExpCli", "Train", "TraReq", "LveReq", "LoanReq", "Loanee"
                     If DocType = "LveReq" Then
                         If LeaveType <> "" Then
                             strQuery = "Select * from ""@Z_HR_OAPPT"" T0 left join ""@Z_HR_APPT1"" T1 on T0.""DocEntry""=T1.""DocEntry"" where T0.""U_Z_LveType""='" & LeaveType & "' and  isnull(T0.""U_Z_Active"",'N')='Y' and T0.""U_Z_DocType""='" & DocType.ToString() & "' and T1.""U_Z_OUser""='" & Empid & "' "
@@ -573,6 +587,11 @@ Public Class DBConnectionDA
                         oTemp.DoQuery(strQuery)
                         strMessage = "Requested by  :" & oTemp.Fields.Item("U_Z_EmpName").Value
                         strOrginator = strMessage
+                    Case "Loanee" 'Expense Claim"
+                        strQuery = "Select * from  [@Z_HR_LOEXPCL]  where Code='" & strReqNo & "'"
+                        oTemp.DoQuery(strQuery)
+                        strMessage = "Requested by  :" & oTemp.Fields.Item("U_Z_EmpName").Value
+                        strOrginator = strMessage
                     Case "RegTra"
                         strQuery = "Select * from  [@Z_HR_TRIN1]  where Code='" & strReqNo & "'"
                         oTemp.DoQuery(strQuery)
@@ -631,7 +650,7 @@ Public Class DBConnectionDA
                 End Select
                 Dim IntReqNo As Integer = Integer.Parse(strReqNo)
                 Dim strExpReqNo As String = IntReqNo.ToString()
-                If enDocType = "ExpCli" Then
+                If enDocType = "ExpCli" Or enDocType = "Loanee" Then
                     Dim IntReqNo1 As String = strExpNo
                     strExpReqNo1 = IntReqNo1.ToString()
                     oMessage.Text = strReqType + "  " + strExpReqNo + " with Expenses :  " + strExpNo + " " + strOrginator + " Needs Your Approval "
@@ -648,13 +667,13 @@ Public Class DBConnectionDA
                 pMessageDataColumn.ColumnName = "Request No"
                 oLines = pMessageDataColumn.MessageDataLines()
                 oLine = oLines.Add()
-                If enDocType = "ExpCli" Then
+                If enDocType = "ExpCli" Or enDocType = "Loanee" Then
                     oLine.Value = strExpReqNo1
                 Else
                     oLine.Value = strExpReqNo
                 End If
                 oMessageService.SendMessage(oMessage)
-                If enDocType = "ExpCli" Then
+                If enDocType = "ExpCli" Or enDocType = "Loanee" Then
                     ' Dim IntReqNo1 As Integer = strExpNo
                     ' strExpReqNo1 = IntReqNo1.ToString()
                     'strEmailMessage = strReqType + "  " + strExpNo + " " + strOrginator + " Needs Your Approval "
@@ -693,6 +712,9 @@ Public Class DBConnectionDA
                         strQuery = "Update [U_PEOPLEOBJ] set U_CurApprover='" & strMessageUser & "',U_NxtApprover='" & strMessageUser & "' where U_DocEntry='" & strReqNo & "'"
                     Case "LoanReq"
                         strQuery = "Update [U_LOANREQ] set U_CurApprover='" & strMessageUser & "',U_NxtApprover='" & strMessageUser & "' where U_DocEntry='" & strReqNo & "'"
+                    Case "Loanee"
+                        strQuery = "Update [@Z_HR_LEXPCL] set U_Z_CurApprover='" & strMessageUser & "',U_Z_NxtApprover='" & strMessageUser & "' where Code in (" & strExpNo & ")"
+
                 End Select
                 oTemp.DoQuery(strQuery)
             End If
@@ -951,9 +973,16 @@ Public Class DBConnectionDA
 
                 w.WriteLine("{0}", DateTime.Now.ToString(CultureInfo.InvariantCulture))
 
-                Dim err As String = "Error in: " & System.Web.HttpContext.Current.Request.Url.ToString() & ". Error Message:" & errorMessage
+                '  Dim err As String = "Error in: " & System.Web.HttpContext.Current.Request.Url.ToString() & ". Error Message:" & errorMessage
 
-                w.WriteLine(err)
+                ' w.WriteLine(err)
+                Try
+                    Dim err As String = "Error in: " & System.Web.HttpContext.Current.Request.Url.ToString() & ". Error Message:" & errorMessage
+
+                    w.WriteLine(err)
+                Catch ex As Exception
+                    w.WriteLine(errorMessage)
+                End Try
 
                 w.WriteLine("__________________________")
 
@@ -982,6 +1011,1542 @@ Public Class DBConnectionDA
         Catch ex As Exception
             DBConnectionDA.WriteError(ex.Message)
             Throw ex
+        End Try
+    End Function
+    Public Function GetAppraisalGrade(ByVal AppraisalRate As Double) As String
+        Dim sCode As String
+        Dim con As SqlConnection = New SqlConnection(GetConnection)
+        con.Open()
+        strQuery = "Select U_Z_Grade from [@Z_HR_APPGRE] where " & AppraisalRate & " between U_Z_Ratefrom and U_Z_RateTo "
+        cmd = New SqlCommand(strQuery, con)
+        cmd.CommandType = CommandType.Text
+        sCode = cmd.ExecuteScalar()
+        con.Close()
+        Return sCode
+    End Function
+    Public Function expenceclaimValidations(aEmpID As String, aChoice As String, aFromDate As Date, aToDate As Date, ByVal aCompany As SAPbobsCOM.Company, Optional aCode As String = "") As String
+        Dim strSQL, StrQuery, strResponse As String
+        Dim ORec As SAPbobsCOM.Recordset
+        ORec = aCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset)
+        strResponse = ""
+        Try
+            Select Case aChoice
+                Case "Exp"
+                    'BTA Validation
+                    StrQuery = "select * from [@Z_HR_OTRAREQ] where U_Z_EmpId='" & aEmpID & "' and U_Z_AppStatus<>'R' and '" & aFromDate.ToString("yyyy-MM-dd") & "' between U_Z_TraStDate and U_Z_TraEndDate"
+                    strResponse = "You have an Approved/Pending BTA for this date …., you cannot proceed with another Loanee expense claim"
+                    If StrQuery <> "" Then
+                        ORec.DoQuery(StrQuery)
+                        If ORec.RecordCount > 0 Then
+                            Return strResponse
+                        End If
+                    End If
+
+                    'Same Expense Claim validation
+                    If aCode <> "" Then
+                        '  StrQuery = "select * from [@Z_HR_OTRAREQ] where U_Z_EmpId='" & aEmpID & "' and U_Z_AppStatus<>'R' and '" & aFromDate.ToString("yyyy-MM-dd") & "' between U_Z_TraStDate and U_Z_TraEndDate"
+                        StrQuery = "select * from [@Z_HR_LEXPCL] where U_Z_EmpID='" & aEmpID & "' and U_Z_ExpType='" & aCode & "' and   U_Z_AppStatus <>'R' and  U_Z_OverLap='Y' and U_Z_Claimdt  ='" & aFromDate.ToString("yyyy-MM-dd") & "'"
+                        strResponse = "You have an Approved/Pending Loanee Expense for this date ., you cannot proceed with another Loanee expense claim"
+                        If StrQuery <> "" Then
+                            ORec.DoQuery(StrQuery)
+                            If ORec.RecordCount > 0 Then
+                                Return strResponse
+                            End If
+                        End If
+                    End If
+
+                    'New Training Requet Validation
+                    StrQuery = "select U_Z_TrainFrdt,U_Z_TrainTodt ,U_Z_HREmpID,U_Z_AppStatus,* from [@Z_HR_ONTREQ] where U_Z_AppStatus<>'R' and  U_Z_HREmpID='" & aEmpID & "' and '" & aFromDate.ToString("yyyy-MM-dd") & "' between U_Z_TrainFrdt and U_Z_TrainTodt "
+                    strResponse = "You have an Approved/Pending Training request or New Training request for this date ., you cannot proceed with another Loanee expense claim"
+                    If StrQuery <> "" Then
+                        ORec.DoQuery(StrQuery)
+                        If ORec.RecordCount > 0 Then
+                            Return strResponse
+                        End If
+                    End If
+                    'Apply Existing Training Request
+                    StrQuery = "select * from [@Z_HR_TRIN1] where U_Z_AppStatus<>'R' and  U_Z_HREmpID='" & aEmpID & "' and '" & aFromDate.ToString("yyyy-MM-dd") & "' between U_Z_Startdt and U_Z_Enddt "
+                    strResponse = "You have an Approved/Pending Training request or New Training request for this date ., you cannot proceed with another Loanee expense claim"
+                    If StrQuery <> "" Then
+                        ORec.DoQuery(StrQuery)
+                        If ORec.RecordCount > 0 Then
+                            Return strResponse
+                        End If
+                    End If
+
+                    'Leave Entry checking
+                    StrQuery = "SELECT T0.[U_Z_StartDate], T0.[U_Z_EndDate], T0.[U_Z_EMPID] FROM [dbo].[@Z_PAY_OLETRANS]  T0 where  U_Z_EMPID='" & aEmpID & "' and '" & aFromDate.ToString("yyyy-MM-dd") & "' between U_Z_StartDate and U_Z_EndDate "
+                    '  StrQuery = "SELECT T0.[U_Z_StartDate], T0.[U_Z_EndDate], T0.[U_Z_EMPID] FROM [dbo].[@Z_PAY_OLETRANS]  T0 where  U_Z_EMPID='" & aEmpID & "' and U_Z_StartDate between '" & aFromDate.ToString("yyyy-MM-dd") & "' and '" & aToDate.ToString("yyyy-MM-dd") & "'"
+
+                    strResponse = "You have an Approved/Pending Leave request for this date ., you cannot proceed with the Loanee expense Claim"
+                    If StrQuery <> "" Then
+                        ORec.DoQuery(StrQuery)
+                        If ORec.RecordCount > 0 Then
+
+                            Return strResponse
+                        End If
+                    End If
+
+                    StrQuery = "SELECT T0.[U_Z_StartDate], T0.[U_Z_EndDate], T0.[U_Z_EMPID] FROM [dbo].[@Z_PAY_OLETRANS1]  T0 where U_Z_Status<>'R' and  U_Z_EMPID='" & aEmpID & "' and '" & aFromDate.ToString("yyyy-MM-dd") & "' between U_Z_StartDate and U_Z_EndDate "
+                    '  StrQuery = "SELECT T0.[U_Z_StartDate], T0.[U_Z_EndDate], T0.[U_Z_EMPID] FROM [dbo].[@Z_PAY_OLETRANS]  T0 where  U_Z_EMPID='" & aEmpID & "' and U_Z_StartDate between '" & aFromDate.ToString("yyyy-MM-dd") & "' and '" & aToDate.ToString("yyyy-MM-dd") & "'"
+
+                    strResponse = "You have an Approved/Pending Leave request for this date ., you cannot proceed with the Loanee expense Claim"
+                    If StrQuery <> "" Then
+                        ORec.DoQuery(StrQuery)
+                        If ORec.RecordCount > 0 Then
+
+                            Return strResponse
+                        End If
+                    End If
+                Case "BTA"
+                    StrQuery = "select * from [@Z_HR_LEXPCL] where U_Z_EmpID='" & aEmpID & "' and  U_Z_AppStatus <>'R' and  U_Z_OverLap='Y' and U_Z_Claimdt between '" & aFromDate.ToString("yyyy-MM-dd") & "' and '" & aToDate.ToString("yyyy-MM-dd") & "'"
+                    strResponse = "You have an Approved/Pending Loanee Expenses for this date ., you cannot proceed with the BTA"
+                    If StrQuery <> "" Then
+                        ORec.DoQuery(StrQuery)
+                        If ORec.RecordCount > 0 Then
+
+                            Return strResponse
+                        End If
+                    End If
+
+                    'Apply Existing Training Request
+                    StrQuery = "select * from [@Z_HR_TRIN1] where U_Z_AppStatus<>'R' and  U_Z_HREmpID='" & aEmpID & "' and '" & aFromDate.ToString("yyyy-MM-dd") & "' between U_Z_Startdt and U_Z_Enddt "
+                    ''StrQuery = "select * from [@Z_HR_TRIN1] where U_Z_AppStatus<>'R' and  U_Z_HREmpID='" & aEmpID & "' and U_Z_Startdt between '" & aFromDate.ToString("yyyy-MM-dd") & "' and '" & aToDate.ToString("yyyy-MM-dd") & "'"
+                    strResponse = "You have an Approved/Pending Training request or New Training request for this date ., you cannot proceed with the BTA"""
+                    If StrQuery <> "" Then
+                        ORec.DoQuery(StrQuery)
+                        If ORec.RecordCount > 0 Then
+
+                            Return strResponse
+                        End If
+                    End If
+
+
+                    StrQuery = "select * from [@Z_HR_TRIN1] where U_Z_AppStatus<>'R' and  U_Z_HREmpID='" & aEmpID & "' and U_Z_Startdt between '" & aFromDate.ToString("yyyy-MM-dd") & "' and '" & aToDate.ToString("yyyy-MM-dd") & "'"
+                    strResponse = "You have an Approved/Pending Training request or New Training request for this date ., you cannot proceed with the BTA"""
+                    If StrQuery <> "" Then
+                        ORec.DoQuery(StrQuery)
+                        If ORec.RecordCount > 0 Then
+
+                            Return strResponse
+                        End If
+                    End If
+
+                    'Apply Existing Training Request
+                    StrQuery = "select * from [@Z_HR_TRIN1] where U_Z_AppStatus<>'R' and  U_Z_HREmpID='" & aEmpID & "' and '" & aToDate.ToString("yyyy-MM-dd") & "' between U_Z_Startdt and U_Z_Enddt "
+                    ' StrQuery = "select * from [@Z_HR_TRIN1] where U_Z_AppStatus<>'R' and  U_Z_HREmpID='" & aEmpID & "' and U_Z_Enddt between '" & aFromDate.ToString("yyyy-MM-dd") & "' and '" & aToDate.ToString("yyyy-MM-dd") & "'"
+                    strResponse = "You have an Approved/Pending Training request or New Training request for this date ., you cannot proceed with the BTA"""
+                    If StrQuery <> "" Then
+                        ORec.DoQuery(StrQuery)
+                        If ORec.RecordCount > 0 Then
+
+                            Return strResponse
+                        End If
+                    End If
+
+                    StrQuery = "select * from [@Z_HR_TRIN1] where U_Z_AppStatus<>'R' and  U_Z_HREmpID='" & aEmpID & "' and U_Z_Enddt between '" & aFromDate.ToString("yyyy-MM-dd") & "' and '" & aToDate.ToString("yyyy-MM-dd") & "'"
+                    strResponse = "You have an Approved/Pending Training request or New Training request for this date ., you cannot proceed with the BTA"""
+                    If StrQuery <> "" Then
+                        ORec.DoQuery(StrQuery)
+                        If ORec.RecordCount > 0 Then
+
+                            Return strResponse
+                        End If
+                    End If
+
+
+                    'New Training Requet Validation
+                    StrQuery = "select U_Z_TrainFrdt,U_Z_TrainTodt ,U_Z_HREmpID,U_Z_AppStatus,* from [@Z_HR_ONTREQ] where U_Z_AppStatus<>'R' and  U_Z_HREmpID='" & aEmpID & "' and '" & aFromDate.ToString("yyyy-MM-dd") & "' between U_Z_TrainFrdt and U_Z_TrainTodt "
+
+                    ' StrQuery = "select U_Z_TrainFrdt,U_Z_TrainTodt ,U_Z_HREmpID,U_Z_AppStatus,* from [@Z_HR_ONTREQ] where U_Z_AppStatus<>'R' and  U_Z_HREmpID='" & aEmpID & "' and U_Z_TrainFrdt between '" & aFromDate.ToString("yyyy-MM-dd") & "' and '" & aToDate.ToString("yyyy-MM-dd") & "'"
+                    strResponse = "You have an Approved/Pending Training request or New Training request for this date ., you cannot proceed with the BTA"
+                    If StrQuery <> "" Then
+                        ORec.DoQuery(StrQuery)
+                        If ORec.RecordCount > 0 Then
+
+                            Return strResponse
+                        End If
+                    End If
+
+                    StrQuery = "select U_Z_TrainFrdt,U_Z_TrainTodt ,U_Z_HREmpID,U_Z_AppStatus,* from [@Z_HR_ONTREQ] where U_Z_AppStatus<>'R' and  U_Z_HREmpID='" & aEmpID & "' and U_Z_TrainFrdt between '" & aFromDate.ToString("yyyy-MM-dd") & "' and '" & aToDate.ToString("yyyy-MM-dd") & "'"
+                    strResponse = "You have an Approved/Pending Training request or New Training request for this date ., you cannot proceed with the BTA"
+                    If StrQuery <> "" Then
+                        ORec.DoQuery(StrQuery)
+                        If ORec.RecordCount > 0 Then
+
+                            Return strResponse
+                        End If
+                    End If
+
+                    StrQuery = "select U_Z_TrainFrdt,U_Z_TrainTodt ,U_Z_HREmpID,U_Z_AppStatus,* from [@Z_HR_ONTREQ] where U_Z_AppStatus<>'R' and  U_Z_HREmpID='" & aEmpID & "' and '" & aToDate.ToString("yyyy-MM-dd") & "' between U_Z_TrainFrdt and U_Z_TrainTodt "
+                    ' StrQuery = "select U_Z_TrainFrdt,U_Z_TrainTodt ,U_Z_HREmpID,U_Z_AppStatus,* from [@Z_HR_ONTREQ] where U_Z_AppStatus<>'R' and  U_Z_HREmpID='" & aEmpID & "' and U_Z_TrainTodt between '" & aFromDate.ToString("yyyy-MM-dd") & "' and '" & aToDate.ToString("yyyy-MM-dd") & "'"
+                    strResponse = "You have an Approved/Pending Training request or New Training request for this date ., you cannot proceed with the BTA"
+                    If StrQuery <> "" Then
+                        ORec.DoQuery(StrQuery)
+                        If ORec.RecordCount > 0 Then
+
+                            Return strResponse
+                        End If
+                    End If
+
+                    StrQuery = "select U_Z_TrainFrdt,U_Z_TrainTodt ,U_Z_HREmpID,U_Z_AppStatus,* from [@Z_HR_ONTREQ] where U_Z_AppStatus<>'R' and  U_Z_HREmpID='" & aEmpID & "' and U_Z_TrainTodt between '" & aFromDate.ToString("yyyy-MM-dd") & "' and '" & aToDate.ToString("yyyy-MM-dd") & "'"
+                    strResponse = "You have an Approved/Pending Training request or New Training request for this date ., you cannot proceed with the BTA"
+                    If StrQuery <> "" Then
+                        ORec.DoQuery(StrQuery)
+                        If ORec.RecordCount > 0 Then
+
+                            Return strResponse
+                        End If
+                    End If
+
+
+                    'BTA Validation
+                    StrQuery = "select * from [@Z_HR_OTRAREQ] where U_Z_EmpId='" & aEmpID & "' and U_Z_AppStatus<>'R' and '" & aFromDate.ToString("yyyy-MM-dd") & "' between U_Z_TraStDate and U_Z_TraEndDate"
+                    'StrQuery = "select * from [@Z_HR_OTRAREQ] where U_Z_EmpId='" & aEmpID & "' and U_Z_AppStatus<>'R' and U_Z_TraStDate between '" & aFromDate.ToString("yyyy-MM-dd") & "' and '" & aToDate.ToString("yyyy-MM-dd") & "'"
+                    strResponse = "You have an Approved/Pending BTA for this date ….,you cannot proceed with the New BTA"
+                    If StrQuery <> "" Then
+                        ORec.DoQuery(StrQuery)
+                        If ORec.RecordCount > 0 Then
+
+                            Return strResponse
+                        End If
+                    End If
+
+                    StrQuery = "select * from [@Z_HR_OTRAREQ] where U_Z_EmpId='" & aEmpID & "' and U_Z_AppStatus<>'R' and U_Z_TraStDate between '" & aFromDate.ToString("yyyy-MM-dd") & "' and '" & aToDate.ToString("yyyy-MM-dd") & "'"
+                    strResponse = "You have an Approved/Pending BTA for this date ….,you cannot proceed with the New BTA"
+                    If StrQuery <> "" Then
+                        ORec.DoQuery(StrQuery)
+                        If ORec.RecordCount > 0 Then
+
+                            Return strResponse
+                        End If
+                    End If
+
+                    StrQuery = "select * from [@Z_HR_OTRAREQ] where U_Z_EmpId='" & aEmpID & "' and U_Z_AppStatus<>'R' and '" & aToDate.ToString("yyyy-MM-dd") & "' between U_Z_TraStDate and U_Z_TraEndDate"
+                    ' StrQuery = "select * from [@Z_HR_OTRAREQ] where U_Z_EmpId='" & aEmpID & "' and U_Z_AppStatus<>'R' and U_Z_TraEndDate between '" & aFromDate.ToString("yyyy-MM-dd") & "' and '" & aToDate.ToString("yyyy-MM-dd") & "'"
+                    strResponse = "You have an Approved/Pending BTA for this date …., you cannot proceed with the New BTA"
+                    If StrQuery <> "" Then
+                        ORec.DoQuery(StrQuery)
+                        If ORec.RecordCount > 0 Then
+
+                            Return strResponse
+                        End If
+                    End If
+
+                    StrQuery = "select * from [@Z_HR_OTRAREQ] where U_Z_EmpId='" & aEmpID & "' and U_Z_AppStatus<>'R' and U_Z_TraEndDate between '" & aFromDate.ToString("yyyy-MM-dd") & "' and '" & aToDate.ToString("yyyy-MM-dd") & "'"
+                    strResponse = "You have an Approved/Pending BTA for this date …., you cannot proceed with the New BTA"
+                    If StrQuery <> "" Then
+                        ORec.DoQuery(StrQuery)
+                        If ORec.RecordCount > 0 Then
+
+                            Return strResponse
+                        End If
+                    End If
+
+
+                    'Leave Entry checking
+                    StrQuery = "SELECT T0.[U_Z_StartDate], T0.[U_Z_EndDate], T0.[U_Z_EMPID] FROM [dbo].[@Z_PAY_OLETRANS]  T0 where  U_Z_EMPID='" & aEmpID & "' and '" & aFromDate.ToString("yyyy-MM-dd") & "' between U_Z_StartDate and U_Z_EndDate "
+                    'StrQuery = "SELECT T0.[U_Z_StartDate], T0.[U_Z_EndDate], T0.[U_Z_EMPID] FROM [dbo].[@Z_PAY_OLETRANS]  T0 where  U_Z_EMPID='" & aEmpID & "' and U_Z_StartDate between '" & aFromDate.ToString("yyyy-MM-dd") & "' and '" & aToDate.ToString("yyyy-MM-dd") & "'"
+                    strResponse = "You have an Approved/Pending Leave request for this date ., you cannot proceed with the BTA"
+                    If StrQuery <> "" Then
+                        ORec.DoQuery(StrQuery)
+                        If ORec.RecordCount > 0 Then
+
+                            Return strResponse
+                        End If
+                    End If
+
+                    StrQuery = "SELECT T0.[U_Z_StartDate], T0.[U_Z_EndDate], T0.[U_Z_EMPID] FROM [dbo].[@Z_PAY_OLETRANS]  T0 where  U_Z_EMPID='" & aEmpID & "' and U_Z_StartDate between '" & aFromDate.ToString("yyyy-MM-dd") & "' and '" & aToDate.ToString("yyyy-MM-dd") & "'"
+                    strResponse = "You have an Approved/Pending Leave request for this date ., you cannot proceed with the BTA"
+                    If StrQuery <> "" Then
+                        ORec.DoQuery(StrQuery)
+                        If ORec.RecordCount > 0 Then
+
+                            Return strResponse
+                        End If
+                    End If
+
+                    StrQuery = "SELECT T0.[U_Z_StartDate], T0.[U_Z_EndDate], T0.[U_Z_EMPID] FROM [dbo].[@Z_PAY_OLETRANS]  T0 where  U_Z_EMPID='" & aEmpID & "' and '" & aToDate.ToString("yyyy-MM-dd") & "' between U_Z_StartDate and U_Z_EndDate "
+                    'StrQuery = "SELECT T0.[U_Z_StartDate], T0.[U_Z_EndDate], T0.[U_Z_EMPID] FROM [dbo].[@Z_PAY_OLETRANS]  T0 where  U_Z_EMPID='" & aEmpID & "' and U_Z_EndDate between '" & aFromDate.ToString("yyyy-MM-dd") & "' and '" & aToDate.ToString("yyyy-MM-dd") & "'"
+                    strResponse = "You have an  Approved/Pending Leave request for this date ., you cannot proceed with the BTA"
+                    If StrQuery <> "" Then
+                        ORec.DoQuery(StrQuery)
+                        If ORec.RecordCount > 0 Then
+
+                            Return strResponse
+                        End If
+                    End If
+
+                    StrQuery = "SELECT T0.[U_Z_StartDate], T0.[U_Z_EndDate], T0.[U_Z_EMPID] FROM [dbo].[@Z_PAY_OLETRANS]  T0 where  U_Z_EMPID='" & aEmpID & "' and U_Z_EndDate between '" & aFromDate.ToString("yyyy-MM-dd") & "' and '" & aToDate.ToString("yyyy-MM-dd") & "'"
+                    strResponse = "You have an  Approved/Pending Leave request for this date ., you cannot proceed with the BTA"
+                    If StrQuery <> "" Then
+                        ORec.DoQuery(StrQuery)
+                        If ORec.RecordCount > 0 Then
+
+                            Return strResponse
+                        End If
+                    End If
+
+
+                    'Leave Entry checking
+                    StrQuery = "SELECT T0.[U_Z_StartDate], T0.[U_Z_EndDate], T0.[U_Z_EMPID] FROM [dbo].[@Z_PAY_OLETRANS1]  T0 where U_Z_Status<>'R' and  U_Z_EMPID='" & aEmpID & "' and '" & aFromDate.ToString("yyyy-MM-dd") & "' between U_Z_StartDate and U_Z_EndDate "
+                    'StrQuery = "SELECT T0.[U_Z_StartDate], T0.[U_Z_EndDate], T0.[U_Z_EMPID] FROM [dbo].[@Z_PAY_OLETRANS]  T0 where  U_Z_EMPID='" & aEmpID & "' and U_Z_StartDate between '" & aFromDate.ToString("yyyy-MM-dd") & "' and '" & aToDate.ToString("yyyy-MM-dd") & "'"
+                    strResponse = "You have an Approved/Pending Leave request for this date ., you cannot proceed with the BTA"
+                    If StrQuery <> "" Then
+                        ORec.DoQuery(StrQuery)
+                        If ORec.RecordCount > 0 Then
+
+                            Return strResponse
+                        End If
+                    End If
+
+                    StrQuery = "SELECT T0.[U_Z_StartDate], T0.[U_Z_EndDate], T0.[U_Z_EMPID] FROM [dbo].[@Z_PAY_OLETRANS1]  T0 where U_Z_Status<>'R' and  U_Z_EMPID='" & aEmpID & "' and U_Z_StartDate between '" & aFromDate.ToString("yyyy-MM-dd") & "' and '" & aToDate.ToString("yyyy-MM-dd") & "'"
+                    strResponse = "You have an Approved/Pending Leave request for this date ., you cannot proceed with the BTA"
+                    If StrQuery <> "" Then
+                        ORec.DoQuery(StrQuery)
+                        If ORec.RecordCount > 0 Then
+
+                            Return strResponse
+                        End If
+                    End If
+
+                    StrQuery = "SELECT T0.[U_Z_StartDate], T0.[U_Z_EndDate], T0.[U_Z_EMPID] FROM [dbo].[@Z_PAY_OLETRANS1]  T0 where U_Z_Status<>'R' and  U_Z_EMPID='" & aEmpID & "' and '" & aToDate.ToString("yyyy-MM-dd") & "' between U_Z_StartDate and U_Z_EndDate "
+                    'StrQuery = "SELECT T0.[U_Z_StartDate], T0.[U_Z_EndDate], T0.[U_Z_EMPID] FROM [dbo].[@Z_PAY_OLETRANS]  T0 where  U_Z_EMPID='" & aEmpID & "' and U_Z_EndDate between '" & aFromDate.ToString("yyyy-MM-dd") & "' and '" & aToDate.ToString("yyyy-MM-dd") & "'"
+                    strResponse = "You have an  Approved/Pending Leave request for this date ., you cannot proceed with the BTA"
+                    If StrQuery <> "" Then
+                        ORec.DoQuery(StrQuery)
+                        If ORec.RecordCount > 0 Then
+
+                            Return strResponse
+                        End If
+                    End If
+
+                    StrQuery = "SELECT T0.[U_Z_StartDate], T0.[U_Z_EndDate], T0.[U_Z_EMPID] FROM [dbo].[@Z_PAY_OLETRANS1]  T0 where U_Z_Status<>'R' and  U_Z_EMPID='" & aEmpID & "' and U_Z_EndDate between '" & aFromDate.ToString("yyyy-MM-dd") & "' and '" & aToDate.ToString("yyyy-MM-dd") & "'"
+                    strResponse = "You have an  Approved/Pending Leave request for this date ., you cannot proceed with the BTA"
+                    If StrQuery <> "" Then
+                        ORec.DoQuery(StrQuery)
+                        If ORec.RecordCount > 0 Then
+
+                            Return strResponse
+                        End If
+                    End If
+
+                Case "Traning"
+                    StrQuery = "select * from [@Z_HR_LEXPCL] where U_Z_EmpID='" & aEmpID & "' and  U_Z_AppStatus <>'R' and  U_Z_OverLap='Y' and U_Z_Claimdt between '" & aFromDate.ToString("yyyy-MM-dd") & "' and '" & aToDate.ToString("yyyy-MM-dd") & "'"
+                    strResponse = "You have an Approved/Pending Loanee Expenses for this date., you cannot proceed with the New Training Request"
+                    If StrQuery <> "" Then
+                        ORec.DoQuery(StrQuery)
+                        If ORec.RecordCount > 0 Then
+
+                            Return strResponse
+                        End If
+                    End If
+
+                    'New Training Requet Validation
+                    '  StrQuery = "select U_Z_TrainFrdt,U_Z_TrainTodt ,U_Z_HREmpID,U_Z_AppStatus,* from [@Z_HR_ONTREQ] where U_Z_AppStatus<>'R' and  U_Z_HREmpID='" & aEmpID & "' and '" & aFromDate.ToString("yyyy-MM-dd") & "' between U_Z_TrainFrdt and U_Z_TrainTodt "
+
+                    StrQuery = "select U_Z_TrainFrdt,U_Z_TrainTodt ,U_Z_HREmpID,U_Z_AppStatus,* from [@Z_HR_ONTREQ] where U_Z_AppStatus<>'R' and  U_Z_HREmpID='" & aEmpID & "' and '" & aFromDate.ToString("yyyy-MM-dd") & "' between U_Z_TrainFrdt and U_Z_TrainTodt "
+                    'StrQuery = "select U_Z_TrainFrdt,U_Z_TrainTodt ,U_Z_HREmpID,U_Z_AppStatus,* from [@Z_HR_ONTREQ] where U_Z_AppStatus<>'R' and  U_Z_HREmpID='" & aEmpID & "' and U_Z_TrainFrdt between '" & aFromDate.ToString("yyyy-MM-dd") & "' and '" & aToDate.ToString("yyyy-MM-dd") & "'"
+                    strResponse = "You have an Approved/Pending Training request or New Training request for this date .,you cannot proceed with the New Training Request"
+                    If StrQuery <> "" Then
+                        ORec.DoQuery(StrQuery)
+                        If ORec.RecordCount > 0 Then
+
+                            Return strResponse
+                        End If
+                    End If
+                    StrQuery = "select U_Z_TrainFrdt,U_Z_TrainTodt ,U_Z_HREmpID,U_Z_AppStatus,* from [@Z_HR_ONTREQ] where U_Z_AppStatus<>'R' and  U_Z_HREmpID='" & aEmpID & "' and U_Z_TrainFrdt between '" & aFromDate.ToString("yyyy-MM-dd") & "' and '" & aToDate.ToString("yyyy-MM-dd") & "'"
+                    strResponse = "You have an Approved/Pending Training request or New Training request for this date .,you cannot proceed with the New Training Request"
+                    If StrQuery <> "" Then
+                        ORec.DoQuery(StrQuery)
+                        If ORec.RecordCount > 0 Then
+
+                            Return strResponse
+                        End If
+                    End If
+
+                    StrQuery = "select U_Z_TrainFrdt,U_Z_TrainTodt ,U_Z_HREmpID,U_Z_AppStatus,* from [@Z_HR_ONTREQ] where U_Z_AppStatus<>'R' and  U_Z_HREmpID='" & aEmpID & "' and '" & aToDate.ToString("yyyy-MM-dd") & "' between U_Z_TrainFrdt and U_Z_TrainTodt "
+                    ' StrQuery = "select U_Z_TrainFrdt,U_Z_TrainTodt ,U_Z_HREmpID,U_Z_AppStatus,* from [@Z_HR_ONTREQ] where U_Z_AppStatus<>'R' and  U_Z_HREmpID='" & aEmpID & "' and U_Z_TrainTodt between '" & aFromDate.ToString("yyyy-MM-dd") & "' and '" & aToDate.ToString("yyyy-MM-dd") & "'"
+
+                    strResponse = "You have an Approved/Pending Training request or New Training request for this date .,you cannot proceed with the New Training Request"
+                    If StrQuery <> "" Then
+                        ORec.DoQuery(StrQuery)
+                        If ORec.RecordCount > 0 Then
+
+                            Return strResponse
+                        End If
+                    End If
+
+                    StrQuery = "select U_Z_TrainFrdt,U_Z_TrainTodt ,U_Z_HREmpID,U_Z_AppStatus,* from [@Z_HR_ONTREQ] where U_Z_AppStatus<>'R' and  U_Z_HREmpID='" & aEmpID & "' and U_Z_TrainTodt between '" & aFromDate.ToString("yyyy-MM-dd") & "' and '" & aToDate.ToString("yyyy-MM-dd") & "'"
+                    strResponse = "You have an Approved/Pending Training request or New Training request for this date .,you cannot proceed with the New Training Request"
+                    If StrQuery <> "" Then
+                        ORec.DoQuery(StrQuery)
+                        If ORec.RecordCount > 0 Then
+
+                            Return strResponse
+                        End If
+                    End If
+
+                    'Apply Existing Training Request
+                    StrQuery = "select * from [@Z_HR_TRIN1] where U_Z_AppStatus<>'R' and  U_Z_HREmpID='" & aEmpID & "' and '" & aFromDate.ToString("yyyy-MM-dd") & "' between U_Z_Startdt and U_Z_Enddt "
+                    ' StrQuery = "select * from [@Z_HR_TRIN1] where U_Z_AppStatus<>'R' and  U_Z_HREmpID='" & aEmpID & "' and U_Z_Startdt between  '" & aFromDate.ToString("yyyy-MM-dd") & "' and '" & aToDate.ToString("yyyy-MM-dd") & "'"
+                    strResponse = "You have an Approved/Pending Training request or New Training request for this date ., you cannot proceed with the New Training Request"
+                    If StrQuery <> "" Then
+                        ORec.DoQuery(StrQuery)
+                        If ORec.RecordCount > 0 Then
+
+                            Return strResponse
+                        End If
+                    End If
+
+                    StrQuery = "select * from [@Z_HR_TRIN1] where U_Z_AppStatus<>'R' and  U_Z_HREmpID='" & aEmpID & "' and U_Z_Startdt between  '" & aFromDate.ToString("yyyy-MM-dd") & "' and '" & aToDate.ToString("yyyy-MM-dd") & "'"
+                    strResponse = "You have an Approved/Pending Training request or New Training request for this date ., you cannot proceed with the New Training Request"
+                    If StrQuery <> "" Then
+                        ORec.DoQuery(StrQuery)
+                        If ORec.RecordCount > 0 Then
+
+                            Return strResponse
+                        End If
+                    End If
+                    StrQuery = "select * from [@Z_HR_TRIN1] where U_Z_AppStatus<>'R' and  U_Z_HREmpID='" & aEmpID & "' and '" & aToDate.ToString("yyyy-MM-dd") & "' between U_Z_Startdt and U_Z_Enddt "
+                    ' StrQuery = "select * from [@Z_HR_TRIN1] where U_Z_AppStatus<>'R' and  U_Z_HREmpID='" & aEmpID & "' and U_Z_Enddt between  '" & aFromDate.ToString("yyyy-MM-dd") & "' and '" & aToDate.ToString("yyyy-MM-dd") & "'"
+                    strResponse = "You have an Approved/Pending Training request or New Training request for this date ., you cannot proceed with the New Training Request"
+                    If StrQuery <> "" Then
+                        ORec.DoQuery(StrQuery)
+                        If ORec.RecordCount > 0 Then
+
+                            Return strResponse
+                        End If
+                    End If
+                    StrQuery = "select * from [@Z_HR_TRIN1] where U_Z_AppStatus<>'R' and  U_Z_HREmpID='" & aEmpID & "' and U_Z_Enddt between  '" & aFromDate.ToString("yyyy-MM-dd") & "' and '" & aToDate.ToString("yyyy-MM-dd") & "'"
+                    strResponse = "You have an Approved/Pending Training request or New Training request for this date ., you cannot proceed with the New Training Request"
+                    If StrQuery <> "" Then
+                        ORec.DoQuery(StrQuery)
+                        If ORec.RecordCount > 0 Then
+
+                            Return strResponse
+                        End If
+                    End If
+                    'BTA Validation
+                    StrQuery = "select * from [@Z_HR_OTRAREQ] where U_Z_EmpId='" & aEmpID & "' and U_Z_AppStatus<>'R' and '" & aFromDate.ToString("yyyy-MM-dd") & "' between U_Z_TraStDate and U_Z_TraEndDate"
+                    'StrQuery = "select * from [@Z_HR_OTRAREQ] where U_Z_EmpId='" & aEmpID & "' and U_Z_AppStatus<>'R' and U_Z_TraStDate between '" & aFromDate.ToString("yyyy-MM-dd") & "' and '" & aToDate.ToString("yyyy-MM-dd") & "'"
+                    strResponse = "You have an Approved/Pending BTA for this date ….,you cannot proceed with the New Training Request"
+                    If StrQuery <> "" Then
+                        ORec.DoQuery(StrQuery)
+                        If ORec.RecordCount > 0 Then
+
+                            Return strResponse
+                        End If
+                    End If
+
+                    StrQuery = "select * from [@Z_HR_OTRAREQ] where U_Z_EmpId='" & aEmpID & "' and U_Z_AppStatus<>'R' and U_Z_TraStDate between '" & aFromDate.ToString("yyyy-MM-dd") & "' and '" & aToDate.ToString("yyyy-MM-dd") & "'"
+                    strResponse = "You have an Approved/Pending BTA for this date ….,you cannot proceed with the New Training Request"
+                    If StrQuery <> "" Then
+                        ORec.DoQuery(StrQuery)
+                        If ORec.RecordCount > 0 Then
+
+                            Return strResponse
+                        End If
+                    End If
+
+                    StrQuery = "select * from [@Z_HR_OTRAREQ] where U_Z_EmpId='" & aEmpID & "' and U_Z_AppStatus<>'R' and '" & aToDate.ToString("yyyy-MM-dd") & "' between U_Z_TraStDate and U_Z_TraEndDate"
+                    ' StrQuery = "select * from [@Z_HR_OTRAREQ] where U_Z_EmpId='" & aEmpID & "' and U_Z_AppStatus<>'R' and U_Z_TraEndDate between '" & aFromDate.ToString("yyyy-MM-dd") & "' and '" & aToDate.ToString("yyyy-MM-dd") & "'"
+                    strResponse = "You have an Approved/Pending BTA for this date …., you cannot proceed with the New Training Request"
+                    If StrQuery <> "" Then
+                        ORec.DoQuery(StrQuery)
+                        If ORec.RecordCount > 0 Then
+
+                            Return strResponse
+                        End If
+                    End If
+
+                    StrQuery = "select * from [@Z_HR_OTRAREQ] where U_Z_EmpId='" & aEmpID & "' and U_Z_AppStatus<>'R' and U_Z_TraEndDate between '" & aFromDate.ToString("yyyy-MM-dd") & "' and '" & aToDate.ToString("yyyy-MM-dd") & "'"
+                    strResponse = "You have an Approved/Pending BTA for this date …., you cannot proceed with the New Training Request"
+                    If StrQuery <> "" Then
+                        ORec.DoQuery(StrQuery)
+                        If ORec.RecordCount > 0 Then
+
+                            Return strResponse
+                        End If
+                    End If
+
+
+                    'Leave Entry checking
+                    StrQuery = "SELECT T0.[U_Z_StartDate], T0.[U_Z_EndDate], T0.[U_Z_EMPID] FROM [dbo].[@Z_PAY_OLETRANS]  T0 where  U_Z_EMPID='" & aEmpID & "' and '" & aFromDate.ToString("yyyy-MM-dd") & "' between U_Z_StartDate and U_Z_EndDate "
+                    'StrQuery = "SELECT T0.[U_Z_StartDate], T0.[U_Z_EndDate], T0.[U_Z_EMPID] FROM [dbo].[@Z_PAY_OLETRANS]  T0 where  U_Z_EMPID='" & aEmpID & "' and U_Z_StartDate between '" & aFromDate.ToString("yyyy-MM-dd") & "'  and '" & aToDate.ToString("yyyy-MM-dd") & "'"
+                    strResponse = "You have an Approved/Pending Leave request for this date .,  you cannot proceed with the New Training Request"
+                    If StrQuery <> "" Then
+                        ORec.DoQuery(StrQuery)
+                        If ORec.RecordCount > 0 Then
+
+                            Return strResponse
+                        End If
+                    End If
+
+                    StrQuery = "SELECT T0.[U_Z_StartDate], T0.[U_Z_EndDate], T0.[U_Z_EMPID] FROM [dbo].[@Z_PAY_OLETRANS]  T0 where  U_Z_EMPID='" & aEmpID & "' and U_Z_StartDate between '" & aFromDate.ToString("yyyy-MM-dd") & "'  and '" & aToDate.ToString("yyyy-MM-dd") & "'"
+                    strResponse = "You have an Approved/Pending Leave request for this date .,  you cannot proceed with the New Training Request"
+                    If StrQuery <> "" Then
+                        ORec.DoQuery(StrQuery)
+                        If ORec.RecordCount > 0 Then
+
+                            Return strResponse
+                        End If
+                    End If
+
+                    StrQuery = "SELECT T0.[U_Z_StartDate], T0.[U_Z_EndDate], T0.[U_Z_EMPID] FROM [dbo].[@Z_PAY_OLETRANS]  T0 where  U_Z_EMPID='" & aEmpID & "' and '" & aToDate.ToString("yyyy-MM-dd") & "' between U_Z_StartDate and U_Z_EndDate "
+                    'StrQuery = "SELECT T0.[U_Z_StartDate], T0.[U_Z_EndDate], T0.[U_Z_EMPID] FROM [dbo].[@Z_PAY_OLETRANS]  T0 where  U_Z_EMPID='" & aEmpID & "' and U_Z_EndDate between '" & aFromDate.ToString("yyyy-MM-dd") & "'  and '" & aToDate.ToString("yyyy-MM-dd") & "'"
+                    strResponse = "You have an Leave request for this date .,  you cannot proceed with the New Training Request"
+                    If StrQuery <> "" Then
+                        ORec.DoQuery(StrQuery)
+                        If ORec.RecordCount > 0 Then
+
+                            Return strResponse
+                        End If
+                    End If
+
+                    StrQuery = "SELECT T0.[U_Z_StartDate], T0.[U_Z_EndDate], T0.[U_Z_EMPID] FROM [dbo].[@Z_PAY_OLETRANS]  T0 where  U_Z_EMPID='" & aEmpID & "' and U_Z_EndDate between '" & aFromDate.ToString("yyyy-MM-dd") & "'  and '" & aToDate.ToString("yyyy-MM-dd") & "'"
+                    strResponse = "You have an Leave request for this date .,  you cannot proceed with the New Training Request"
+                    If StrQuery <> "" Then
+                        ORec.DoQuery(StrQuery)
+                        If ORec.RecordCount > 0 Then
+
+                            Return strResponse
+                        End If
+                    End If
+
+                    'Leave Entry checking
+                    StrQuery = "SELECT T0.[U_Z_StartDate], T0.[U_Z_EndDate], T0.[U_Z_EMPID] FROM [dbo].[@Z_PAY_OLETRANS1]  T0 where U_Z_Status<>'R' and  U_Z_EMPID='" & aEmpID & "' and '" & aFromDate.ToString("yyyy-MM-dd") & "' between U_Z_StartDate and U_Z_EndDate "
+                    'StrQuery = "SELECT T0.[U_Z_StartDate], T0.[U_Z_EndDate], T0.[U_Z_EMPID] FROM [dbo].[@Z_PAY_OLETRANS]  T0 where  U_Z_EMPID='" & aEmpID & "' and U_Z_StartDate between '" & aFromDate.ToString("yyyy-MM-dd") & "' and '" & aToDate.ToString("yyyy-MM-dd") & "'"
+                    strResponse = "You have an Approved/Pending Leave request for this date ., you cannot proceed with the Training Request"
+                    If StrQuery <> "" Then
+                        ORec.DoQuery(StrQuery)
+                        If ORec.RecordCount > 0 Then
+
+                            Return strResponse
+                        End If
+                    End If
+
+                    StrQuery = "SELECT T0.[U_Z_StartDate], T0.[U_Z_EndDate], T0.[U_Z_EMPID] FROM [dbo].[@Z_PAY_OLETRANS1]  T0 where U_Z_Status<>'R' and  U_Z_EMPID='" & aEmpID & "' and U_Z_StartDate between '" & aFromDate.ToString("yyyy-MM-dd") & "' and '" & aToDate.ToString("yyyy-MM-dd") & "'"
+                    strResponse = "You have an Approved/Pending Leave request for this date ., you cannot proceed with the Training Request"
+                    If StrQuery <> "" Then
+                        ORec.DoQuery(StrQuery)
+                        If ORec.RecordCount > 0 Then
+
+                            Return strResponse
+                        End If
+                    End If
+
+                    StrQuery = "SELECT T0.[U_Z_StartDate], T0.[U_Z_EndDate], T0.[U_Z_EMPID] FROM [dbo].[@Z_PAY_OLETRANS1]  T0 where U_Z_Status<>'R' and  U_Z_EMPID='" & aEmpID & "' and '" & aToDate.ToString("yyyy-MM-dd") & "' between U_Z_StartDate and U_Z_EndDate "
+                    'StrQuery = "SELECT T0.[U_Z_StartDate], T0.[U_Z_EndDate], T0.[U_Z_EMPID] FROM [dbo].[@Z_PAY_OLETRANS]  T0 where  U_Z_EMPID='" & aEmpID & "' and U_Z_EndDate between '" & aFromDate.ToString("yyyy-MM-dd") & "' and '" & aToDate.ToString("yyyy-MM-dd") & "'"
+                    strResponse = "You have an  Approved/Pending Leave request for this date ., you cannot proceed with the Training Request"
+                    If StrQuery <> "" Then
+                        ORec.DoQuery(StrQuery)
+                        If ORec.RecordCount > 0 Then
+
+                            Return strResponse
+                        End If
+                    End If
+
+                    StrQuery = "SELECT T0.[U_Z_StartDate], T0.[U_Z_EndDate], T0.[U_Z_EMPID] FROM [dbo].[@Z_PAY_OLETRANS1]  T0 where U_Z_Status<>'R' and  U_Z_EMPID='" & aEmpID & "' and U_Z_EndDate between '" & aFromDate.ToString("yyyy-MM-dd") & "' and '" & aToDate.ToString("yyyy-MM-dd") & "'"
+                    strResponse = "You have an  Approved/Pending Leave request for this date ., you cannot proceed with the Training Request"
+                    If StrQuery <> "" Then
+                        ORec.DoQuery(StrQuery)
+                        If ORec.RecordCount > 0 Then
+
+                            Return strResponse
+                        End If
+                    End If
+
+                Case "NewTraining"
+                    StrQuery = "select * from [@Z_HR_LEXPCL] where U_Z_EmpID='" & aEmpID & "' and  U_Z_AppStatus <>'R' and  U_Z_OverLap='Y' and U_Z_Claimdt between '" & aFromDate.ToString("yyyy-MM-dd") & "' and '" & aToDate.ToString("yyyy-MM-dd") & "'"
+                    strResponse = "You have an Approved/Pending Loanee Expenses for this date., you cannot proceed with the New Training Request"
+                    If StrQuery <> "" Then
+                        ORec.DoQuery(StrQuery)
+                        If ORec.RecordCount > 0 Then
+
+                            Return strResponse
+                        End If
+                    End If
+
+                    'New Training Requet Validation
+                    StrQuery = "select U_Z_TrainFrdt,U_Z_TrainTodt ,U_Z_HREmpID,U_Z_AppStatus,* from [@Z_HR_ONTREQ] where U_Z_AppStatus<>'R' and  U_Z_HREmpID='" & aEmpID & "' and '" & aFromDate.ToString("yyyy-MM-dd") & "' between U_Z_TrainFrdt and U_Z_TrainTodt "
+                    '  StrQuery = "select U_Z_TrainFrdt,U_Z_TrainTodt ,U_Z_HREmpID,U_Z_AppStatus,* from [@Z_HR_ONTREQ] where U_Z_AppStatus<>'R' and  U_Z_HREmpID='" & aEmpID & "'  and  U_Z_TrainFrdt between '" & aFromDate.ToString("yyyy-MM-dd") & "' and '" & aToDate.ToString("yyyy-MM-dd") & "'"
+                    strResponse = "You have an Approved/Pending Training request or New Training request for this date .,you cannot proceed with the New Training Request"
+                    If StrQuery <> "" Then
+                        ORec.DoQuery(StrQuery)
+                        If ORec.RecordCount > 0 Then
+
+                            Return strResponse
+                        End If
+                    End If
+
+                    StrQuery = "select U_Z_TrainFrdt,U_Z_TrainTodt ,U_Z_HREmpID,U_Z_AppStatus,* from [@Z_HR_ONTREQ] where U_Z_AppStatus<>'R' and  U_Z_HREmpID='" & aEmpID & "'  and  U_Z_TrainFrdt between '" & aFromDate.ToString("yyyy-MM-dd") & "' and '" & aToDate.ToString("yyyy-MM-dd") & "'"
+                    strResponse = "You have an Approved/Pending Training request or New Training request for this date .,you cannot proceed with the New Training Request"
+                    If StrQuery <> "" Then
+                        ORec.DoQuery(StrQuery)
+                        If ORec.RecordCount > 0 Then
+
+                            Return strResponse
+                        End If
+                    End If
+                    StrQuery = "select U_Z_TrainFrdt,U_Z_TrainTodt ,U_Z_HREmpID,U_Z_AppStatus,* from [@Z_HR_ONTREQ] where U_Z_AppStatus<>'R' and  U_Z_HREmpID='" & aEmpID & "' and '" & aToDate.ToString("yyyy-MM-dd") & "' between U_Z_TrainFrdt and U_Z_TrainTodt "
+                    ' StrQuery = "select U_Z_TrainFrdt,U_Z_TrainTodt ,U_Z_HREmpID,U_Z_AppStatus,* from [@Z_HR_ONTREQ] where U_Z_AppStatus<>'R' and  U_Z_HREmpID='" & aEmpID & "'  and  U_Z_TrainTodt between '" & aFromDate.ToString("yyyy-MM-dd") & "' and '" & aToDate.ToString("yyyy-MM-dd") & "'"
+                    strResponse = "You have an Approved/Pending Training request or New Training request for this date .,you cannot proceed with the New Training Request"
+                    If StrQuery <> "" Then
+                        ORec.DoQuery(StrQuery)
+                        If ORec.RecordCount > 0 Then
+
+                            Return strResponse
+                        End If
+                    End If
+
+                    StrQuery = "select U_Z_TrainFrdt,U_Z_TrainTodt ,U_Z_HREmpID,U_Z_AppStatus,* from [@Z_HR_ONTREQ] where U_Z_AppStatus<>'R' and  U_Z_HREmpID='" & aEmpID & "'  and  U_Z_TrainTodt between '" & aFromDate.ToString("yyyy-MM-dd") & "' and '" & aToDate.ToString("yyyy-MM-dd") & "'"
+                    strResponse = "You have an Approved/Pending Training request or New Training request for this date .,you cannot proceed with the New Training Request"
+                    If StrQuery <> "" Then
+                        ORec.DoQuery(StrQuery)
+                        If ORec.RecordCount > 0 Then
+
+                            Return strResponse
+                        End If
+                    End If
+
+                    'Apply Existing Training Request
+                    StrQuery = "select * from [@Z_HR_TRIN1] where U_Z_AppStatus<>'R' and  U_Z_HREmpID='" & aEmpID & "' and '" & aFromDate.ToString("yyyy-MM-dd") & "' between U_Z_Startdt and U_Z_Enddt "
+
+                    '  StrQuery = "select * from [@Z_HR_TRIN1] where U_Z_AppStatus<>'R' and  U_Z_HREmpID='" & aEmpID & "' and U_Z_Startdt between '" & aFromDate.ToString("yyyy-MM-dd") & "' and '" & aToDate.ToString("yyyy-MM-dd") & "'"
+                    strResponse = "You have an Approved/Pending Training request or New Training request for this date ., you cannot proceed with the New Training Request"
+                    If StrQuery <> "" Then
+                        ORec.DoQuery(StrQuery)
+                        If ORec.RecordCount > 0 Then
+
+                            Return strResponse
+                        End If
+                    End If
+
+                    StrQuery = "select * from [@Z_HR_TRIN1] where U_Z_AppStatus<>'R' and  U_Z_HREmpID='" & aEmpID & "' and U_Z_Startdt between '" & aFromDate.ToString("yyyy-MM-dd") & "' and '" & aToDate.ToString("yyyy-MM-dd") & "'"
+                    strResponse = "You have an Approved/Pending Training request or New Training request for this date ., you cannot proceed with the New Training Request"
+                    If StrQuery <> "" Then
+                        ORec.DoQuery(StrQuery)
+                        If ORec.RecordCount > 0 Then
+
+                            Return strResponse
+                        End If
+                    End If
+
+                    StrQuery = "select * from [@Z_HR_TRIN1] where U_Z_AppStatus<>'R' and  U_Z_HREmpID='" & aEmpID & "' and '" & aToDate.ToString("yyyy-MM-dd") & "' between U_Z_Startdt and U_Z_Enddt "
+                    ' StrQuery = "select * from [@Z_HR_TRIN1] where U_Z_AppStatus<>'R' and  U_Z_HREmpID='" & aEmpID & "' and U_Z_Enddt between '" & aFromDate.ToString("yyyy-MM-dd") & "' and '" & aToDate.ToString("yyyy-MM-dd") & "'"
+                    strResponse = "You have an Approved/Pending Training request or New Training request for this date ., you cannot proceed with the New Training Request"
+                    If StrQuery <> "" Then
+                        ORec.DoQuery(StrQuery)
+                        If ORec.RecordCount > 0 Then
+
+                            Return strResponse
+                        End If
+                    End If
+                    StrQuery = "select * from [@Z_HR_TRIN1] where U_Z_AppStatus<>'R' and  U_Z_HREmpID='" & aEmpID & "' and U_Z_Enddt between '" & aFromDate.ToString("yyyy-MM-dd") & "' and '" & aToDate.ToString("yyyy-MM-dd") & "'"
+                    strResponse = "You have an Approved/Pending Training request or New Training request for this date ., you cannot proceed with the New Training Request"
+                    If StrQuery <> "" Then
+                        ORec.DoQuery(StrQuery)
+                        If ORec.RecordCount > 0 Then
+
+                            Return strResponse
+                        End If
+                    End If
+                    'BTA
+
+                    StrQuery = "select * from [@Z_HR_OTRAREQ] where U_Z_EmpId='" & aEmpID & "' and U_Z_AppStatus<>'R' and '" & aFromDate.ToString("yyyy-MM-dd") & "' between U_Z_TraStDate and U_Z_TraEndDate"
+                    ' StrQuery = "select * from [@Z_HR_OTRAREQ] where U_Z_EmpId='" & aEmpID & "' and U_Z_AppStatus<>'R' and U_Z_TraStDate between '" & aFromDate.ToString("yyyy-MM-dd") & "' and '" & aToDate.ToString("yyyy-MM-dd") & "'"
+                    strResponse = "You have an Approved/Pending BTA for this date …., you cannot proceed with the New Training Request"
+                    If StrQuery <> "" Then
+                        ORec.DoQuery(StrQuery)
+                        If ORec.RecordCount > 0 Then
+
+                            Return strResponse
+                        End If
+                    End If
+
+                    StrQuery = "select * from [@Z_HR_OTRAREQ] where U_Z_EmpId='" & aEmpID & "' and U_Z_AppStatus<>'R' and U_Z_TraStDate between '" & aFromDate.ToString("yyyy-MM-dd") & "' and '" & aToDate.ToString("yyyy-MM-dd") & "'"
+                    strResponse = "You have an Approved/Pending BTA for this date …., you cannot proceed with the New Training Request"
+                    If StrQuery <> "" Then
+                        ORec.DoQuery(StrQuery)
+                        If ORec.RecordCount > 0 Then
+
+                            Return strResponse
+                        End If
+                    End If
+
+                    StrQuery = "select * from [@Z_HR_OTRAREQ] where U_Z_EmpId='" & aEmpID & "' and U_Z_AppStatus<>'R' and '" & aToDate.ToString("yyyy-MM-dd") & "' between U_Z_TraStDate and U_Z_TraEndDate"
+                    ' StrQuery = "select * from [@Z_HR_OTRAREQ] where U_Z_EmpId='" & aEmpID & "' and U_Z_AppStatus<>'R' and U_Z_TraEndDate between '" & aFromDate.ToString("yyyy-MM-dd") & "' and '" & aToDate.ToString("yyyy-MM-dd") & "'"
+                    strResponse = "You have an Approved/Pending BTA for this date ….,you cannot proceed with the New Training Request"
+                    If StrQuery <> "" Then
+                        ORec.DoQuery(StrQuery)
+                        If ORec.RecordCount > 0 Then
+
+                            Return strResponse
+                        End If
+                    End If
+                    StrQuery = "select * from [@Z_HR_OTRAREQ] where U_Z_EmpId='" & aEmpID & "' and U_Z_AppStatus<>'R' and U_Z_TraEndDate between '" & aFromDate.ToString("yyyy-MM-dd") & "' and '" & aToDate.ToString("yyyy-MM-dd") & "'"
+                    strResponse = "You have an Approved/Pending BTA for this date ….,you cannot proceed with the New Training Request"
+                    If StrQuery <> "" Then
+                        ORec.DoQuery(StrQuery)
+                        If ORec.RecordCount > 0 Then
+
+                            Return strResponse
+                        End If
+                    End If
+                    'Leave Entry checking
+                    StrQuery = "SELECT T0.[U_Z_StartDate], T0.[U_Z_EndDate], T0.[U_Z_EMPID] FROM [dbo].[@Z_PAY_OLETRANS]  T0 where  U_Z_EMPID='" & aEmpID & "' and '" & aFromDate.ToString("yyyy-MM-dd") & "' between U_Z_StartDate and U_Z_EndDate "
+                    ' StrQuery = "SELECT T0.[U_Z_StartDate], T0.[U_Z_EndDate], T0.[U_Z_EMPID] FROM [dbo].[@Z_PAY_OLETRANS]  T0 where  U_Z_EMPID='" & aEmpID & "'  and  U_Z_StartDate between'" & aFromDate.ToString("yyyy-MM-dd") & "' and '" & aToDate.ToString("yyyy-MM-dd") & "'"
+                    strResponse = "You have an Approved/Pending Leave request for this date .,  you cannot proceed with the New Training Request"
+                    If StrQuery <> "" Then
+                        ORec.DoQuery(StrQuery)
+                        If ORec.RecordCount > 0 Then
+
+                            Return strResponse
+                        End If
+                    End If
+
+                    StrQuery = "SELECT T0.[U_Z_StartDate], T0.[U_Z_EndDate], T0.[U_Z_EMPID] FROM [dbo].[@Z_PAY_OLETRANS]  T0 where  U_Z_EMPID='" & aEmpID & "'  and  U_Z_StartDate between'" & aFromDate.ToString("yyyy-MM-dd") & "' and '" & aToDate.ToString("yyyy-MM-dd") & "'"
+                    strResponse = "You have an Approved/Pending Leave request for this date .,  you cannot proceed with the New Training Request"
+                    If StrQuery <> "" Then
+                        ORec.DoQuery(StrQuery)
+                        If ORec.RecordCount > 0 Then
+
+                            Return strResponse
+                        End If
+                    End If
+
+                    StrQuery = "SELECT T0.[U_Z_StartDate], T0.[U_Z_EndDate], T0.[U_Z_EMPID] FROM [dbo].[@Z_PAY_OLETRANS]  T0 where  U_Z_EMPID='" & aEmpID & "' and '" & aToDate.ToString("yyyy-MM-dd") & "' between U_Z_StartDate and U_Z_EndDate "
+                    ' StrQuery = "SELECT T0.[U_Z_StartDate], T0.[U_Z_EndDate], T0.[U_Z_EMPID] FROM [dbo].[@Z_PAY_OLETRANS]  T0 where  U_Z_EMPID='" & aEmpID & "'  and  U_Z_EndDate between'" & aFromDate.ToString("yyyy-MM-dd") & "' and '" & aToDate.ToString("yyyy-MM-dd") & "'"
+                    strResponse = "You have an Approved/Pending Leave request for this date .,  you cannot proceed with the New Training Request"
+                    If StrQuery <> "" Then
+                        ORec.DoQuery(StrQuery)
+                        If ORec.RecordCount > 0 Then
+
+                            Return strResponse
+                        End If
+                    End If
+
+                    StrQuery = "SELECT T0.[U_Z_StartDate], T0.[U_Z_EndDate], T0.[U_Z_EMPID] FROM [dbo].[@Z_PAY_OLETRANS]  T0 where  U_Z_EMPID='" & aEmpID & "'  and  U_Z_EndDate between'" & aFromDate.ToString("yyyy-MM-dd") & "' and '" & aToDate.ToString("yyyy-MM-dd") & "'"
+                    strResponse = "You have an Approved/Pending Leave request for this date .,  you cannot proceed with the New Training Request"
+                    If StrQuery <> "" Then
+                        ORec.DoQuery(StrQuery)
+                        If ORec.RecordCount > 0 Then
+
+                            Return strResponse
+                        End If
+                    End If
+
+                    'Leave Entry checking
+                    StrQuery = "SELECT T0.[U_Z_StartDate], T0.[U_Z_EndDate], T0.[U_Z_EMPID] FROM [dbo].[@Z_PAY_OLETRANS1]  T0 where U_Z_Status<>'R' and  U_Z_EMPID='" & aEmpID & "' and '" & aFromDate.ToString("yyyy-MM-dd") & "' between U_Z_StartDate and U_Z_EndDate "
+                    'StrQuery = "SELECT T0.[U_Z_StartDate], T0.[U_Z_EndDate], T0.[U_Z_EMPID] FROM [dbo].[@Z_PAY_OLETRANS]  T0 where  U_Z_EMPID='" & aEmpID & "' and U_Z_StartDate between '" & aFromDate.ToString("yyyy-MM-dd") & "' and '" & aToDate.ToString("yyyy-MM-dd") & "'"
+                    strResponse = "You have an Approved/Pending Leave request for this date ., you cannot proceed with the New Training Request"
+                    If StrQuery <> "" Then
+                        ORec.DoQuery(StrQuery)
+                        If ORec.RecordCount > 0 Then
+
+                            Return strResponse
+                        End If
+                    End If
+
+                    StrQuery = "SELECT T0.[U_Z_StartDate], T0.[U_Z_EndDate], T0.[U_Z_EMPID] FROM [dbo].[@Z_PAY_OLETRANS1]  T0 where U_Z_Status<>'R' and  U_Z_EMPID='" & aEmpID & "' and U_Z_StartDate between '" & aFromDate.ToString("yyyy-MM-dd") & "' and '" & aToDate.ToString("yyyy-MM-dd") & "'"
+                    strResponse = "You have an Approved/Pending Leave request for this date ., you cannot proceed with the New Training Request"
+                    If StrQuery <> "" Then
+                        ORec.DoQuery(StrQuery)
+                        If ORec.RecordCount > 0 Then
+
+                            Return strResponse
+                        End If
+                    End If
+
+                    StrQuery = "SELECT T0.[U_Z_StartDate], T0.[U_Z_EndDate], T0.[U_Z_EMPID] FROM [dbo].[@Z_PAY_OLETRANS1]  T0 where U_Z_Status<>'R' and  U_Z_EMPID='" & aEmpID & "' and '" & aToDate.ToString("yyyy-MM-dd") & "' between U_Z_StartDate and U_Z_EndDate "
+                    'StrQuery = "SELECT T0.[U_Z_StartDate], T0.[U_Z_EndDate], T0.[U_Z_EMPID] FROM [dbo].[@Z_PAY_OLETRANS]  T0 where  U_Z_EMPID='" & aEmpID & "' and U_Z_EndDate between '" & aFromDate.ToString("yyyy-MM-dd") & "' and '" & aToDate.ToString("yyyy-MM-dd") & "'"
+                    strResponse = "You have an  Approved/Pending Leave request for this date ., you cannot proceed with the New Training Request"
+                    If StrQuery <> "" Then
+                        ORec.DoQuery(StrQuery)
+                        If ORec.RecordCount > 0 Then
+
+                            Return strResponse
+                        End If
+                    End If
+
+                    StrQuery = "SELECT T0.[U_Z_StartDate], T0.[U_Z_EndDate], T0.[U_Z_EMPID] FROM [dbo].[@Z_PAY_OLETRANS1]  T0 where U_Z_Status<>'R' and  U_Z_EMPID='" & aEmpID & "' and U_Z_EndDate between '" & aFromDate.ToString("yyyy-MM-dd") & "' and '" & aToDate.ToString("yyyy-MM-dd") & "'"
+                    strResponse = "You have an  Approved/Pending Leave request for this date ., you cannot proceed with the New Training Request"
+                    If StrQuery <> "" Then
+                        ORec.DoQuery(StrQuery)
+                        If ORec.RecordCount > 0 Then
+
+                            Return strResponse
+                        End If
+                    End If
+
+                Case "Leave"
+
+                    'Expense Claim
+                    StrQuery = "select * from [@Z_HR_LEXPCL] where U_Z_EmpID='" & aEmpID & "' and  U_Z_AppStatus <>'R' and  U_Z_OverLap='Y' and U_Z_Claimdt between '" & aFromDate.ToString("yyyy-MM-dd") & "' and '" & aToDate.ToString("yyyy-MM-dd") & "'"
+                    strResponse = "You have an Approved/Pending Loanee Expenses for this date., you cannot proceed with the New Leave Request"
+                    If StrQuery <> "" Then
+                        ORec.DoQuery(StrQuery)
+                        If ORec.RecordCount > 0 Then
+
+                            Return strResponse
+                        End If
+                    End If
+
+                    'BTA
+                    StrQuery = "select * from [@Z_HR_OTRAREQ] where U_Z_EmpId='" & aEmpID & "' and U_Z_AppStatus<>'R' and '" & aFromDate.ToString("yyyy-MM-dd") & "' between U_Z_TraStDate and U_Z_TraEndDate"
+                    ' StrQuery = "select * from [@Z_HR_OTRAREQ] where U_Z_EmpId='" & aEmpID & "' and U_Z_AppStatus<>'R' and  U_Z_TraStDate between '" & aFromDate.ToString("yyyy-MM-dd") & "' and '" & aToDate.ToString("yyyy-MM-dd") & "'"
+                    strResponse = "You have an Approved/Pending BTA for this date …., you cannot proceed with the New Leave Request"
+                    If StrQuery <> "" Then
+                        ORec.DoQuery(StrQuery)
+                        If ORec.RecordCount > 0 Then
+
+                            Return strResponse
+                        End If
+                    End If
+
+                    StrQuery = "select * from [@Z_HR_OTRAREQ] where U_Z_EmpId='" & aEmpID & "' and U_Z_AppStatus<>'R' and  U_Z_TraStDate between '" & aFromDate.ToString("yyyy-MM-dd") & "' and '" & aToDate.ToString("yyyy-MM-dd") & "'"
+                    strResponse = "You have an Approved/Pending BTA for this date …., you cannot proceed with the New Leave Request"
+                    If StrQuery <> "" Then
+                        ORec.DoQuery(StrQuery)
+                        If ORec.RecordCount > 0 Then
+
+                            Return strResponse
+                        End If
+                    End If
+
+                    StrQuery = "select * from [@Z_HR_OTRAREQ] where U_Z_EmpId='" & aEmpID & "' and U_Z_AppStatus<>'R' and '" & aToDate.ToString("yyyy-MM-dd") & "' between U_Z_TraStDate and U_Z_TraEndDate"
+                    'StrQuery = "select * from [@Z_HR_OTRAREQ] where U_Z_EmpId='" & aEmpID & "' and U_Z_AppStatus<>'R' and U_Z_TraEndDate  between '" & aFromDate.ToString("yyyy-MM-dd") & "' and '" & aToDate.ToString("yyyy-MM-dd") & "'"
+                    strResponse = "You have an Approved/Pending BTA for this date ….,you cannot proceed with the New Leave Request"
+                    If StrQuery <> "" Then
+                        ORec.DoQuery(StrQuery)
+                        If ORec.RecordCount > 0 Then
+
+                            Return strResponse
+                        End If
+                    End If
+
+                    StrQuery = "select * from [@Z_HR_OTRAREQ] where U_Z_EmpId='" & aEmpID & "' and U_Z_AppStatus<>'R' and U_Z_TraEndDate  between '" & aFromDate.ToString("yyyy-MM-dd") & "' and '" & aToDate.ToString("yyyy-MM-dd") & "'"
+                    strResponse = "You have an Approved/Pending BTA for this date ….,you cannot proceed with the New Leave Request"
+                    If StrQuery <> "" Then
+                        ORec.DoQuery(StrQuery)
+                        If ORec.RecordCount > 0 Then
+
+                            Return strResponse
+                        End If
+                    End If
+
+                    'Leave Entry checking
+                    StrQuery = "SELECT T0.[U_Z_StartDate], T0.[U_Z_EndDate], T0.[U_Z_EMPID] FROM [dbo].[@Z_PAY_OLETRANS]  T0 where  U_Z_EMPID='" & aEmpID & "' and '" & aFromDate.ToString("yyyy-MM-dd") & "' between U_Z_StartDate and U_Z_EndDate "
+
+                    ' StrQuery = "SELECT T0.[U_Z_StartDate], T0.[U_Z_EndDate], T0.[U_Z_EMPID] FROM [dbo].[@Z_PAY_OLETRANS]  T0 where  U_Z_EMPID='" & aEmpID & "'  and  U_Z_StartDate between'" & aFromDate.ToString("yyyy-MM-dd") & "' and '" & aToDate.ToString("yyyy-MM-dd") & "'"
+                    strResponse = "You have an Approved/Pending Leave request for this date .,  you cannot proceed with the  New Leave Request"
+                    If StrQuery <> "" Then
+                        ORec.DoQuery(StrQuery)
+                        If ORec.RecordCount > 0 Then
+
+                            Return strResponse
+                        End If
+                    End If
+
+                    StrQuery = "SELECT T0.[U_Z_StartDate], T0.[U_Z_EndDate], T0.[U_Z_EMPID] FROM [dbo].[@Z_PAY_OLETRANS]  T0 where  U_Z_EMPID='" & aEmpID & "'  and  U_Z_StartDate between'" & aFromDate.ToString("yyyy-MM-dd") & "' and '" & aToDate.ToString("yyyy-MM-dd") & "'"
+                    strResponse = "You have an Approved/Pending Leave request for this date .,  you cannot proceed with the  New Leave Request"
+                    If StrQuery <> "" Then
+                        ORec.DoQuery(StrQuery)
+                        If ORec.RecordCount > 0 Then
+
+                            Return strResponse
+                        End If
+                    End If
+
+                    StrQuery = "SELECT T0.[U_Z_StartDate], T0.[U_Z_EndDate], T0.[U_Z_EMPID] FROM [dbo].[@Z_PAY_OLETRANS]  T0 where  U_Z_EMPID='" & aEmpID & "' and '" & aToDate.ToString("yyyy-MM-dd") & "' between U_Z_StartDate and U_Z_EndDate "
+                    ' StrQuery = "SELECT T0.[U_Z_StartDate], T0.[U_Z_EndDate], T0.[U_Z_EMPID] FROM [dbo].[@Z_PAY_OLETRANS]  T0 where  U_Z_EMPID='" & aEmpID & "'  and  U_Z_EndDate between'" & aFromDate.ToString("yyyy-MM-dd") & "' and '" & aToDate.ToString("yyyy-MM-dd") & "'"
+                    strResponse = "You have an Approved/Pending Leave request for this date .,  you cannot proceed with the  New Leave Request"
+                    If StrQuery <> "" Then
+                        ORec.DoQuery(StrQuery)
+                        If ORec.RecordCount > 0 Then
+
+                            Return strResponse
+                        End If
+                    End If
+                    StrQuery = "SELECT T0.[U_Z_StartDate], T0.[U_Z_EndDate], T0.[U_Z_EMPID] FROM [dbo].[@Z_PAY_OLETRANS]  T0 where  U_Z_EMPID='" & aEmpID & "'  and  U_Z_EndDate between'" & aFromDate.ToString("yyyy-MM-dd") & "' and '" & aToDate.ToString("yyyy-MM-dd") & "'"
+                    strResponse = "You have an Approved/Pending Leave request for this date .,  you cannot proceed with the  New Leave Request"
+                    If StrQuery <> "" Then
+                        ORec.DoQuery(StrQuery)
+                        If ORec.RecordCount > 0 Then
+
+                            Return strResponse
+                        End If
+                    End If
+
+                    'Leave Entry checking
+                    StrQuery = "SELECT T0.[U_Z_StartDate], T0.[U_Z_EndDate], T0.[U_Z_EMPID] FROM [dbo].[@Z_PAY_OLETRANS1]  T0 where U_Z_Status<>'R' and  U_Z_EMPID='" & aEmpID & "' and '" & aFromDate.ToString("yyyy-MM-dd") & "' between U_Z_StartDate and U_Z_EndDate "
+                    'StrQuery = "SELECT T0.[U_Z_StartDate], T0.[U_Z_EndDate], T0.[U_Z_EMPID] FROM [dbo].[@Z_PAY_OLETRANS]  T0 where  U_Z_EMPID='" & aEmpID & "' and U_Z_StartDate between '" & aFromDate.ToString("yyyy-MM-dd") & "' and '" & aToDate.ToString("yyyy-MM-dd") & "'"
+                    strResponse = "You have an Approved/Pending Leave request for this date ., you cannot proceed with the  New Leave Request"
+                    If StrQuery <> "" Then
+                        ORec.DoQuery(StrQuery)
+                        If ORec.RecordCount > 0 Then
+
+                            Return strResponse
+                        End If
+                    End If
+
+                    StrQuery = "SELECT T0.[U_Z_StartDate], T0.[U_Z_EndDate], T0.[U_Z_EMPID] FROM [dbo].[@Z_PAY_OLETRANS1]  T0 where U_Z_Status<>'R' and  U_Z_EMPID='" & aEmpID & "' and U_Z_StartDate between '" & aFromDate.ToString("yyyy-MM-dd") & "' and '" & aToDate.ToString("yyyy-MM-dd") & "'"
+                    strResponse = "You have an Approved/Pending Leave request for this date ., you cannot proceed with the  New Leave Request"
+                    If StrQuery <> "" Then
+                        ORec.DoQuery(StrQuery)
+                        If ORec.RecordCount > 0 Then
+
+                            Return strResponse
+                        End If
+                    End If
+
+                    StrQuery = "SELECT T0.[U_Z_StartDate], T0.[U_Z_EndDate], T0.[U_Z_EMPID] FROM [dbo].[@Z_PAY_OLETRANS1]  T0 where U_Z_Status<>'R' and  U_Z_EMPID='" & aEmpID & "' and '" & aToDate.ToString("yyyy-MM-dd") & "' between U_Z_StartDate and U_Z_EndDate "
+                    'StrQuery = "SELECT T0.[U_Z_StartDate], T0.[U_Z_EndDate], T0.[U_Z_EMPID] FROM [dbo].[@Z_PAY_OLETRANS]  T0 where  U_Z_EMPID='" & aEmpID & "' and U_Z_EndDate between '" & aFromDate.ToString("yyyy-MM-dd") & "' and '" & aToDate.ToString("yyyy-MM-dd") & "'"
+                    strResponse = "You have an  Approved/Pending Leave request for this date ., you cannot proceed with the  New Leave Request"
+                    If StrQuery <> "" Then
+                        ORec.DoQuery(StrQuery)
+                        If ORec.RecordCount > 0 Then
+
+                            Return strResponse
+                        End If
+                    End If
+
+                    StrQuery = "SELECT T0.[U_Z_StartDate], T0.[U_Z_EndDate], T0.[U_Z_EMPID] FROM [dbo].[@Z_PAY_OLETRANS1]  T0 where U_Z_Status<>'R' and  U_Z_EMPID='" & aEmpID & "' and U_Z_EndDate between '" & aFromDate.ToString("yyyy-MM-dd") & "' and '" & aToDate.ToString("yyyy-MM-dd") & "'"
+                    strResponse = "You have an  Approved/Pending Leave request for this date ., you cannot proceed with the  New Leave Request"
+                    If StrQuery <> "" Then
+                        ORec.DoQuery(StrQuery)
+                        If ORec.RecordCount > 0 Then
+
+                            Return strResponse
+                        End If
+                    End If
+
+
+                    'Apply Existing Training Request
+                    StrQuery = "select * from [@Z_HR_TRIN1] where U_Z_AppStatus<>'R' and  U_Z_HREmpID='" & aEmpID & "' and '" & aFromDate.ToString("yyyy-MM-dd") & "' between U_Z_Startdt and U_Z_Enddt "
+                    ' StrQuery = "select * from [@Z_HR_TRIN1] where U_Z_AppStatus<>'R' and  U_Z_HREmpID='" & aEmpID & "' and U_Z_Startdt between '" & aFromDate.ToString("yyyy-MM-dd") & "' and '" & aToDate.ToString("yyyy-MM-dd") & "'"
+                    strResponse = "You have an Approved/Pending Training request or New Training request for this date ., you cannot proceed with the  New Leave Request"""
+                    If StrQuery <> "" Then
+                        ORec.DoQuery(StrQuery)
+                        If ORec.RecordCount > 0 Then
+
+                            Return strResponse
+                        End If
+                    End If
+                    StrQuery = "select * from [@Z_HR_TRIN1] where U_Z_AppStatus<>'R' and  U_Z_HREmpID='" & aEmpID & "' and U_Z_Startdt between '" & aFromDate.ToString("yyyy-MM-dd") & "' and '" & aToDate.ToString("yyyy-MM-dd") & "'"
+                    strResponse = "You have an Approved/Pending Training request or New Training request for this date ., you cannot proceed with the  New Leave Request"""
+                    If StrQuery <> "" Then
+                        ORec.DoQuery(StrQuery)
+                        If ORec.RecordCount > 0 Then
+
+                            Return strResponse
+                        End If
+                    End If
+
+
+                    StrQuery = "select * from [@Z_HR_TRIN1] where U_Z_AppStatus<>'R' and  U_Z_HREmpID='" & aEmpID & "' and '" & aToDate.ToString("yyyy-MM-dd") & "' between U_Z_Startdt and U_Z_Enddt "
+                    ' StrQuery = "select * from [@Z_HR_TRIN1] where U_Z_AppStatus<>'R' and  U_Z_HREmpID='" & aEmpID & "' and U_Z_Enddt between '" & aFromDate.ToString("yyyy-MM-dd") & "' and '" & aToDate.ToString("yyyy-MM-dd") & "'"
+                    strResponse = "You have an Approved/Pending Training request or New Training request for this date ., you cannot proceed with the  New Leave Request"""
+                    If StrQuery <> "" Then
+                        ORec.DoQuery(StrQuery)
+                        If ORec.RecordCount > 0 Then
+
+                            Return strResponse
+                        End If
+                    End If
+
+                    StrQuery = "select * from [@Z_HR_TRIN1] where U_Z_AppStatus<>'R' and  U_Z_HREmpID='" & aEmpID & "' and U_Z_Enddt between '" & aFromDate.ToString("yyyy-MM-dd") & "' and '" & aToDate.ToString("yyyy-MM-dd") & "'"
+                    strResponse = "You have an Approved/Pending Training request or New Training request for this date ., you cannot proceed with the  New Leave Request"""
+                    If StrQuery <> "" Then
+                        ORec.DoQuery(StrQuery)
+                        If ORec.RecordCount > 0 Then
+
+                            Return strResponse
+                        End If
+                    End If
+                    'New Training Requet Validation
+                    StrQuery = "select U_Z_TrainFrdt,U_Z_TrainTodt ,U_Z_HREmpID,U_Z_AppStatus,* from [@Z_HR_ONTREQ] where U_Z_AppStatus<>'R' and  U_Z_HREmpID='" & aEmpID & "' and '" & aFromDate.ToString("yyyy-MM-dd") & "' between U_Z_TrainFrdt and U_Z_TrainTodt "
+                    ' StrQuery = "select U_Z_TrainFrdt,U_Z_TrainTodt ,U_Z_HREmpID,U_Z_AppStatus,* from [@Z_HR_ONTREQ] where U_Z_AppStatus<>'R' and  U_Z_HREmpID='" & aEmpID & "' and U_Z_TrainFrdt between '" & aFromDate.ToString("yyyy-MM-dd") & "' and '" & aToDate.ToString("yyyy-MM-dd") & "'"
+                    strResponse = "You have an Approved/Pending Training request or New Training request for this date ., you cannot proceed with the  New Leave Request"
+                    If StrQuery <> "" Then
+                        ORec.DoQuery(StrQuery)
+                        If ORec.RecordCount > 0 Then
+
+                            Return strResponse
+                        End If
+                    End If
+
+                    StrQuery = "select U_Z_TrainFrdt,U_Z_TrainTodt ,U_Z_HREmpID,U_Z_AppStatus,* from [@Z_HR_ONTREQ] where U_Z_AppStatus<>'R' and  U_Z_HREmpID='" & aEmpID & "' and U_Z_TrainFrdt between '" & aFromDate.ToString("yyyy-MM-dd") & "' and '" & aToDate.ToString("yyyy-MM-dd") & "'"
+                    strResponse = "You have an Approved/Pending Training request or New Training request for this date ., you cannot proceed with the  New Leave Request"
+                    If StrQuery <> "" Then
+                        ORec.DoQuery(StrQuery)
+                        If ORec.RecordCount > 0 Then
+
+                            Return strResponse
+                        End If
+                    End If
+                    StrQuery = "select U_Z_TrainFrdt,U_Z_TrainTodt ,U_Z_HREmpID,U_Z_AppStatus,* from [@Z_HR_ONTREQ] where U_Z_AppStatus<>'R' and  U_Z_HREmpID='" & aEmpID & "' and '" & aToDate.ToString("yyyy-MM-dd") & "' between U_Z_TrainFrdt and U_Z_TrainTodt "
+                    'StrQuery = "select U_Z_TrainFrdt,U_Z_TrainTodt ,U_Z_HREmpID,U_Z_AppStatus,* from [@Z_HR_ONTREQ] where U_Z_AppStatus<>'R' and  U_Z_HREmpID='" & aEmpID & "' and U_Z_TrainTodt between '" & aFromDate.ToString("yyyy-MM-dd") & "' and '" & aToDate.ToString("yyyy-MM-dd") & "'"
+                    strResponse = "You have an Approved/Pending Training request or New Training request for this date ., you cannot proceed with the  New Leave Request"
+                    If StrQuery <> "" Then
+                        ORec.DoQuery(StrQuery)
+                        If ORec.RecordCount > 0 Then
+
+                            Return strResponse
+                        End If
+                    End If
+
+                    StrQuery = "select U_Z_TrainFrdt,U_Z_TrainTodt ,U_Z_HREmpID,U_Z_AppStatus,* from [@Z_HR_ONTREQ] where U_Z_AppStatus<>'R' and  U_Z_HREmpID='" & aEmpID & "' and U_Z_TrainTodt between '" & aFromDate.ToString("yyyy-MM-dd") & "' and '" & aToDate.ToString("yyyy-MM-dd") & "'"
+                    strResponse = "You have an Approved/Pending Training request or New Training request for this date ., you cannot proceed with the  New Leave Request"
+                    If StrQuery <> "" Then
+                        ORec.DoQuery(StrQuery)
+                        If ORec.RecordCount > 0 Then
+
+                            Return strResponse
+                        End If
+                    End If
+            End Select
+        Catch ex As Exception
+            DBConnectionDA.WriteError(ex.Message)
+            Return ex.Message
+        End Try
+    End Function
+    Public Function expenceclaimValidations_Old(aEmpID As String, aChoice As String, aFromDate As Date, aToDate As Date, ByVal aCompany As SAPbobsCOM.Company, Optional aCode As String = "") As String
+        Dim StrQuery, strResponse As String
+        Dim ORec As SAPbobsCOM.Recordset
+        ORec = aCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset)
+        strResponse = ""
+        Select Case aChoice
+            Case "Exp"
+                'BTA Validation
+                StrQuery = "select * from [@Z_HR_OTRAREQ] where U_Z_EmpId='" & aEmpID & "' and U_Z_AppStatus<>'R' and '" & aFromDate.ToString("yyyy-MM-dd") & "' between U_Z_TraStDate and U_Z_TraEndDate"
+                strResponse = "You have an Approved/Pending BTA for this date …., you cannot proceed with another Loanee expense claim"
+                If StrQuery <> "" Then
+                    ORec.DoQuery(StrQuery)
+                    If ORec.RecordCount > 0 Then
+                        Return strResponse
+                    End If
+                End If
+
+                'Same Expense Claim validation
+                If aCode <> "" Then
+                    '  StrQuery = "select * from [@Z_HR_OTRAREQ] where U_Z_EmpId='" & aEmpID & "' and U_Z_AppStatus<>'R' and '" & aFromDate.ToString("yyyy-MM-dd") & "' between U_Z_TraStDate and U_Z_TraEndDate"
+                    StrQuery = "select * from [@Z_HR_LEXPCL] where U_Z_ExpType='" & aCode & "' and   U_Z_AppStatus <>'R' and  U_Z_OverLap='Y' and U_Z_Claimdt  ='" & aFromDate.ToString("yyyy-MM-dd") & "'"
+                    strResponse = "You have an Approved/Pending Same Expense for this date ., you cannot proceed another Loanee expense claim"
+                    If StrQuery <> "" Then
+                        ORec.DoQuery(StrQuery)
+                        If ORec.RecordCount > 0 Then
+                            Return strResponse
+                        End If
+                    End If
+                End If
+
+                'New Training Requet Validation
+                StrQuery = "select U_Z_TrainFrdt,U_Z_TrainTodt ,U_Z_HREmpID,U_Z_AppStatus,* from [@Z_HR_ONTREQ] where U_Z_AppStatus<>'R' and  U_Z_HREmpID='" & aEmpID & "' and '" & aFromDate.ToString("yyyy-MM-dd") & "' between U_Z_TrainFrdt and U_Z_TrainTodt "
+                strResponse = "You have an Approved/Pending Training request or New Training request for this date ., you cannot proceed another Loanee expense claim"
+                If StrQuery <> "" Then
+                    ORec.DoQuery(StrQuery)
+                    If ORec.RecordCount > 0 Then
+
+                        Return strResponse
+                    End If
+                End If
+                'Apply Existing Training Request
+                StrQuery = "select * from [@Z_HR_TRIN1] where U_Z_AppStatus<>'R' and  U_Z_HREmpID='" & aEmpID & "' and '" & aFromDate.ToString("yyyy-MM-dd") & "' between U_Z_Startdt and U_Z_Enddt "
+                strResponse = "You have an Approved/Pending Training request or New Training request for this date ., you cannot proceed another Loanee expense claim"
+                If StrQuery <> "" Then
+                    ORec.DoQuery(StrQuery)
+                    If ORec.RecordCount > 0 Then
+                        Return strResponse
+                    End If
+                End If
+
+                'Leave Entry checking
+                ' StrQuery = "SELECT T0.[U_Z_StartDate], T0.[U_Z_EndDate], T0.[U_Z_EMPID] FROM [dbo].[@Z_PAY_OLETRANS]  T0 where  U_Z_EMPID='" & aEmpID & "' and '" & aFromDate.ToString("yyyy-MM-dd") & "' between U_Z_StartDate and U_Z_EndDate "
+                StrQuery = "SELECT T0.[U_Z_StartDate], T0.[U_Z_EndDate], T0.[U_Z_EMPID] FROM [dbo].[@Z_PAY_OLETRANS]  T0 where  U_Z_EMPID='" & aEmpID & "' and '" & aFromDate.ToString("yyyy-MM-dd") & "' between U_Z_StartDate and U_Z_EndDate"
+                strResponse = "You have an Approved/Pending Leave request for this date ., you cannot proceed with the Expenses Request"
+                If StrQuery <> "" Then
+                    ORec.DoQuery(StrQuery)
+                    If ORec.RecordCount > 0 Then
+                        Return strResponse
+                    End If
+                End If
+
+            Case "BTA"
+                StrQuery = "select * from [@Z_HR_LEXPCL] where  U_Z_AppStatus <>'R' and  U_Z_OverLap='Y' and U_Z_Claimdt between '" & aFromDate.ToString("yyyy-MM-dd") & "' and '" & aToDate.ToString("yyyy-MM-dd") & "'"
+                strResponse = "You have an Approved/Pending Loanee Expenses for this date ., you cannot proceed with the BTA"
+                If StrQuery <> "" Then
+                    ORec.DoQuery(StrQuery)
+                    If ORec.RecordCount > 0 Then
+                        Return strResponse
+                    End If
+                End If
+
+                StrQuery = "select * from [@Z_HR_EXPCL] where  U_Z_AppStatus <>'R' and  U_Z_OverLap='Y' and U_Z_Claimdt between '" & aFromDate.ToString("yyyy-MM-dd") & "' and '" & aToDate.ToString("yyyy-MM-dd") & "'"
+                strResponse = "You have an Approved/Pending Expenses for this date ., you cannot proceed with the BTA"
+                If StrQuery <> "" Then
+                    ORec.DoQuery(StrQuery)
+                    If ORec.RecordCount > 0 Then
+                        Return strResponse
+                    End If
+                End If
+
+                'Apply Existing Training Request
+                'StrQuery = "select * from [@Z_HR_TRIN1] where U_Z_AppStatus<>'R' and  U_Z_HREmpID='" & aEmpID & "' and '" & aFromDate.ToString("yyyy-MM-dd") & "' between U_Z_Startdt and U_Z_Enddt "
+                StrQuery = "select * from [@Z_HR_TRIN1] where U_Z_AppStatus<>'R' and  U_Z_HREmpID='" & aEmpID & "' and U_Z_Startdt between '" & aFromDate.ToString("yyyy-MM-dd") & "' and '" & aToDate.ToString("yyyy-MM-dd") & "'"
+
+                strResponse = "You have an Approved/Pending Training request or New Training request for this date ., you cannot proceed with the BTA"""
+                If StrQuery <> "" Then
+                    ORec.DoQuery(StrQuery)
+                    If ORec.RecordCount > 0 Then
+                        Return strResponse
+                    End If
+                End If
+
+                'Apply Existing Training Request
+                ' StrQuery = "select * from [@Z_HR_TRIN1] where U_Z_AppStatus<>'R' and  U_Z_HREmpID='" & aEmpID & "' and '" & aToDate.ToString("yyyy-MM-dd") & "' between U_Z_Startdt and U_Z_Enddt "
+                StrQuery = "select * from [@Z_HR_TRIN1] where U_Z_AppStatus<>'R' and  U_Z_HREmpID='" & aEmpID & "' and U_Z_Enddt between '" & aFromDate.ToString("yyyy-MM-dd") & "' and '" & aToDate.ToString("yyyy-MM-dd") & "'"
+
+                strResponse = "You have an Approved/Pending Training request or New Training request for this date ., you cannot proceed with the BTA"""
+                If StrQuery <> "" Then
+                    ORec.DoQuery(StrQuery)
+                    If ORec.RecordCount > 0 Then
+                        Return strResponse
+                    End If
+                End If
+                'New Training Requet Validation
+                ' StrQuery = "select U_Z_TrainFrdt,U_Z_TrainTodt ,U_Z_HREmpID,U_Z_AppStatus,* from [@Z_HR_ONTREQ] where U_Z_AppStatus<>'R' and  U_Z_HREmpID='" & aEmpID & "' and '" & aFromDate.ToString("yyyy-MM-dd") & "' between U_Z_TrainFrdt and U_Z_TrainTodt "
+
+                StrQuery = "select U_Z_TrainFrdt,U_Z_TrainTodt ,U_Z_HREmpID,U_Z_AppStatus,* from [@Z_HR_ONTREQ] where U_Z_AppStatus<>'R' and  U_Z_HREmpID='" & aEmpID & "' and U_Z_TrainFrdt between '" & aFromDate.ToString("yyyy-MM-dd") & "' and '" & aToDate.ToString("yyyy-MM-dd") & "'"
+                strResponse = "You have an Approved/Pending Training request or New Training request for this date ., you cannot proceed with the BTA"
+                If StrQuery <> "" Then
+                    ORec.DoQuery(StrQuery)
+                    If ORec.RecordCount > 0 Then
+                        Return strResponse
+                    End If
+                End If
+                'StrQuery = "select U_Z_TrainFrdt,U_Z_TrainTodt ,U_Z_HREmpID,U_Z_AppStatus,* from [@Z_HR_ONTREQ] where U_Z_AppStatus<>'R' and  U_Z_HREmpID='" & aEmpID & "' and '" & aToDate.ToString("yyyy-MM-dd") & "' between U_Z_TrainFrdt and U_Z_TrainTodt "
+                StrQuery = "select U_Z_TrainFrdt,U_Z_TrainTodt ,U_Z_HREmpID,U_Z_AppStatus,* from [@Z_HR_ONTREQ] where U_Z_AppStatus<>'R' and  U_Z_HREmpID='" & aEmpID & "' and U_Z_TrainTodt between '" & aFromDate.ToString("yyyy-MM-dd") & "' and '" & aToDate.ToString("yyyy-MM-dd") & "'"
+                strResponse = "You have an Approved/Pending Training request or New Training request for this date ., you cannot proceed with the BTA"
+                If StrQuery <> "" Then
+                    ORec.DoQuery(StrQuery)
+                    If ORec.RecordCount > 0 Then
+                        Return strResponse
+                    End If
+                End If
+
+
+                'Leave Entry checking
+                ' StrQuery = "SELECT T0.[U_Z_StartDate], T0.[U_Z_EndDate], T0.[U_Z_EMPID] FROM [dbo].[@Z_PAY_OLETRANS]  T0 where  U_Z_EMPID='" & aEmpID & "' and '" & aFromDate.ToString("yyyy-MM-dd") & "' between U_Z_StartDate and U_Z_EndDate "
+                StrQuery = "SELECT T0.[U_Z_StartDate], T0.[U_Z_EndDate], T0.[U_Z_EMPID] FROM [dbo].[@Z_PAY_OLETRANS]  T0 where  U_Z_EMPID='" & aEmpID & "' and U_Z_StartDate between '" & aFromDate.ToString("yyyy-MM-dd") & "' and '" & aToDate.ToString("yyyy-MM-dd") & "'"
+
+                strResponse = "You have an Approved/Pending Leave request for this date ., you cannot proceed with the BTA"
+                If StrQuery <> "" Then
+                    ORec.DoQuery(StrQuery)
+                    If ORec.RecordCount > 0 Then
+                        Return strResponse
+                    End If
+                End If
+
+                'StrQuery = "SELECT T0.[U_Z_StartDate], T0.[U_Z_EndDate], T0.[U_Z_EMPID] FROM [dbo].[@Z_PAY_OLETRANS]  T0 where  U_Z_EMPID='" & aEmpID & "' and '" & aToDate.ToString("yyyy-MM-dd") & "' between U_Z_StartDate and U_Z_EndDate "
+                StrQuery = "SELECT T0.[U_Z_StartDate], T0.[U_Z_EndDate], T0.[U_Z_EMPID] FROM [dbo].[@Z_PAY_OLETRANS]  T0 where  U_Z_EMPID='" & aEmpID & "' and U_Z_EndDate between '" & aFromDate.ToString("yyyy-MM-dd") & "' and '" & aToDate.ToString("yyyy-MM-dd") & "'"
+                strResponse = "You have an  Approved/Pending Leave request for this date ., you cannot proceed with the BTA"
+                If StrQuery <> "" Then
+                    ORec.DoQuery(StrQuery)
+                    If ORec.RecordCount > 0 Then
+                        Return strResponse
+                    End If
+                End If
+
+            Case "Traning"
+                StrQuery = "select * from [@Z_HR_LEXPCL] where  U_Z_AppStatus <>'R' and  U_Z_OverLap='Y' and U_Z_Claimdt between '" & aFromDate.ToString("yyyy-MM-dd") & "' and '" & aToDate.ToString("yyyy-MM-dd") & "'"
+                strResponse = "you have an Approved/Pending Loanee Expenses for this date., you cannot proceed with the New Training Rquest"
+                If StrQuery <> "" Then
+                    ORec.DoQuery(StrQuery)
+                    If ORec.RecordCount > 0 Then
+                        Return strResponse
+                    End If
+                End If
+
+                StrQuery = "select * from [@Z_HR_EXPCL] where  U_Z_AppStatus <>'R' and  U_Z_OverLap='Y' and U_Z_Claimdt between '" & aFromDate.ToString("yyyy-MM-dd") & "' and '" & aToDate.ToString("yyyy-MM-dd") & "'"
+                strResponse = "you have an Approved/Pending Expenses for this date., you cannot proceed with the New Training Rquest"
+                If StrQuery <> "" Then
+                    ORec.DoQuery(StrQuery)
+                    If ORec.RecordCount > 0 Then
+                        Return strResponse
+                    End If
+                End If
+
+                'New Training Requet Validation
+                '  StrQuery = "select U_Z_TrainFrdt,U_Z_TrainTodt ,U_Z_HREmpID,U_Z_AppStatus,* from [@Z_HR_ONTREQ] where U_Z_AppStatus<>'R' and  U_Z_HREmpID='" & aEmpID & "' and '" & aFromDate.ToString("yyyy-MM-dd") & "' between U_Z_TrainFrdt and U_Z_TrainTodt "
+
+                '  StrQuery = "select U_Z_TrainFrdt,U_Z_TrainTodt ,U_Z_HREmpID,U_Z_AppStatus,* from [@Z_HR_ONTREQ] where U_Z_AppStatus<>'R' and  U_Z_HREmpID='" & aEmpID & "' and '" & aFromDate.ToString("yyyy-MM-dd") & "' between U_Z_TrainFrdt and U_Z_TrainTodt "
+                StrQuery = "select U_Z_TrainFrdt,U_Z_TrainTodt ,U_Z_HREmpID,U_Z_AppStatus,* from [@Z_HR_ONTREQ] where U_Z_AppStatus<>'R' and  U_Z_HREmpID='" & aEmpID & "' and U_Z_TrainFrdt between '" & aFromDate.ToString("yyyy-MM-dd") & "' and '" & aToDate.ToString("yyyy-MM-dd") & "'"
+                strResponse = "You have an Approved/Pending Training request or New Training request for this date .,you cannot proceed with the New Training Rquest"
+                If StrQuery <> "" Then
+                    ORec.DoQuery(StrQuery)
+                    If ORec.RecordCount > 0 Then
+                        Return strResponse
+                    End If
+                End If
+                ' StrQuery = "select U_Z_TrainFrdt,U_Z_TrainTodt ,U_Z_HREmpID,U_Z_AppStatus,* from [@Z_HR_ONTREQ] where U_Z_AppStatus<>'R' and  U_Z_HREmpID='" & aEmpID & "' and '" & aToDate.ToString("yyyy-MM-dd") & "' between U_Z_TrainFrdt and U_Z_TrainTodt "
+                StrQuery = "select U_Z_TrainFrdt,U_Z_TrainTodt ,U_Z_HREmpID,U_Z_AppStatus,* from [@Z_HR_ONTREQ] where U_Z_AppStatus<>'R' and  U_Z_HREmpID='" & aEmpID & "' and U_Z_TrainTodt between '" & aFromDate.ToString("yyyy-MM-dd") & "' and '" & aToDate.ToString("yyyy-MM-dd") & "'"
+
+                strResponse = "You have an Approved/Pending Training request or New Training request for this date .,you cannot proceed with the New Training Rquest"
+                If StrQuery <> "" Then
+                    ORec.DoQuery(StrQuery)
+                    If ORec.RecordCount > 0 Then
+                        Return strResponse
+                    End If
+                End If
+
+                'Apply Existing Training Request
+                '  StrQuery = "select * from [@Z_HR_TRIN1] where U_Z_AppStatus<>'R' and  U_Z_HREmpID='" & aEmpID & "' and '" & aFromDate.ToString("yyyy-MM-dd") & "' between U_Z_Startdt and U_Z_Enddt "
+                StrQuery = "select * from [@Z_HR_TRIN1] where U_Z_AppStatus<>'R' and  U_Z_HREmpID='" & aEmpID & "' and U_Z_Startdt between  '" & aFromDate.ToString("yyyy-MM-dd") & "' and '" & aToDate.ToString("yyyy-MM-dd") & "'"
+                strResponse = "You have an Approved/Pending Training request or New Training request for this date ., you cannot proceed with the New Training Rquest"
+                If StrQuery <> "" Then
+                    ORec.DoQuery(StrQuery)
+                    If ORec.RecordCount > 0 Then
+
+                        Return strResponse
+                    End If
+                End If
+                '   StrQuery = "select * from [@Z_HR_TRIN1] where U_Z_AppStatus<>'R' and  U_Z_HREmpID='" & aEmpID & "' and '" & aToDate.ToString("yyyy-MM-dd") & "' between U_Z_Startdt and U_Z_Enddt "
+                StrQuery = "select * from [@Z_HR_TRIN1] where U_Z_AppStatus<>'R' and  U_Z_HREmpID='" & aEmpID & "' and U_Z_Enddt between  '" & aFromDate.ToString("yyyy-MM-dd") & "' and '" & aToDate.ToString("yyyy-MM-dd") & "'"
+                strResponse = "You have an Approved/Pending Training request or New Training request for this date ., you cannot proceed with the New Training Rquest"
+                If StrQuery <> "" Then
+                    ORec.DoQuery(StrQuery)
+                    If ORec.RecordCount > 0 Then
+                        Return strResponse
+                    End If
+                End If
+
+                'BTA Validation
+                '   StrQuery = "select * from [@Z_HR_OTRAREQ] where U_Z_EmpId='" & aEmpID & "' and U_Z_AppStatus<>'R' and '" & aFromDate.ToString("yyyy-MM-dd") & "' between U_Z_TraStDate and U_Z_TraEndDate"
+                StrQuery = "select * from [@Z_HR_OTRAREQ] where U_Z_EmpId='" & aEmpID & "' and U_Z_AppStatus<>'R' and U_Z_TraStDate between '" & aFromDate.ToString("yyyy-MM-dd") & "' and '" & aToDate.ToString("yyyy-MM-dd") & "'"
+                strResponse = "You have an Approved/Pending BTA for this date ….,you cannot proceed with the New Training Rquest"
+                If StrQuery <> "" Then
+                    ORec.DoQuery(StrQuery)
+                    If ORec.RecordCount > 0 Then
+                        Return strResponse
+                    End If
+                End If
+
+                '  StrQuery = "select * from [@Z_HR_OTRAREQ] where U_Z_EmpId='" & aEmpID & "' and U_Z_AppStatus<>'R' and '" & aToDate.ToString("yyyy-MM-dd") & "' between U_Z_TraStDate and U_Z_TraEndDate"
+                StrQuery = "select * from [@Z_HR_OTRAREQ] where U_Z_EmpId='" & aEmpID & "' and U_Z_AppStatus<>'R' and U_Z_TraEndDate between '" & aFromDate.ToString("yyyy-MM-dd") & "' and '" & aToDate.ToString("yyyy-MM-dd") & "'"
+                strResponse = "You have an Approved/Pending BTA for this date …., you cannot proceed with the New Training Rquest"
+                If StrQuery <> "" Then
+                    ORec.DoQuery(StrQuery)
+                    If ORec.RecordCount > 0 Then
+                        Return strResponse
+                    End If
+                End If
+
+
+                'Leave Entry checking
+                '  StrQuery = "SELECT T0.[U_Z_StartDate], T0.[U_Z_EndDate], T0.[U_Z_EMPID] FROM [dbo].[@Z_PAY_OLETRANS]  T0 where  U_Z_EMPID='" & aEmpID & "' and '" & aFromDate.ToString("yyyy-MM-dd") & "' between U_Z_StartDate and U_Z_EndDate "
+                StrQuery = "SELECT T0.[U_Z_StartDate], T0.[U_Z_EndDate], T0.[U_Z_EMPID] FROM [dbo].[@Z_PAY_OLETRANS]  T0 where  U_Z_EMPID='" & aEmpID & "' and U_Z_StartDate between '" & aFromDate.ToString("yyyy-MM-dd") & "'  and '" & aToDate.ToString("yyyy-MM-dd") & "'"
+                strResponse = "You have an Approved/Pending Leave request for this date .,  you cannot proceed with the New Training Rquest"
+                If StrQuery <> "" Then
+                    ORec.DoQuery(StrQuery)
+                    If ORec.RecordCount > 0 Then
+                        Return strResponse
+                    End If
+                End If
+
+                '    StrQuery = "SELECT T0.[U_Z_StartDate], T0.[U_Z_EndDate], T0.[U_Z_EMPID] FROM [dbo].[@Z_PAY_OLETRANS]  T0 where  U_Z_EMPID='" & aEmpID & "' and '" & aToDate.ToString("yyyy-MM-dd") & "' between U_Z_StartDate and U_Z_EndDate "
+                StrQuery = "SELECT T0.[U_Z_StartDate], T0.[U_Z_EndDate], T0.[U_Z_EMPID] FROM [dbo].[@Z_PAY_OLETRANS]  T0 where  U_Z_EMPID='" & aEmpID & "' and U_Z_EndDate between '" & aFromDate.ToString("yyyy-MM-dd") & "'  and '" & aToDate.ToString("yyyy-MM-dd") & "'"
+                strResponse = "You have an Leave request for this date .,  you cannot proceed with the New Training Rquest"
+                If StrQuery <> "" Then
+                    ORec.DoQuery(StrQuery)
+                    If ORec.RecordCount > 0 Then
+                        Return strResponse
+                    End If
+                End If
+
+            Case "NetTraining"
+                StrQuery = "select * from [@Z_HR_LEXPCL] where  U_Z_AppStatus <>'R' and  U_Z_OverLap='Y' and U_Z_Claimdt between '" & aFromDate.ToString("yyyy-MM-dd") & "' and '" & aToDate.ToString("yyyy-MM-dd") & "'"
+                strResponse = "you have an Approved/Pending Loanee Expenses for this date., you cannot proceed with the New Training Rquest"
+                If StrQuery <> "" Then
+                    ORec.DoQuery(StrQuery)
+                    If ORec.RecordCount > 0 Then
+                        Return strResponse
+                    End If
+                End If
+
+                StrQuery = "select * from [@Z_HR_EXPCL] where  U_Z_AppStatus <>'R' and  U_Z_OverLap='Y' and U_Z_Claimdt between '" & aFromDate.ToString("yyyy-MM-dd") & "' and '" & aToDate.ToString("yyyy-MM-dd") & "'"
+                strResponse = "you have an Approved/Pending Expenses for this date., you cannot proceed with the New Training Rquest"
+                If StrQuery <> "" Then
+                    ORec.DoQuery(StrQuery)
+                    If ORec.RecordCount > 0 Then
+                        Return strResponse
+                    End If
+                End If
+
+                'New Training Requet Validation
+                '  StrQuery = "select U_Z_TrainFrdt,U_Z_TrainTodt ,U_Z_HREmpID,U_Z_AppStatus,* from [@Z_HR_ONTREQ] where U_Z_AppStatus<>'R' and  U_Z_HREmpID='" & aEmpID & "' and '" & aFromDate.ToString("yyyy-MM-dd") & "' between U_Z_TrainFrdt and U_Z_TrainTodt "
+                StrQuery = "select U_Z_TrainFrdt,U_Z_TrainTodt ,U_Z_HREmpID,U_Z_AppStatus,* from [@Z_HR_ONTREQ] where U_Z_AppStatus<>'R' and  U_Z_HREmpID='" & aEmpID & "'  and  U_Z_TrainFrdt between '" & aFromDate.ToString("yyyy-MM-dd") & "' and '" & aToDate.ToString("yyyy-MM-dd") & "'"
+                strResponse = "You have an Approved/Pending Training request or New Training request for this date .,you cannot proceed with the New Training Rquest"
+                If StrQuery <> "" Then
+                    ORec.DoQuery(StrQuery)
+                    If ORec.RecordCount > 0 Then
+                        Return strResponse
+                    End If
+                End If
+                '  StrQuery = "select U_Z_TrainFrdt,U_Z_TrainTodt ,U_Z_HREmpID,U_Z_AppStatus,* from [@Z_HR_ONTREQ] where U_Z_AppStatus<>'R' and  U_Z_HREmpID='" & aEmpID & "' and '" & aToDate.ToString("yyyy-MM-dd") & "' between U_Z_TrainFrdt and U_Z_TrainTodt "
+                StrQuery = "select U_Z_TrainFrdt,U_Z_TrainTodt ,U_Z_HREmpID,U_Z_AppStatus,* from [@Z_HR_ONTREQ] where U_Z_AppStatus<>'R' and  U_Z_HREmpID='" & aEmpID & "'  and  U_Z_TrainTodt between '" & aFromDate.ToString("yyyy-MM-dd") & "' and '" & aToDate.ToString("yyyy-MM-dd") & "'"
+                strResponse = "You have an Approved/Pending Training request or New Training request for this date .,you cannot proceed with the New Training Rquest"
+                If StrQuery <> "" Then
+                    ORec.DoQuery(StrQuery)
+                    If ORec.RecordCount > 0 Then
+                        Return strResponse
+                    End If
+                End If
+
+                'Apply Existing Training Request
+                '   StrQuery = "select * from [@Z_HR_TRIN1] where U_Z_AppStatus<>'R' and  U_Z_HREmpID='" & aEmpID & "' and '" & aFromDate.ToString("yyyy-MM-dd") & "' between U_Z_Startdt and U_Z_Enddt "
+
+                StrQuery = "select * from [@Z_HR_TRIN1] where U_Z_AppStatus<>'R' and  U_Z_HREmpID='" & aEmpID & "' and U_Z_Startdt between '" & aFromDate.ToString("yyyy-MM-dd") & "' and '" & aToDate.ToString("yyyy-MM-dd") & "'"
+                strResponse = "You have an Approved/Pending Training request or New Training request for this date ., you cannot proceed with the New Training Rquest"
+                If StrQuery <> "" Then
+                    ORec.DoQuery(StrQuery)
+                    If ORec.RecordCount > 0 Then
+                        Return strResponse
+                    End If
+                End If
+                '   StrQuery = "select * from [@Z_HR_TRIN1] where U_Z_AppStatus<>'R' and  U_Z_HREmpID='" & aEmpID & "' and '" & aToDate.ToString("yyyy-MM-dd") & "' between U_Z_Startdt and U_Z_Enddt "
+                StrQuery = "select * from [@Z_HR_TRIN1] where U_Z_AppStatus<>'R' and  U_Z_HREmpID='" & aEmpID & "' and U_Z_Enddt between '" & aFromDate.ToString("yyyy-MM-dd") & "' and '" & aToDate.ToString("yyyy-MM-dd") & "'"
+                strResponse = "You have an Approved/Pending Training request or New Training request for this date ., you cannot proceed with the New Training Rquest"
+                If StrQuery <> "" Then
+                    ORec.DoQuery(StrQuery)
+                    If ORec.RecordCount > 0 Then
+                        Return strResponse
+                    End If
+                End If
+
+                'BTA
+
+                '  StrQuery = "select * from [@Z_HR_OTRAREQ] where U_Z_EmpId='" & aEmpID & "' and U_Z_AppStatus<>'R' and '" & aFromDate.ToString("yyyy-MM-dd") & "' between U_Z_TraStDate and U_Z_TraEndDate"
+                StrQuery = "select * from [@Z_HR_OTRAREQ] where U_Z_EmpId='" & aEmpID & "' and U_Z_AppStatus<>'R' and U_Z_TraStDate between '" & aFromDate.ToString("yyyy-MM-dd") & "' and '" & aToDate.ToString("yyyy-MM-dd") & "'"
+                strResponse = "You have an Approved/Pending BTA for this date …., you cannot proceed with the New Training Rquest"
+                If StrQuery <> "" Then
+                    ORec.DoQuery(StrQuery)
+                    If ORec.RecordCount > 0 Then
+                        Return strResponse
+                    End If
+                End If
+
+                '  StrQuery = "select * from [@Z_HR_OTRAREQ] where U_Z_EmpId='" & aEmpID & "' and U_Z_AppStatus<>'R' and '" & aToDate.ToString("yyyy-MM-dd") & "' between U_Z_TraStDate and U_Z_TraEndDate"
+                StrQuery = "select * from [@Z_HR_OTRAREQ] where U_Z_EmpId='" & aEmpID & "' and U_Z_AppStatus<>'R' and U_Z_TraEndDate between '" & aFromDate.ToString("yyyy-MM-dd") & "' and '" & aToDate.ToString("yyyy-MM-dd") & "'"
+                strResponse = "You have an Approved/Pending BTA for this date ….,you cannot proceed with the New Training Rquest"
+                If StrQuery <> "" Then
+                    ORec.DoQuery(StrQuery)
+                    If ORec.RecordCount > 0 Then
+                        Return strResponse
+                    End If
+                End If
+
+                'Leave Entry checking
+                ' StrQuery = "SELECT T0.[U_Z_StartDate], T0.[U_Z_EndDate], T0.[U_Z_EMPID] FROM [dbo].[@Z_PAY_OLETRANS]  T0 where  U_Z_EMPID='" & aEmpID & "' and '" & aFromDate.ToString("yyyy-MM-dd") & "' between U_Z_StartDate and U_Z_EndDate "
+                StrQuery = "SELECT T0.[U_Z_StartDate], T0.[U_Z_EndDate], T0.[U_Z_EMPID] FROM [dbo].[@Z_PAY_OLETRANS]  T0 where  U_Z_EMPID='" & aEmpID & "'  and  U_Z_StartDate between'" & aFromDate.ToString("yyyy-MM-dd") & "' and '" & aToDate.ToString("yyyy-MM-dd") & "'"
+                strResponse = "You have an Approved/Pending Leave request for this date .,  you cannot proceed with the New Training Rquest"
+                If StrQuery <> "" Then
+                    ORec.DoQuery(StrQuery)
+                    If ORec.RecordCount > 0 Then
+                        Return strResponse
+                    End If
+                End If
+
+                ' StrQuery = "SELECT T0.[U_Z_StartDate], T0.[U_Z_EndDate], T0.[U_Z_EMPID] FROM [dbo].[@Z_PAY_OLETRANS]  T0 where  U_Z_EMPID='" & aEmpID & "' and '" & aToDate.ToString("yyyy-MM-dd") & "' between U_Z_StartDate and U_Z_EndDate "
+                StrQuery = "SELECT T0.[U_Z_StartDate], T0.[U_Z_EndDate], T0.[U_Z_EMPID] FROM [dbo].[@Z_PAY_OLETRANS]  T0 where  U_Z_EMPID='" & aEmpID & "'  and  U_Z_EndDate between'" & aFromDate.ToString("yyyy-MM-dd") & "' and '" & aToDate.ToString("yyyy-MM-dd") & "'"
+                strResponse = "You have an Approved/Pending Leave request for this date .,  you cannot proceed with the New Training Rquest"
+                If StrQuery <> "" Then
+                    ORec.DoQuery(StrQuery)
+                    If ORec.RecordCount > 0 Then
+                        Return strResponse
+                    End If
+                End If
+
+            Case "Leave"
+                'Expense
+                StrQuery = "select * from [@Z_HR_EXPCL] where  U_Z_AppStatus <>'R' and  U_Z_OverLap='Y' and U_Z_Claimdt between '" & aFromDate.ToString("yyyy-MM-dd") & "' and '" & aToDate.ToString("yyyy-MM-dd") & "'"
+                strResponse = "you have an Approved/Pending Expenses for this date., you cannot proceed with the New Leave Rquest"
+                If StrQuery <> "" Then
+                    ORec.DoQuery(StrQuery)
+                    If ORec.RecordCount > 0 Then
+                        Return strResponse
+                    End If
+                End If
+                'Loanee Expense
+                StrQuery = "select * from [@Z_HR_LEXPCL] where  U_Z_AppStatus <>'R' and  U_Z_OverLap='Y' and U_Z_Claimdt between '" & aFromDate.ToString("yyyy-MM-dd") & "' and '" & aToDate.ToString("yyyy-MM-dd") & "'"
+                strResponse = "you have an Approved/Pending Loanee Expenses for this date., you cannot proceed with the New Leave Rquest"
+                If StrQuery <> "" Then
+                    ORec.DoQuery(StrQuery)
+                    If ORec.RecordCount > 0 Then
+                        Return strResponse
+                    End If
+                End If
+                'BTA
+
+                '    StrQuery = "select * from [@Z_HR_OTRAREQ] where U_Z_EmpId='" & aEmpID & "' and U_Z_AppStatus<>'R' and '" & aFromDate.ToString("yyyy-MM-dd") & "' between U_Z_TraStDate and U_Z_TraEndDate"
+                StrQuery = "select * from [@Z_HR_OTRAREQ] where U_Z_EmpId='" & aEmpID & "' and U_Z_AppStatus<>'R' and  U_Z_TraStDate between '" & aFromDate.ToString("yyyy-MM-dd") & "' and '" & aToDate.ToString("yyyy-MM-dd") & "'"
+                strResponse = "You have an Approved/Pending BTA for this date …., you cannot proceed with the New Leave Rquest"
+                If StrQuery <> "" Then
+                    ORec.DoQuery(StrQuery)
+                    If ORec.RecordCount > 0 Then
+                        Return strResponse
+                    End If
+                End If
+
+                '  StrQuery = "select * from [@Z_HR_OTRAREQ] where U_Z_EmpId='" & aEmpID & "' and U_Z_AppStatus<>'R' and '" & aToDate.ToString("yyyy-MM-dd") & "' between U_Z_TraStDate and U_Z_TraEndDate"
+                StrQuery = "select * from [@Z_HR_OTRAREQ] where U_Z_EmpId='" & aEmpID & "' and U_Z_AppStatus<>'R' and U_Z_TraEndDate  between '" & aFromDate.ToString("yyyy-MM-dd") & "' and '" & aToDate.ToString("yyyy-MM-dd") & "'"
+                strResponse = "You have an Approved/Pending BTA for this date ….,you cannot proceed with the New Leave Rquest"
+                If StrQuery <> "" Then
+                    ORec.DoQuery(StrQuery)
+                    If ORec.RecordCount > 0 Then
+
+                        Return strResponse
+                    End If
+                End If
+
+                'Leave Entry checking
+                '  StrQuery = "SELECT T0.[U_Z_StartDate], T0.[U_Z_EndDate], T0.[U_Z_EMPID] FROM [dbo].[@Z_PAY_OLETRANS]  T0 where  U_Z_EMPID='" & aEmpID & "' and '" & aFromDate.ToString("yyyy-MM-dd") & "' between U_Z_StartDate and U_Z_EndDate "
+                StrQuery = "SELECT T0.[U_Z_StartDate], T0.[U_Z_EndDate], T0.[U_Z_EMPID] FROM [dbo].[@Z_PAY_OLETRANS]  T0 where  U_Z_EMPID='" & aEmpID & "'  and  U_Z_StartDate between'" & aFromDate.ToString("yyyy-MM-dd") & "' and '" & aToDate.ToString("yyyy-MM-dd") & "'"
+                strResponse = "You have an Approved/Pending Leave request for this date .,  you cannot proceed with the  New Leave Rquest"
+                If StrQuery <> "" Then
+                    ORec.DoQuery(StrQuery)
+                    If ORec.RecordCount > 0 Then
+                        Return strResponse
+                    End If
+                End If
+
+                '     StrQuery = "SELECT T0.[U_Z_StartDate], T0.[U_Z_EndDate], T0.[U_Z_EMPID] FROM [dbo].[@Z_PAY_OLETRANS]  T0 where  U_Z_EMPID='" & aEmpID & "' and '" & aToDate.ToString("yyyy-MM-dd") & "' between U_Z_StartDate and U_Z_EndDate "
+                StrQuery = "SELECT T0.[U_Z_StartDate], T0.[U_Z_EndDate], T0.[U_Z_EMPID] FROM [dbo].[@Z_PAY_OLETRANS]  T0 where  U_Z_EMPID='" & aEmpID & "'  and  U_Z_EndDate between'" & aFromDate.ToString("yyyy-MM-dd") & "' and '" & aToDate.ToString("yyyy-MM-dd") & "'"
+                strResponse = "You have an Approved/Pending Leave request for this date .,  you cannot proceed with the  New Leave Rquest"
+                If StrQuery <> "" Then
+                    ORec.DoQuery(StrQuery)
+                    If ORec.RecordCount > 0 Then
+                        Return strResponse
+                    End If
+                End If
+
+
+                'Apply Existing Training Request
+                '  StrQuery = "select * from [@Z_HR_TRIN1] where U_Z_AppStatus<>'R' and  U_Z_HREmpID='" & aEmpID & "' and '" & aFromDate.ToString("yyyy-MM-dd") & "' between U_Z_Startdt and U_Z_Enddt "
+                StrQuery = "select * from [@Z_HR_TRIN1] where U_Z_AppStatus<>'R' and  U_Z_HREmpID='" & aEmpID & "' and U_Z_Startdt between '" & aFromDate.ToString("yyyy-MM-dd") & "' and '" & aToDate.ToString("yyyy-MM-dd") & "'"
+                strResponse = "You have an Approved/Pending Training request or New Training request for this date ., you cannot proceed with the  New Leave Rquest"""
+                If StrQuery <> "" Then
+                    ORec.DoQuery(StrQuery)
+                    If ORec.RecordCount > 0 Then
+                        Return strResponse
+                    End If
+                End If
+
+                '   StrQuery = "select * from [@Z_HR_TRIN1] where U_Z_AppStatus<>'R' and  U_Z_HREmpID='" & aEmpID & "' and '" & aToDate.ToString("yyyy-MM-dd") & "' between U_Z_Startdt and U_Z_Enddt "
+                StrQuery = "select * from [@Z_HR_TRIN1] where U_Z_AppStatus<>'R' and  U_Z_HREmpID='" & aEmpID & "' and U_Z_Enddt between '" & aFromDate.ToString("yyyy-MM-dd") & "' and '" & aToDate.ToString("yyyy-MM-dd") & "'"
+                strResponse = "You have an Approved/Pending Training request or New Training request for this date ., you cannot proceed with the  New Leave Rquest"""
+                If StrQuery <> "" Then
+                    ORec.DoQuery(StrQuery)
+                    If ORec.RecordCount > 0 Then
+                        Return strResponse
+                    End If
+                End If
+                'New Training Requet Validation
+                '   StrQuery = "select U_Z_TrainFrdt,U_Z_TrainTodt ,U_Z_HREmpID,U_Z_AppStatus,* from [@Z_HR_ONTREQ] where U_Z_AppStatus<>'R' and  U_Z_HREmpID='" & aEmpID & "' and '" & aFromDate.ToString("yyyy-MM-dd") & "' between U_Z_TrainFrdt and U_Z_TrainTodt "
+                StrQuery = "select U_Z_TrainFrdt,U_Z_TrainTodt ,U_Z_HREmpID,U_Z_AppStatus,* from [@Z_HR_ONTREQ] where U_Z_AppStatus<>'R' and  U_Z_HREmpID='" & aEmpID & "' and U_Z_TrainFrdt between '" & aFromDate.ToString("yyyy-MM-dd") & "' and '" & aToDate.ToString("yyyy-MM-dd") & "'"
+                strResponse = "You have an Approved/Pending Training request or New Training request for this date ., you cannot proceed with the  New Leave Rquest"
+                If StrQuery <> "" Then
+                    ORec.DoQuery(StrQuery)
+                    If ORec.RecordCount > 0 Then
+                        Return strResponse
+                    End If
+                End If
+                ' StrQuery = "select U_Z_TrainFrdt,U_Z_TrainTodt ,U_Z_HREmpID,U_Z_AppStatus,* from [@Z_HR_ONTREQ] where U_Z_AppStatus<>'R' and  U_Z_HREmpID='" & aEmpID & "' and '" & aToDate.ToString("yyyy-MM-dd") & "' between U_Z_TrainFrdt and U_Z_TrainTodt "
+                StrQuery = "select U_Z_TrainFrdt,U_Z_TrainTodt ,U_Z_HREmpID,U_Z_AppStatus,* from [@Z_HR_ONTREQ] where U_Z_AppStatus<>'R' and  U_Z_HREmpID='" & aEmpID & "' and U_Z_TrainTodt between '" & aFromDate.ToString("yyyy-MM-dd") & "' and '" & aToDate.ToString("yyyy-MM-dd") & "'"
+                strResponse = "You have an Approved/Pending Training request or New Training request for this date ., you cannot proceed with the  New Leave Rquest"
+                If StrQuery <> "" Then
+                    ORec.DoQuery(StrQuery)
+                    If ORec.RecordCount > 0 Then
+                        Return strResponse
+                    End If
+                End If
+            Case "Loanee"
+                'BTA Validation
+                StrQuery = "select * from [@Z_HR_OTRAREQ] where U_Z_EmpId='" & aEmpID & "' and U_Z_AppStatus<>'R' and '" & aFromDate.ToString("yyyy-MM-dd") & "' between U_Z_TraStDate and U_Z_TraEndDate"
+                strResponse = "You have an Approved/Pending BTA for this date …., you cannot proceed with another Loanee expense claim"
+                If StrQuery <> "" Then
+                    ORec.DoQuery(StrQuery)
+                    If ORec.RecordCount > 0 Then
+                        Return strResponse
+                    End If
+                End If
+
+                'Same Expense Claim validation
+                If aCode <> "" Then
+                    '  StrQuery = "select * from [@Z_HR_OTRAREQ] where U_Z_EmpId='" & aEmpID & "' and U_Z_AppStatus<>'R' and '" & aFromDate.ToString("yyyy-MM-dd") & "' between U_Z_TraStDate and U_Z_TraEndDate"
+                    StrQuery = "select * from [@Z_HR_EXPCL] where U_Z_ExpType='" & aCode & "' and   U_Z_AppStatus <>'R' and  U_Z_OverLap='Y' and U_Z_Claimdt  ='" & aFromDate.ToString("yyyy-MM-dd") & "'"
+                    strResponse = "You have an Approved/Pending Same Expense for this date ., you cannot proceed another Loanee expense claim"
+                    If StrQuery <> "" Then
+                        ORec.DoQuery(StrQuery)
+                        If ORec.RecordCount > 0 Then
+                            Return strResponse
+                        End If
+                    End If
+
+                End If
+
+                'New Training Requet Validation
+                StrQuery = "select U_Z_TrainFrdt,U_Z_TrainTodt ,U_Z_HREmpID,U_Z_AppStatus,* from [@Z_HR_ONTREQ] where U_Z_AppStatus<>'R' and  U_Z_HREmpID='" & aEmpID & "' and '" & aFromDate.ToString("yyyy-MM-dd") & "' between U_Z_TrainFrdt and U_Z_TrainTodt "
+                strResponse = "You have an Approved/Pending Training request or New Training request for this date ., you cannot proceed another Loanee expense claim"
+                If StrQuery <> "" Then
+                    ORec.DoQuery(StrQuery)
+                    If ORec.RecordCount > 0 Then
+                        Return strResponse
+                    End If
+                End If
+                'Apply Existing Training Request
+                StrQuery = "select * from [@Z_HR_TRIN1] where U_Z_AppStatus<>'R' and  U_Z_HREmpID='" & aEmpID & "' and '" & aFromDate.ToString("yyyy-MM-dd") & "' between U_Z_Startdt and U_Z_Enddt "
+                strResponse = "You have an Approved/Pending Training request or New Training request for this date ., you cannot proceed another Loanee expense claim"
+                If StrQuery <> "" Then
+                    ORec.DoQuery(StrQuery)
+                    If ORec.RecordCount > 0 Then
+                        Return strResponse
+                    End If
+                End If
+                'Leave Entry checking
+                ' StrQuery = "SELECT T0.[U_Z_StartDate], T0.[U_Z_EndDate], T0.[U_Z_EMPID] FROM [dbo].[@Z_PAY_OLETRANS]  T0 where  U_Z_EMPID='" & aEmpID & "' and '" & aFromDate.ToString("yyyy-MM-dd") & "' between U_Z_StartDate and U_Z_EndDate "
+                StrQuery = "SELECT T0.[U_Z_StartDate], T0.[U_Z_EndDate], T0.[U_Z_EMPID] FROM [dbo].[@Z_PAY_OLETRANS]  T0 where  U_Z_EMPID='" & aEmpID & "' and '" & aFromDate.ToString("yyyy-MM-dd") & "' between U_Z_StartDate and U_Z_EndDate"
+                strResponse = "You have an Approved/Pending Leave request for this date ., you cannot proceed with the Expenses Request"
+                If StrQuery <> "" Then
+                    ORec.DoQuery(StrQuery)
+                    If ORec.RecordCount > 0 Then
+                        Return strResponse
+                    End If
+                End If
+        End Select
+
+
+    End Function
+   
+    Public Function GetOverlap(ByVal expcode As String, aChoice As String) As String
+        Try
+            Dim con As SqlConnection = New SqlConnection(GetConnection)
+            con.Open()
+            Select Case aChoice
+                Case "Loanee"
+                    strQuery = "SELECT isnull(U_Z_OverLap,'N') AS U_Z_OverLap FROM [@Z_HR_LEXPANCES] where Code='" & expcode & "'"
+                Case "Exp"
+                    strQuery = "SELECT isnull(U_Z_OverLap,'N') AS U_Z_OverLap FROM [@Z_HR_EXPANCES] where Code='" & expcode & "'"
+            End Select
+            cmd = New SqlCommand(strQuery, con)
+            cmd.CommandType = CommandType.Text
+            Dim status As String
+            status = cmd.ExecuteScalar()
+            con.Close()
+            Return status
+        Catch ex As Exception
+            DBConnectionDA.WriteError(ex.Message)
         End Try
     End Function
 End Class

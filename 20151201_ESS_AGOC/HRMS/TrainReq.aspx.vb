@@ -246,4 +246,13 @@ Public Class TrainReq
         objEN.EmpId = ViewState("EmpId").ToString()
         CourseAcquired(objEN)
     End Sub
+
+    Private Sub grdNewTraining_RowDataBound(sender As Object, e As System.Web.UI.WebControls.GridViewRowEventArgs) Handles grdNewTraining.RowDataBound
+        If e.Row.RowType = DataControlRowType.DataRow Then
+            Dim lblcomments As LinkButton = CType(e.Row.FindControl("lblreason"), LinkButton)
+            If lblcomments.ToolTip = "" Then
+                lblcomments.Text = ""
+            End If
+        End If
+    End Sub
 End Class

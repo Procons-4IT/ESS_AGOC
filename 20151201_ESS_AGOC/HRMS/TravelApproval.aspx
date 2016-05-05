@@ -141,7 +141,7 @@
                                                                                     <asp:TemplateField HeaderText="Purpose Of The Trip">
                                                                                         <ItemTemplate>
                                                                                             <div align="left">
-                                                                                                &nbsp;<asp:Label ID="lblrem" runat="server" Text='<%#Bind("U_Z_EmpComme") %>'></asp:Label>
+                                                                                                &nbsp;<asp:LinkButton ID="lblrem" runat="server" Text="View Purpose Of Trip" ToolTip='<%#Bind("U_Z_EmpComme") %>'></asp:LinkButton>
                                                                                             </div>
                                                                                         </ItemTemplate>
                                                                                     </asp:TemplateField>
@@ -314,6 +314,7 @@
                                                                             </div>
                                                                         </td>
                                                                         <td>
+                                                                         <div id="dtAppStatus" runat="server" visible="false">
                                                                             <table width="100%" border="0" cellspacing="0" cellpadding="3" class="main_content">
                                                                                 <tr>
                                                                                     <td>
@@ -353,6 +354,7 @@
                                                                                     </td>
                                                                                 </tr>
                                                                             </table>
+                                                                            </div> 
                                                                         </td>
                                                                     </tr>
                                                                 </table>
@@ -442,7 +444,7 @@
                                                                                     <asp:TemplateField HeaderText="Purpose Of The Trip">
                                                                                         <ItemTemplate>
                                                                                             <div align="left">
-                                                                                                &nbsp;<asp:Label ID="lblSrem" runat="server" Text='<%#Bind("U_Z_EmpComme") %>'></asp:Label>
+                                                                                                &nbsp;<asp:LinkButton ID="lblSrem" runat="server" Text="View Purpose Of Trip" ToolTip='<%#Bind("U_Z_EmpComme") %>'></asp:LinkButton>
                                                                                             </div>
                                                                                         </ItemTemplate>
                                                                                     </asp:TemplateField>

@@ -4,6 +4,7 @@ Imports DataAccess
 Public Class HRMS
     Inherits System.Web.UI.MasterPage
     Dim objDA As LoginDA = New LoginDA()
+    Dim objEn As LoginEN = New LoginEN()
     Dim dbCon As DBConnectionDA = New DBConnectionDA()
 
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
@@ -13,6 +14,21 @@ Public Class HRMS
             Else
                 lbluser.Text = Session("UserName").ToString()
                 lblbadge.Text = Session("BadgeNo").ToString()
+                objEn.Userid = Session("UserCode").ToString()
+                Dim strEmpType As String = objDA.GetEmployeeType(objEn)
+                If strEmpType = "E" Then
+                    MgrApp.Visible = False
+                    MgrNotify.Visible = False
+                Else
+                    MgrApp.Visible = True
+                    MgrNotify.Visible = True
+                End If
+                Dim strEmpType1 As String = objDA.GetLoaneeAppTemp(objEn.Userid)
+                If strEmpType1 = "" Then
+                    Loanee.Visible = False
+                Else
+                    Loanee.Visible = True
+                End If
             End If
         End If
         CompanyAddress()

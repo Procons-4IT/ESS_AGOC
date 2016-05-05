@@ -72,6 +72,22 @@ Public Class DynamicApprovalDA
             Return "99999"
         End If
     End Function
+    Public Function GetLoaneeAppTemp(ByVal UserCode As String) As String
+        Dim ReturnValue As String = ""
+        Try
+            objDA.con.Open()
+            'objDA.strQuery = "select ISNULL(U_Z_ESSAPPROVER,'E')  from [@Z_HR_LOGIN] where ""U_Z_EMPID""='" & objen.Userid & "'"
+            objDA.strQuery = "select T1.U_Z_OUser from [@Z_HR_OAPPT] T0 JOIN [@Z_HR_APPT1] T1 ON T0.DocEntry=T1.DocEntry where T0.U_Z_DocType='Loanee' and T1.U_Z_OUser='" & UserCode & "'"
+            objDA.cmd = New SqlCommand(objDA.strQuery, objDA.con)
+            objDA.cmd.CommandType = CommandType.Text
+            ReturnValue = objDA.cmd.ExecuteScalar()
+            objDA.con.Close()
+            Return ReturnValue
+        Catch ex As Exception
+            DBConnectionDA.WriteError(ex.Message)
+            Throw ex
+        End Try
+    End Function
     Public Function GetEmpId(ByVal aCode As String) As String
         Dim EmpId As String = ""
         objDA.strQuery = "select distinct( T2.U_Z_OUser) from [@Z_HR_OAPPT] T0 JOIN [@Z_HR_APPT2] T1 on T0.DocEntry=T1.DocEntry JOIN [@Z_HR_APPT1] T2 on T0.DocEntry=T2.DocEntry where T1.U_Z_AUser ='" & aCode & "'  and T0.U_Z_DocType='LveReq'"
@@ -2084,6 +2100,251 @@ Public Class DynamicApprovalDA
                         Dim strJvNo As String
                         SAPCompany.GetNewObjectCode(strJvNo)
                         orec1.DoQuery("Update [@Z_HR_EXPCL] set U_Z_JVNo='" & strJvNo & "',U_Z_PayPosted='Y' where Code='" & aCode & "'")
+                        objDA.strmsg = "Success"
+                        Return objDA.strmsg
+                    End If
+                End If
+            End If
+        Catch ex As Exception
+            DBConnectionDA.WriteError(ex.Message)
+            objDA.strmsg = ex.Message
+        End Try
+        Return objDA.strmsg
+    End Function
+
+    Public Function LoaneeCreateJournelVouchers(ByVal aCode As String, ByVal reimbused As String, ByVal SAPCompany As SAPbobsCOM.Company) As String
+        Dim strQuery As String
+        Dim oTemp, orec1, oRecSet, oEmpRS As SAPbobsCOM.Recordset
+        Dim strDocCurrency, strDimentions, strBatchno As String
+        Dim strDim As String()
+        Try
+            oRecSet = SAPCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset)
+            oTemp = SAPCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset)
+            orec1 = SAPCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset)
+            oEmpRS = SAPCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset)
+            If reimbused = "No" Or reimbused = "N" Then
+                strQuery = "select * from [@Z_HR_LEXPCL] where isnull(U_Z_PayPosted,'N')='N' and U_Z_Reimburse='N' and U_Z_Posting='G' and  U_Z_APPStatus='A'  and Code='" & aCode & "'"
+                oTemp.DoQuery(strQuery)
+                If oTemp.RecordCount > 0 Then
+                    strDocCurrency = oTemp.Fields.Item("U_Z_Currency").Value
+                    Dim Vjov As SAPbobsCOM.JournalVouchers
+                    Vjov = SAPCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.oJournalVouchers)
+                    Vjov.JournalEntries.Lines.SetCurrentLine(0)
+                    Vjov.JournalEntries.Reference = oTemp.Fields.Item("U_Z_EmpID").Value
+                    Vjov.JournalEntries.Reference2 = objDA.getEmpName(oTemp.Fields.Item("U_Z_EmpID").Value)
+                    oEmpRS.DoQuery("Select isnull(ExtEmpNo,empID) from OHEM where empID=" & oTemp.Fields.Item("U_Z_EmpID").Value)
+                    strBatchno = oEmpRS.Fields.Item(0).Value
+                    Vjov.JournalEntries.Reference3 = strBatchno
+
+                    strDimentions = oTemp.Fields.Item("U_Z_Dimension").Value
+                    strDim = strDimentions.Split(";")
+                    Dim strdebitCode As String = objDA.getSAPAccount(oTemp.Fields.Item("U_Z_DebitCode").Value, SAPCompany)
+                    Vjov.JournalEntries.Lines.AccountCode = strdebitCode
+                    Try
+                        Vjov.JournalEntries.Lines.UserFields.Fields.Item("U_Z_ExpType").Value = oTemp.Fields.Item("U_Z_ExpType").Value
+                        Vjov.JournalEntries.Lines.UserFields.Fields.Item("U_Z_ClaimDate").Value = oTemp.Fields.Item("U_Z_Claimdt").Value
+                    Catch ex As Exception
+
+                    End Try
+                    Vjov.JournalEntries.Lines.UserFields.Fields.Item("U_Z_AppDate").Value = Now.Date
+                    Vjov.JournalEntries.Lines.UserFields.Fields.Item("U_Z_BatchNo").Value = strBatchno
+                    If strDocCurrency <> SAPCompany.GetCompanyService.GetAdminInfo.LocalCurrency Then
+                        Vjov.JournalEntries.Lines.FCCurrency = strDocCurrency
+                        Vjov.JournalEntries.Lines.FCDebit = objDA.getDocumentQuantity(oTemp.Fields.Item("U_Z_CurAmt").Value, SAPCompany)
+                    ElseIf strDocCurrency = SAPCompany.GetCompanyService.GetAdminInfo.SystemCurrency And SAPCompany.GetCompanyService.GetAdminInfo.SystemCurrency <> SAPCompany.GetCompanyService.GetAdminInfo.LocalCurrency Then
+                        Vjov.JournalEntries.Lines.FCCurrency = strDocCurrency
+                        Vjov.JournalEntries.Lines.FCDebit = objDA.getDocumentQuantity(oTemp.Fields.Item("U_Z_CurAmt").Value, SAPCompany)
+                    Else
+                        Vjov.JournalEntries.Lines.Debit = objDA.getDocumentQuantity(oTemp.Fields.Item("U_Z_UsdAmt").Value, SAPCompany)
+                    End If
+                    Try
+                        If strDim(0) <> "" Then
+                            Vjov.JournalEntries.Lines.CostingCode = strDim(0)
+                        End If
+                        If strDim(1) <> "" Then
+                            Vjov.JournalEntries.Lines.CostingCode2 = strDim(1)
+                        End If
+                        If strDim(2) <> "" Then
+                            Vjov.JournalEntries.Lines.CostingCode3 = strDim(2)
+                        End If
+                        If strDim(3) <> "" Then
+                            Vjov.JournalEntries.Lines.CostingCode4 = strDim(3)
+                        End If
+                        If strDim(4) <> "" Then
+                            Vjov.JournalEntries.Lines.CostingCode5 = strDim(4)
+                        End If
+                    Catch ex As Exception
+
+                    End Try
+
+
+                    Vjov.JournalEntries.Lines.Add()
+                    Vjov.JournalEntries.Lines.SetCurrentLine(1)
+                    Dim strCreditCode As String = objDA.getSAPAccount(oTemp.Fields.Item("U_Z_CreditCode").Value, SAPCompany)
+                    Vjov.JournalEntries.Lines.AccountCode = strCreditCode
+                    Try
+                        Vjov.JournalEntries.Lines.UserFields.Fields.Item("U_Z_ExpType").Value = oTemp.Fields.Item("U_Z_ExpType").Value
+                        Vjov.JournalEntries.Lines.UserFields.Fields.Item("U_Z_ClaimDate").Value = oTemp.Fields.Item("U_Z_Claimdt").Value
+                    Catch ex As Exception
+
+                    End Try
+                    Vjov.JournalEntries.Lines.UserFields.Fields.Item("U_Z_AppDate").Value = Now.Date
+                    Vjov.JournalEntries.Lines.UserFields.Fields.Item("U_Z_BatchNo").Value = strBatchno
+                    '  Vjov.JournalEntries.Lines.Credit = getDocumentQuantity(oTemp.Fields.Item("U_Z_UsdAmt").Value)
+                    If strDocCurrency <> SAPCompany.GetCompanyService.GetAdminInfo.LocalCurrency Then
+                        Vjov.JournalEntries.Lines.FCCurrency = strDocCurrency
+                        Vjov.JournalEntries.Lines.FCCredit = objDA.getDocumentQuantity(oTemp.Fields.Item("U_Z_CurAmt").Value, SAPCompany)
+                    ElseIf strDocCurrency = SAPCompany.GetCompanyService.GetAdminInfo.SystemCurrency And SAPCompany.GetCompanyService.GetAdminInfo.SystemCurrency <> SAPCompany.GetCompanyService.GetAdminInfo.LocalCurrency Then
+                        Vjov.JournalEntries.Lines.FCCurrency = strDocCurrency
+                        Vjov.JournalEntries.Lines.FCCredit = objDA.getDocumentQuantity(oTemp.Fields.Item("U_Z_CurAmt").Value, SAPCompany)
+                    Else
+                        Vjov.JournalEntries.Lines.Credit = objDA.getDocumentQuantity(oTemp.Fields.Item("U_Z_UsdAmt").Value, SAPCompany)
+                    End If
+
+                    Try
+
+                        If strDim(0) <> "" Then
+                            Vjov.JournalEntries.Lines.CostingCode = strDim(0)
+                        End If
+                        If strDim(1) <> "" Then
+                            Vjov.JournalEntries.Lines.CostingCode2 = strDim(1)
+                        End If
+                        If strDim(2) <> "" Then
+                            Vjov.JournalEntries.Lines.CostingCode3 = strDim(2)
+                        End If
+                        If strDim(3) <> "" Then
+                            Vjov.JournalEntries.Lines.CostingCode4 = strDim(3)
+                        End If
+                        If strDim(4) <> "" Then
+                            Vjov.JournalEntries.Lines.CostingCode5 = strDim(4)
+                        End If
+                    Catch ex As Exception
+
+                    End Try
+
+                    '    Vjov.JournalEntries.Lines.Add()
+                    If Vjov.Add <> 0 Then
+                        objDA.strmsg = SAPCompany.GetLastErrorDescription
+                        DBConnectionDA.WriteError(objDA.strmsg)
+                        objDA.strQuery = "Update [@Z_HR_LEXPCL] Set U_Z_AppStatus = 'P' Where Code = '" + aCode + "'"
+                        oRecSet.DoQuery(objDA.strQuery)
+                    Else
+                        Dim strJvNo As String
+                        SAPCompany.GetNewObjectCode(strJvNo)
+                        orec1.DoQuery("Update [@Z_HR_LEXPCL] set U_Z_JVNo='" & strJvNo & "',U_Z_PayPosted='Y'  where Code='" & aCode & "'")
+                        objDA.strmsg = "Success"
+                    End If
+                End If
+            Else
+                strQuery = "select * from [@Z_HR_LEXPCL] where isnull(U_Z_PayPosted,'N')='N' and U_Z_Reimburse='Y' and U_Z_Posting='G' and  U_Z_APPStatus='A'  and Code='" & aCode & "'"
+                oTemp.DoQuery(strQuery)
+                If oTemp.RecordCount > 0 Then
+                    strDocCurrency = oTemp.Fields.Item("U_Z_Currency").Value
+                    Dim Vjov As SAPbobsCOM.JournalVouchers
+                    strDimentions = oTemp.Fields.Item("U_Z_Dimension").Value
+                    strDim = strDimentions.Split(";")
+                    Vjov = SAPCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.oJournalVouchers)
+                    Vjov.JournalEntries.Reference = oTemp.Fields.Item("U_Z_EmpID").Value
+                    Vjov.JournalEntries.Reference2 = objDA.getEmpName(oTemp.Fields.Item("U_Z_EmpID").Value)
+
+                    oEmpRS.DoQuery("Select isnull(ExtEmpNo,empID) from OHEM where empID=" & oTemp.Fields.Item("U_Z_EmpID").Value)
+                    strBatchno = oEmpRS.Fields.Item(0).Value
+                    Vjov.JournalEntries.Reference3 = strBatchno
+
+                    Vjov.JournalEntries.Lines.SetCurrentLine(0)
+                    Vjov.JournalEntries.Lines.AccountCode = objDA.getSAPAccount(oTemp.Fields.Item("U_Z_DebitCode").Value, SAPCompany)
+                    Try
+                        Vjov.JournalEntries.Lines.UserFields.Fields.Item("U_Z_ExpType").Value = oTemp.Fields.Item("U_Z_ExpType").Value
+                        Vjov.JournalEntries.Lines.UserFields.Fields.Item("U_Z_ClaimDate").Value = oTemp.Fields.Item("U_Z_Claimdt").Value
+                    Catch ex As Exception
+
+                    End Try
+                    Vjov.JournalEntries.Lines.UserFields.Fields.Item("U_Z_AppDate").Value = Now.Date
+                    Vjov.JournalEntries.Lines.UserFields.Fields.Item("U_Z_BatchNo").Value = strBatchno
+                    If strDocCurrency <> SAPCompany.GetCompanyService.GetAdminInfo.LocalCurrency Then
+                        Vjov.JournalEntries.Lines.FCCurrency = strDocCurrency
+                        Vjov.JournalEntries.Lines.FCDebit = objDA.getDocumentQuantity(oTemp.Fields.Item("U_Z_CurAmt").Value, SAPCompany)
+                    ElseIf strDocCurrency = SAPCompany.GetCompanyService.GetAdminInfo.SystemCurrency And SAPCompany.GetCompanyService.GetAdminInfo.SystemCurrency <> SAPCompany.GetCompanyService.GetAdminInfo.LocalCurrency Then
+                        Vjov.JournalEntries.Lines.FCCurrency = strDocCurrency
+                        Vjov.JournalEntries.Lines.DebitSys = objDA.getDocumentQuantity(oTemp.Fields.Item("U_Z_CurAmt").Value, SAPCompany)
+                    Else
+                        Vjov.JournalEntries.Lines.Debit = objDA.getDocumentQuantity(oTemp.Fields.Item("U_Z_ReimAmt").Value, SAPCompany)
+                    End If
+                    Try
+
+
+                        If strDim(0) <> "" Then
+                            Vjov.JournalEntries.Lines.CostingCode = strDim(0)
+                        End If
+                        If strDim(1) <> "" Then
+                            Vjov.JournalEntries.Lines.CostingCode2 = strDim(1)
+                        End If
+                        If strDim(2) <> "" Then
+                            Vjov.JournalEntries.Lines.CostingCode3 = strDim(2)
+                        End If
+                        If strDim(3) <> "" Then
+                            Vjov.JournalEntries.Lines.CostingCode4 = strDim(3)
+                        End If
+                        If strDim(4) <> "" Then
+                            Vjov.JournalEntries.Lines.CostingCode5 = strDim(4)
+                        End If
+                    Catch ex As Exception
+
+                    End Try
+                    Vjov.JournalEntries.Lines.Add()
+                    Vjov.JournalEntries.Lines.SetCurrentLine(1)
+
+                    oRecSet.DoQuery("Select isnull(U_Z_CardCode,'') as U_Z_CardCode from OHEM where empID=" & oTemp.Fields.Item("U_Z_EmpID").Value)
+                    Dim BussCode As String = oRecSet.Fields.Item("U_Z_CardCode").Value.ToString()
+
+                    Vjov.JournalEntries.Lines.ShortName = BussCode ' objDA.getCustAccNo(BussCode)
+                    Try
+                        Vjov.JournalEntries.Lines.UserFields.Fields.Item("U_Z_ExpType").Value = oTemp.Fields.Item("U_Z_ExpType").Value
+                        Vjov.JournalEntries.Lines.UserFields.Fields.Item("U_Z_ClaimDate").Value = oTemp.Fields.Item("U_Z_Claimdt").Value
+                    Catch ex As Exception
+
+                    End Try
+                    Vjov.JournalEntries.Lines.UserFields.Fields.Item("U_Z_AppDate").Value = Now.Date
+                    Vjov.JournalEntries.Lines.UserFields.Fields.Item("U_Z_BatchNo").Value = strBatchno
+                    If strDocCurrency <> SAPCompany.GetCompanyService.GetAdminInfo.LocalCurrency Then
+                        Vjov.JournalEntries.Lines.FCCurrency = strDocCurrency
+                        Vjov.JournalEntries.Lines.FCCredit = objDA.getDocumentQuantity(oTemp.Fields.Item("U_Z_CurAmt").Value, SAPCompany)
+                    ElseIf strDocCurrency = SAPCompany.GetCompanyService.GetAdminInfo.SystemCurrency And SAPCompany.GetCompanyService.GetAdminInfo.SystemCurrency <> SAPCompany.GetCompanyService.GetAdminInfo.LocalCurrency Then
+                        Vjov.JournalEntries.Lines.FCCurrency = strDocCurrency
+                        Vjov.JournalEntries.Lines.CreditSys = objDA.getDocumentQuantity(oTemp.Fields.Item("U_Z_CurAmt").Value, SAPCompany)
+                    Else
+                        Vjov.JournalEntries.Lines.Credit = objDA.getDocumentQuantity(oTemp.Fields.Item("U_Z_ReimAmt").Value, SAPCompany)
+                    End If
+                    Try
+
+                        If strDim(0) <> "" Then
+                            Vjov.JournalEntries.Lines.CostingCode = strDim(0)
+                        End If
+                        If strDim(1) <> "" Then
+                            Vjov.JournalEntries.Lines.CostingCode2 = strDim(1)
+                        End If
+                        If strDim(2) <> "" Then
+                            Vjov.JournalEntries.Lines.CostingCode3 = strDim(2)
+                        End If
+                        If strDim(3) <> "" Then
+                            Vjov.JournalEntries.Lines.CostingCode4 = strDim(3)
+                        End If
+                        If strDim(4) <> "" Then
+                            Vjov.JournalEntries.Lines.CostingCode5 = strDim(4)
+                        End If
+                    Catch ex As Exception
+                        DBConnectionDA.WriteError(ex.Message)
+                    End Try
+                    '  Vjov.JournalEntries.Lines.Add()
+                    If Vjov.Add <> 0 Then
+                        objDA.strmsg = SAPCompany.GetLastErrorDescription
+                        DBConnectionDA.WriteError(objDA.strmsg)
+                        objDA.strQuery = "Update [@Z_HR_LEXPCL] Set U_Z_AppStatus = 'P' Where Code = '" + aCode + "'"
+                        oRecSet.DoQuery(objDA.strQuery)
+                    Else
+                        Dim strJvNo As String
+                        SAPCompany.GetNewObjectCode(strJvNo)
+                        orec1.DoQuery("Update [@Z_HR_LEXPCL] set U_Z_JVNo='" & strJvNo & "',U_Z_PayPosted='Y' where Code='" & aCode & "'")
                         objDA.strmsg = "Success"
                         Return objDA.strmsg
                     End If

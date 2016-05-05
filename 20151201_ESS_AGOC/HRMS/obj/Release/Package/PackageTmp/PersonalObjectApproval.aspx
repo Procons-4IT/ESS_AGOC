@@ -306,6 +306,7 @@
                                                                             </div>
                                                                         </td>
                                                                         <td>
+                                                                         <div id="dtAppStatus" runat="server" visible="false">
                                                                             <table width="100%" border="0" cellspacing="0" cellpadding="3" class="main_content">
                                                                                 <tr>
                                                                                     <td>
@@ -346,6 +347,7 @@
                                                                                     </td>
                                                                                 </tr>
                                                                             </table>
+                                                                            </div> 
                                                                         </td>
                                                                     </tr>
                                                                 </table>

@@ -16,6 +16,33 @@
     Private _Period As String
     Private _SearchCondition As String
     Private _SecondRemarks As String
+    Private _BussSelfGrade As String
+    Private _PeoSelfGrade As String
+    Private _CompSelfGrade As String
+    Public Property BussSelfGrade() As String
+        Get
+            Return _BussSelfGrade
+        End Get
+        Set(value As String)
+            _BussSelfGrade = value
+        End Set
+    End Property
+    Public Property PeoSelfGrade() As String
+        Get
+            Return _PeoSelfGrade
+        End Get
+        Set(value As String)
+            _PeoSelfGrade = value
+        End Set
+    End Property
+    Public Property CompSelfGrade() As String
+        Get
+            Return _CompSelfGrade
+        End Get
+        Set(value As String)
+            _CompSelfGrade = value
+        End Set
+    End Property
     Public Property SecondRemarks() As String
         Get
             Return _SecondRemarks

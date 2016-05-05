@@ -77,6 +77,8 @@
     <Compile Include="LeaveRequestBL.vb" />
     <Compile Include="LineMgrAppraisalBL.vb" />
     <Compile Include="LoanApprovalBL.vb" />
+    <Compile Include="LoaneeApprovalBL.vb" />
+    <Compile Include="LoaneeExpenseBL.vb" />
     <Compile Include="LoanRequestBL.vb" />
     <Compile Include="LoginBL.vb" />
     <Compile Include="MgrNewTrainApprovalBL.vb" />
@@ -140,6 +142,17 @@
       <Project>{DFF72D41-6BA6-4990-905C-7969A8153DF2}</Project>
       <Name>EN</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <COMReference Include="SAPbobsCOM">
+      <Guid>{FC8030BE-F5D2-4B8E-8F92-44228FE30090}</Guid>
+      <VersionMajor>9</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

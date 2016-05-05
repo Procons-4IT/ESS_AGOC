@@ -185,7 +185,7 @@
                                                                                                     &#160;<asp:Label ID="lblnxtapp" runat="server" Text='<%#Bind("U_NxtApprover") %>'></asp:Label></div>
                                                                                             </ItemTemplate>
                                                                                         </asp:TemplateField>
-                                                                                          <asp:TemplateField HeaderText="Current Approver">
+                                                                                        <asp:TemplateField HeaderText="Current Approver">
                                                                                             <ItemTemplate>
                                                                                                 <div align="left">
                                                                                                     &nbsp;<asp:Label ID="lblcurappName" runat="server" Text='<%#Bind("CurAPPName") %>'></asp:Label>
@@ -331,90 +331,92 @@
                                                                             </div>
                                                                         </td>
                                                                         <td>
-                                                                            <table border="0" cellpadding="3" cellspacing="0" class="main_content" width="100%">
-                                                                                <tr>
-                                                                                    <td>
-                                                                                        <a class="txtbox" style="text-decoration: underline; font-weight: bold;">Approvar Status</a>
-                                                                                    </td>
-                                                                                    <td>
-                                                                                        <asp:TextBox ID="txtcode" runat="server" CssClass="txtbox" Visible="false"></asp:TextBox>
-                                                                                        <asp:TextBox ID="txtempid" runat="server" CssClass="txtbox" Visible="false"></asp:TextBox><asp:TextBox
-                                                                                            ID="txtlveCode" runat="server" CssClass="txtbox" Visible="false"></asp:TextBox>
-                                                                                        <asp:TextBox ID="txtenddate" runat="server" CssClass="txtbox" Visible="false"></asp:TextBox>
-                                                                                        <asp:TextBox ID="txtemiAmt" runat="server" CssClass="txtbox" Visible="false"></asp:TextBox>
-                                                                                        <asp:TextBox ID="txtloanName" runat="server" CssClass="txtbox" Visible="false"></asp:TextBox>
-                                                                                        <asp:TextBox ID="txtGLACC" runat="server" CssClass="txtbox" Visible="false"></asp:TextBox>
-                                                                                    </td>
-                                                                                </tr>
-                                                                                <tr>
-                                                                                    <td>
-                                                                                        Loan Amount
-                                                                                    </td>
-                                                                                    <td>
-                                                                                        <asp:TextBox ID="txtLoanAmt" runat="server" CssClass="txtbox" onkeypress="AllowNumbers(this);checkDec(this);RemoveZero(this);"
-                                                                                            onkeyup="AllowNumbers(this);checkDec(this);RemoveZero(this);"></asp:TextBox>
-                                                                                    </td>
-                                                                                </tr>
-                                                                                <tr>
-                                                                                    <td>
-                                                                                        Loan Distribution Date
-                                                                                    </td>
-                                                                                    <td>
-                                                                                        <asp:TextBox ID="txtLoandisDt" runat="server" CssClass="txtbox"></asp:TextBox>
-                                                                                        <ajx:CalendarExtender ID="CalendarExtender1" Animated="true" Format="dd/MM/yyyy"
-                                                                                            runat="server" TargetControlID="txtLoandisDt" CssClass="cal_Theme1">
-                                                                                        </ajx:CalendarExtender>
-                                                                                    </td>
-                                                                                </tr>
-                                                                                <tr>
-                                                                                    <td>
-                                                                                        Installment Start Date
-                                                                                    </td>
-                                                                                    <td>
-                                                                                        <asp:TextBox ID="txtinStDate" runat="server" CssClass="txtbox"></asp:TextBox>
-                                                                                        <ajx:CalendarExtender ID="CalendarExtender2" Animated="true" Format="dd/MM/yyyy"
-                                                                                            runat="server" TargetControlID="txtinStDate" CssClass="cal_Theme1">
-                                                                                        </ajx:CalendarExtender>
-                                                                                    </td>
-                                                                                </tr>
-                                                                                <tr>
-                                                                                    <td>
-                                                                                        No.of Installment
-                                                                                    </td>
-                                                                                    <td>
-                                                                                        <asp:TextBox ID="txtInstallment" runat="server" CssClass="txtbox" onkeypress="AllowNumbers(this);checkDec(this);RemoveZero(this);"
-                                                                                            onkeyup="AllowNumbers(this);checkDec(this);RemoveZero(this);"></asp:TextBox>
-                                                                                    </td>
-                                                                                </tr>
-                                                                                <tr>
-                                                                                    <td>
-                                                                                        Approval Status
-                                                                                    </td>
-                                                                                    <td>
-                                                                                        <asp:DropDownList ID="ddlAppStatus" runat="server" CssClass="txtbox1">
-                                                                                            <asp:ListItem Value="P">Pending</asp:ListItem>
-                                                                                            <asp:ListItem Value="A">Approved</asp:ListItem>
-                                                                                            <asp:ListItem Value="R">Rejected</asp:ListItem>
-                                                                                        </asp:DropDownList>
-                                                                                    </td>
-                                                                                </tr>
-                                                                                <tr>
-                                                                                    <td>
-                                                                                        Remarks
-                                                                                    </td>
-                                                                                    <td>
-                                                                                        <asp:TextBox ID="txtcomments" runat="server" CssClass="txtbox" Height="40px" TextMode="MultiLine"></asp:TextBox>
-                                                                                    </td>
-                                                                                </tr>
-                                                                                <tr>
-                                                                                    <td colspan="2">
-                                                                                        <br />
-                                                                                        <asp:Button ID="btnAdd" runat="server" CssClass="btn" OnClientClick="return Confirmation();"
-                                                                                            Text="Save &amp; Submit" Width="125px" />
-                                                                                        <asp:Button ID="btncancel" runat="server" CssClass="btn" Text="Cancel" Width="85px" />
-                                                                                    </td>
-                                                                                </tr>
-                                                                            </table>
+                                                                            <div id="dtAppStatus" runat="server" visible="false">
+                                                                                <table border="0" cellpadding="3" cellspacing="0" class="main_content" width="100%">
+                                                                                    <tr>
+                                                                                        <td>
+                                                                                            <a class="txtbox" style="text-decoration: underline; font-weight: bold;">Approvar Status</a>
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            <asp:TextBox ID="txtcode" runat="server" CssClass="txtbox" Visible="false"></asp:TextBox>
+                                                                                            <asp:TextBox ID="txtempid" runat="server" CssClass="txtbox" Visible="false"></asp:TextBox><asp:TextBox
+                                                                                                ID="txtlveCode" runat="server" CssClass="txtbox" Visible="false"></asp:TextBox>
+                                                                                            <asp:TextBox ID="txtenddate" runat="server" CssClass="txtbox" Visible="false"></asp:TextBox>
+                                                                                            <asp:TextBox ID="txtemiAmt" runat="server" CssClass="txtbox" Visible="false"></asp:TextBox>
+                                                                                            <asp:TextBox ID="txtloanName" runat="server" CssClass="txtbox" Visible="false"></asp:TextBox>
+                                                                                            <asp:TextBox ID="txtGLACC" runat="server" CssClass="txtbox" Visible="false"></asp:TextBox>
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                    <tr>
+                                                                                        <td>
+                                                                                            Loan Amount
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            <asp:TextBox ID="txtLoanAmt" runat="server" CssClass="txtbox" onkeypress="AllowNumbers(this);checkDec(this);RemoveZero(this);"
+                                                                                                onkeyup="AllowNumbers(this);checkDec(this);RemoveZero(this);"></asp:TextBox>
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                    <tr>
+                                                                                        <td>
+                                                                                            Loan Distribution Date
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            <asp:TextBox ID="txtLoandisDt" runat="server" CssClass="txtbox"></asp:TextBox>
+                                                                                            <ajx:CalendarExtender ID="CalendarExtender1" Animated="true" Format="dd/MM/yyyy"
+                                                                                                runat="server" TargetControlID="txtLoandisDt" CssClass="cal_Theme1">
+                                                                                            </ajx:CalendarExtender>
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                    <tr>
+                                                                                        <td>
+                                                                                            Installment Start Date
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            <asp:TextBox ID="txtinStDate" runat="server" CssClass="txtbox"></asp:TextBox>
+                                                                                            <ajx:CalendarExtender ID="CalendarExtender2" Animated="true" Format="dd/MM/yyyy"
+                                                                                                runat="server" TargetControlID="txtinStDate" CssClass="cal_Theme1">
+                                                                                            </ajx:CalendarExtender>
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                    <tr>
+                                                                                        <td>
+                                                                                            No.of Installment
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            <asp:TextBox ID="txtInstallment" runat="server" CssClass="txtbox" onkeypress="AllowNumbers(this);checkDec(this);RemoveZero(this);"
+                                                                                                onkeyup="AllowNumbers(this);checkDec(this);RemoveZero(this);"></asp:TextBox>
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                    <tr>
+                                                                                        <td>
+                                                                                            Approval Status
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            <asp:DropDownList ID="ddlAppStatus" runat="server" CssClass="txtbox1">
+                                                                                                <asp:ListItem Value="P">Pending</asp:ListItem>
+                                                                                                <asp:ListItem Value="A">Approved</asp:ListItem>
+                                                                                                <asp:ListItem Value="R">Rejected</asp:ListItem>
+                                                                                            </asp:DropDownList>
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                    <tr>
+                                                                                        <td>
+                                                                                            Remarks
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            <asp:TextBox ID="txtcomments" runat="server" CssClass="txtbox" Height="40px" TextMode="MultiLine"></asp:TextBox>
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                    <tr>
+                                                                                        <td colspan="2">
+                                                                                            <br />
+                                                                                            <asp:Button ID="btnAdd" runat="server" CssClass="btn" OnClientClick="return Confirmation();"
+                                                                                                Text="Save &amp; Submit" Width="125px" />
+                                                                                            <asp:Button ID="btncancel" runat="server" CssClass="btn" Text="Cancel" Width="85px" />
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                </table>
+                                                                            </div>
                                                                         </td>
                                                                     </tr>
                                                                 </table>

@@ -250,8 +250,8 @@
                                                     <td>
                                                         <asp:DropDownList ID="ddltriptype" runat="server" CssClass="txtbox1" AutoPostBack="true">
                                                             <asp:ListItem Value="-">---Select---</asp:ListItem>
-                                                            <asp:ListItem Value="N">Without Travel</asp:ListItem>
-                                                            <asp:ListItem Value="E">With Travel</asp:ListItem>
+                                                            <asp:ListItem Value="N">Without Business Trip</asp:ListItem>
+                                                            <asp:ListItem Value="E">With Business Trip</asp:ListItem>
                                                         </asp:DropDownList>
                                                     </td>
                                                     <td width="5%">
@@ -444,7 +444,7 @@
                                                                                         <asp:TemplateField HeaderText="Comments">
                                                                                             <ItemTemplate>
                                                                                                 <div align="left">
-                                                                                                    &nbsp;<asp:Label ID="lblEreason" runat="server" Text='<%#Bind("U_Notes") %>'></asp:Label>
+                                                                                                    &nbsp;<asp:LinkButton ID="lblEreason" runat="server" Text="View Comments" ToolTip='<%#Bind("U_Notes") %>'></asp:LinkButton>
                                                                                                 </div>
                                                                                             </ItemTemplate>
                                                                                         </asp:TemplateField>
@@ -608,7 +608,7 @@
                                                                                         <asp:TemplateField HeaderText="Comments">
                                                                                             <ItemTemplate>
                                                                                                 <div align="left">
-                                                                                                    &nbsp;<asp:Label ID="lblreason" runat="server" Text='<%#Bind("U_Z_Notes") %>'></asp:Label>
+                                                                                                    &nbsp;<asp:LinkButton ID="lblreason" runat="server" Text="View Comments" ToolTip='<%#Bind("U_Z_Notes") %>'></asp:LinkButton>
                                                                                                 </div>
                                                                                             </ItemTemplate>
                                                                                         </asp:TemplateField>
@@ -770,7 +770,7 @@
                                                                                         <asp:TemplateField HeaderText="Comments">
                                                                                             <ItemTemplate>
                                                                                                 <div align="left">
-                                                                                                    &nbsp;<asp:Label ID="lblRreason" runat="server" Text='<%#Bind("U_Z_Notes") %>'></asp:Label>
+                                                                                                    &nbsp;<asp:LinkButton ID="lblRreason" runat="server" Text="View Comments" ToolTip='<%#Bind("U_Z_Notes") %>'></asp:LinkButton>
                                                                                                 </div>
                                                                                             </ItemTemplate>
                                                                                         </asp:TemplateField>

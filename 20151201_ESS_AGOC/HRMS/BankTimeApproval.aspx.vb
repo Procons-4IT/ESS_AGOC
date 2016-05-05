@@ -104,6 +104,7 @@ Public Class BankTimeApproval
                     row1.BackColor = Color.White
                 Else
                     row1.BackColor = Color.Orange
+                    dtAppStatus.Visible = True
                 End If
             Next
             ddlAppStatus.SelectedValue = "P"
@@ -226,6 +227,7 @@ Public Class BankTimeApproval
                         ddlAppStatus.SelectedIndex = 0
                         txtcomments.Text = ""
                     End If
+                    dtAppStatus.Visible = False
                 Else
                     dbCon.strmsg = "alert('" & dbCon.strmsg & "')"
                     mess(dbCon.strmsg)

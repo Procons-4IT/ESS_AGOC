@@ -18,7 +18,33 @@ Public Class SelfAppraisalEN
     Private _GrvRemarks As String
     Private _Ratings As String
     Private _SapCompany As SAPbobsCOM.Company
-
+    Private _BussSelfGrade As String
+    Private _PeoSelfGrade As String
+    Private _CompSelfGrade As String
+    Public Property BussSelfGrade() As String
+        Get
+            Return _BussSelfGrade
+        End Get
+        Set(value As String)
+            _BussSelfGrade = value
+        End Set
+    End Property
+    Public Property PeoSelfGrade() As String
+        Get
+            Return _PeoSelfGrade
+        End Get
+        Set(value As String)
+            _PeoSelfGrade = value
+        End Set
+    End Property
+    Public Property CompSelfGrade() As String
+        Get
+            Return _CompSelfGrade
+        End Get
+        Set(value As String)
+            _CompSelfGrade = value
+        End Set
+    End Property
     Public Property SapCompany() As SAPbobsCOM.Company
         Get
             Return _SapCompany

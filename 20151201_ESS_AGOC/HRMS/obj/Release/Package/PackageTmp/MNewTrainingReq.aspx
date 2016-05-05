@@ -162,7 +162,7 @@
                                                                         <td>
                                                                             <asp:GridView ID="grdTrainingRequest" runat="server" CellPadding="4" AllowPaging="True"
                                                                                 ShowHeaderWhenEmpty="true" CssClass="mGrid" HeaderStyle-CssClass="GridBG" PagerStyle-CssClass="pgr"
-                                                                                AlternatingRowStyle-CssClass="alt" AutoGenerateColumns="false" Width="100%" PageSize="10">
+                                                                                AlternatingRowStyle-CssClass="alt" AutoGenerateColumns="false" Width="100%" PageSize="15">
                                                                                 <Columns>
                                                                                     <asp:TemplateField HeaderText="Request Code">
                                                                                         <ItemTemplate>
@@ -210,7 +210,7 @@
                                                                                     <asp:TemplateField HeaderText="Comments">
                                                                                         <ItemTemplate>
                                                                                             <div align="left">
-                                                                                                &#160;<asp:Label ID="lblreason" runat="server" Text='<%#Bind("U_Z_Notes") %>'></asp:Label></div>
+                                                                                                &#160;<asp:LinkButton ID="lblreason" runat="server" Text="View Comments" ToolTip='<%#eval("U_Z_Notes") %>' ></asp:LinkButton></div>
                                                                                         </ItemTemplate>
                                                                                     </asp:TemplateField>
                                                                                     <asp:TemplateField HeaderText="Approval Status">

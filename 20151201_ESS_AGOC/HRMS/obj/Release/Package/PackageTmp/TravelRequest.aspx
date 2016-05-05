@@ -227,6 +227,12 @@
                                                                                                 &#160;<asp:Label ID="lblcallType" runat="server" Text='<%#Bind("U_Z_TraEndDate") %>'></asp:Label></div>
                                                                                         </ItemTemplate>
                                                                                     </asp:TemplateField>
+                                                                                      <asp:TemplateField HeaderText="Purpose Of Trip">
+                                                                                        <ItemTemplate>
+                                                                                            <div align="left">
+                                                                                                &#160;<asp:LinkButton ID="lbltripremarks" runat="server" Text="View Purpose Of Trip" ToolTip='<%# Eval("U_Z_EmpComme") %>'></asp:LinkButton></div>
+                                                                                        </ItemTemplate>
+                                                                                    </asp:TemplateField>
                                                                                     <asp:TemplateField HeaderText="Status">
                                                                                         <ItemTemplate>
                                                                                             <div align="left">

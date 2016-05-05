@@ -163,13 +163,24 @@ Public Class TrainingRequestDA
     End Sub
 
     Public Function AddUDT(ByVal objen As TrainingRequestEN) As String
+        Dim dtFromDate, dtTodate, dt, AppEnddt As Date
         Try
-            Dim oRec, oTemp As SAPbobsCOM.Recordset
+            Dim oRec, oTemp, oTemp1 As SAPbobsCOM.Recordset
             Dim oUserTable As SAPbobsCOM.UserTable
             objDA.objMainCompany = objen.SapComapny
             oRec = objDA.objMainCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset)
             oTemp = objDA.objMainCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset)
-            objen.strQry = "Select * from [@Z_HR_TRIN1] where U_Z_TrainCode='" & objen.AgendaCode & "' and U_Z_HREmpID='" & objen.EmpId & "'"
+            oTemp1 = objDA.objMainCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset)
+            objDA.strQuery = "Select * from [@Z_HR_OTRIN] where U_Z_TrainCode='" & objen.AgendaCode & "'"
+            oTemp1.DoQuery(objDA.strQuery)
+            If oTemp1.RecordCount > 0 Then
+                dtFromDate = oTemp1.Fields.Item("U_Z_Startdt").Value
+                dtTodate = oTemp1.Fields.Item("U_Z_Enddt").Value
+                objDA.strmsg = objDA.expenceclaimValidations(objen.EmpId, "Traning", dtFromDate, dtTodate, objDA.objMainCompany)
+                Return objDA.strmsg
+            End If
+
+            objen.strQry = "Select * from [@Z_HR_TRIN1] where U_Z_TrainCode='" & objen.AgendaCode & "' and U_Z_HREmpID='" & objen.EmpId & "' and U_Z_AppStatus<>'R'"
             oRec.DoQuery(objen.strQry)
             If oRec.RecordCount > 0 Then
                 objDA.strmsg = "You already applied for the selected Training..."

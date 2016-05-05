@@ -89,6 +89,7 @@ Public Class LoanApproval
                         row1.BackColor = Color.White
                     Else
                         row1.BackColor = Color.Orange
+                        dtAppStatus.Visible = True
                     End If
                 Next
                 dbCon.dss1 = objBL.PopulateLoanDetails(objEN)
@@ -368,6 +369,7 @@ Public Class LoanApproval
                         grdApprovalHis.DataBind()
                         Clear()
                     End If
+                    dtAppStatus.Visible = False
                 Else
                     dbCon.strmsg = "alert('" & dbCon.strmsg & "')"
                     mess(dbCon.strmsg)

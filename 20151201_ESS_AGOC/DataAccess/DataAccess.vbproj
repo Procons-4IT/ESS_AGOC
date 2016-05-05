@@ -85,6 +85,8 @@
     <Compile Include="LeaveRequestDA.vb" />
     <Compile Include="LineMgrAppraisalDA.vb" />
     <Compile Include="LoanApprovalDA.vb" />
+    <Compile Include="LoaneeApprovalDA.vb" />
+    <Compile Include="LoaneeExpenseDA.vb" />
     <Compile Include="LoanRequestDA.vb" />
     <Compile Include="LoginDA.vb" />
     <Compile Include="LoginVariables.vb" />

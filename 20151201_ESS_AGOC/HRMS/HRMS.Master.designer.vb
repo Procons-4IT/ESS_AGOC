@@ -104,6 +104,33 @@ Partial Public Class HRMS
     Protected WithEvents lblbadge As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
+    '''Loanee control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents Loanee As Global.System.Web.UI.HtmlControls.HtmlGenericControl
+
+    '''<summary>
+    '''MgrApp control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents MgrApp As Global.System.Web.UI.HtmlControls.HtmlGenericControl
+
+    '''<summary>
+    '''MgrNotify control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents MgrNotify As Global.System.Web.UI.HtmlControls.HtmlGenericControl
+
+    '''<summary>
     '''ContentPlaceHolder1 control.
     '''</summary>
     '''<remarks>

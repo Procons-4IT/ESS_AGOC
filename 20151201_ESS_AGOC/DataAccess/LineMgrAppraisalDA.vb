@@ -18,9 +18,9 @@ Public Class LineMgrAppraisalDA
                 objen.strConiditon = """U_Z_EmpId"" in (" & objen.EmpId & ") Order by ""DocEntry"" Desc"
                 objDA.strQuery += " select DocEntry,U_Z_EmpId,U_Z_EmpName,Convert(Varchar(10),U_Z_Date,103) AS U_Z_Date,U_Z_Period,T1.U_Z_PerDesc,T1.U_Z_PerFrom,"
                 objDA.strQuery += " T1.U_Z_PerTo,case U_Z_Status when 'D' then 'Draft' when 'F' then 'Approved' "
-                objDA.strQuery += " when 'S'then '2nd Level Approval' when 'L' then 'Closed' else 'Canceled' end as U_Z_Status,"
+                objDA.strQuery += " when 'S'then '2nd Level Approval' when 'L' then 'Closed' else 'HR Canceled' end as U_Z_Status,"
                 objDA.strQuery += " case U_Z_WStatus when 'DR' then 'Draft' when 'HR' then 'HR Approved' when 'SM'then 'Sr.Manager Approved' "
-                objDA.strQuery += " when 'LM' then 'LineManager Approved'when 'SE' then 'SelfApproved'  end as 'U_Z_WStatus'   "
+                objDA.strQuery += " when 'LM' then 'LineManager Approved'when 'SE' then 'SelfApproved' else 'HR Canceled' end as 'U_Z_WStatus'   "
                 objDA.strQuery += " from [@Z_HR_OSEAPP] T0 Left Outer Join ""@Z_HR_PERAPP"" T1 on T0.U_Z_Period=T1.U_Z_PerCode  Where " & objen.strConiditon
             End If
             objDA.sqlda = New SqlDataAdapter(objDA.strQuery, objDA.con)
@@ -79,7 +79,7 @@ Public Class LineMgrAppraisalDA
     End Sub
     Public Sub UpdateLineMgrAppBusiness(ByVal objen As LineMgrAppraisalEN)
         Try
-            objen.StrQry = "Update ""@Z_HR_SEAPP1"" set ""U_Z_MgrRaCode""='" & objen.SelfRating & "',""U_Z_BussMgrRate""=" & objen.Amount & ",""U_Z_MgrRemark""='" & objen.BLineRemarks & "' where ""DocEntry""='" & objen.AppraisalNumber & "' and ""LineId""=" & objen.LineNo & ""
+            objen.StrQry = "Update ""@Z_HR_SEAPP1"" set ""U_Z_MgrRaCode""='" & objen.SelfRating & "',""U_Z_BussMgrRate""=" & objen.Amount & ",""U_Z_MgrRemark""='" & objen.BLineRemarks & "',U_Z_BussMgrGrade='" & objen.BussSelfGrade & "' where ""DocEntry""='" & objen.AppraisalNumber & "' and ""LineId""=" & objen.LineNo & ""
             objDA.cmd = New SqlCommand(objen.StrQry, objDA.con)
             objDA.con.Open()
             objDA.cmd.ExecuteNonQuery()
@@ -90,7 +90,7 @@ Public Class LineMgrAppraisalDA
     End Sub
     Public Sub UpdateLineMgrAppPeople(ByVal objen As LineMgrAppraisalEN)
         Try
-            objen.StrQry = "Update ""@Z_HR_SEAPP2"" set ""U_Z_MgrRaCode""='" & objen.SelfRating & "', ""U_Z_PeoMgrRate""=" & objen.Amount & ",""U_Z_MgrRemark""='" & objen.PLineRemarks & "' where ""DocEntry""='" & objen.AppraisalNumber & "' and ""LineId""=" & objen.LineNo & ""
+            objen.StrQry = "Update ""@Z_HR_SEAPP2"" set ""U_Z_MgrRaCode""='" & objen.SelfRating & "', ""U_Z_PeoMgrRate""=" & objen.Amount & ",""U_Z_MgrRemark""='" & objen.PLineRemarks & "',U_Z_PeoMgrGrade='" & objen.PeoSelfGrade & "' where ""DocEntry""='" & objen.AppraisalNumber & "' and ""LineId""=" & objen.LineNo & ""
             objDA.cmd = New SqlCommand(objen.StrQry, objDA.con)
             objDA.con.Open()
             objDA.cmd.ExecuteNonQuery()
@@ -101,7 +101,7 @@ Public Class LineMgrAppraisalDA
     End Sub
     Public Sub UpdateLineMgrAppCompetence(ByVal objen As LineMgrAppraisalEN)
         Try
-            objen.StrQry = "Update ""@Z_HR_SEAPP3"" set ""U_Z_MgrRaCode""='" & objen.SelfRating & "',""U_Z_CompMgrRate""=" & objen.Amount & ",""U_Z_MgrRemark""='" & objen.CLineRemarks & "'  where ""DocEntry""='" & objen.AppraisalNumber & "' and ""LineId""=" & objen.LineNo & ""
+            objen.StrQry = "Update ""@Z_HR_SEAPP3"" set ""U_Z_MgrRaCode""='" & objen.SelfRating & "',""U_Z_CompMgrRate""=" & objen.Amount & ",""U_Z_MgrRemark""='" & objen.CLineRemarks & "',U_Z_CompMgrGrade='" & objen.CompSelfGrade & "'  where ""DocEntry""='" & objen.AppraisalNumber & "' and ""LineId""=" & objen.LineNo & ""
             objDA.cmd = New SqlCommand(objen.StrQry, objDA.con)
             objDA.con.Open()
             objDA.cmd.ExecuteNonQuery()
@@ -110,11 +110,58 @@ Public Class LineMgrAppraisalDA
             DBConnectionDA.WriteError(ex.Message)
         End Try
     End Sub
+    Public Sub UpdateLineMgrAppGrade(ByVal objen As LineMgrAppraisalEN)
+        Dim status, strgrade As String
+        Try
+            objDA.con.Open()
+            objDA.cmd = New SqlCommand("Select COALESCE(SUM (U_Z_BussMgrRate), 0)  from [@Z_HR_SEAPP1] where DocEntry=" & objen.AppraisalNumber & "", objDA.con)
+            objDA.cmd.CommandType = CommandType.Text
+            status = objDA.cmd.ExecuteScalar()
+            objDA.con.Close()
+            If CDbl(status) > 0 And status <> "" Then
+                strgrade = objDA.GetAppraisalGrade(status)
+                objen.StrQry = "Update ""@Z_HR_SEAPP1"" set ""U_Z_BusMgrTotGrade""='" & strgrade & "' where ""DocEntry""='" & objen.AppraisalNumber & "'"
+                objDA.cmd = New SqlCommand(objen.StrQry, objDA.con)
+                objDA.con.Open()
+                objDA.cmd.ExecuteNonQuery()
+                objDA.con.Close()
+            End If
+            objDA.con.Open()
+            objDA.cmd = New SqlCommand("Select COALESCE(SUM (U_Z_BussMgrRate), 0)  from [@Z_HR_SEAPP1] where DocEntry=" & objen.AppraisalNumber & "", objDA.con)
+            objDA.cmd.CommandType = CommandType.Text
+            status = objDA.cmd.ExecuteScalar()
+            objDA.con.Close()
+            If CDbl(status) > 0 And status <> "" Then
+                strgrade = objDA.GetAppraisalGrade(status)
+                objen.StrQry = "Update ""@Z_HR_SEAPP1"" set ""U_Z_BusMgrTotGrade""='" & strgrade & "' where ""DocEntry""='" & objen.AppraisalNumber & "'"
+                objDA.cmd = New SqlCommand(objen.StrQry, objDA.con)
+                objDA.con.Open()
+                objDA.cmd.ExecuteNonQuery()
+                objDA.con.Close()
+            End If
+            objDA.con.Open()
+            objDA.cmd = New SqlCommand("Select COALESCE(SUM (U_Z_CompMgrRate), 0)  from [@Z_HR_SEAPP3] where DocEntry=" & objen.AppraisalNumber & "", objDA.con)
+            objDA.cmd.CommandType = CommandType.Text
+            status = objDA.cmd.ExecuteScalar()
+            objDA.con.Close()
+            If CDbl(status) > 0 And status <> "" Then
+                strgrade = objDA.GetAppraisalGrade(status)
+                objen.StrQry = "Update ""@Z_HR_SEAPP3"" set ""U_Z_CoMgrTotGrade""='" & strgrade & "' where ""DocEntry""='" & objen.AppraisalNumber & "'"
+                objDA.cmd = New SqlCommand(objen.StrQry, objDA.con)
+                objDA.con.Open()
+                objDA.cmd.ExecuteNonQuery()
+                objDA.con.Close()
+            End If
+        Catch ex As Exception
+            DBConnectionDA.WriteError(ex.Message)
+            Throw ex
+        End Try
+    End Sub
     Public Function ObjectiveBind(ByVal objen As LineMgrAppraisalEN) As DataSet
         Try
-            objen.StrQry = "SELECT ""U_Z_BussCode"", ""U_Z_BussDesc"", ""U_Z_BussMgrRate"", ""U_Z_BussSelfRate"", ""U_Z_BussWeight"", ""LineId"", ""U_Z_BussSMRate"", ""U_Z_SelfRaCode"", ""U_Z_SMRaCode"", ""U_Z_MgrRaCode"",""U_Z_SelfRemark"",""U_Z_MgrRemark"",""U_Z_SrRemark"" FROM ""@Z_HR_SEAPP1"" WHERE ""DocEntry""='" & objen.AppraisalNumber & "';"
-            objen.StrQry += "SELECT ""U_Z_PeopleCode"", ""U_Z_PeopleDesc"", ""U_Z_PeopleCat"", ""U_Z_PeoWeight"", ""U_Z_PeoSelfRate"", ""U_Z_PeoMgrRate"", ""LineId"", ""U_Z_PeoSMRate"", ""U_Z_SelfRaCode"", ""U_Z_SMRaCode"", ""U_Z_MgrRaCode"",""U_Z_SelfRemark"",""U_Z_MgrRemark"",""U_Z_SrRemark"" FROM ""@Z_HR_SEAPP2"" WHERE ""DocEntry""='" & objen.AppraisalNumber & "';"
-            objen.StrQry += "SELECT T0.""U_Z_CompCode"", T0.""U_Z_CompDesc"", T0.""U_Z_CompMgrRate"", T0.""U_Z_CompSelfRate"", T0.""U_Z_CompWeight"", ISNULL(T0.""U_Z_CompLevel"", '0') AS ""U_Z_CompLevel"", T2.""U_Z_CompLevel"" AS ""CurrentLevel"", T0.""U_Z_CompSMRate"", T0.""LineId"", T0.""U_Z_SelfRaCode"", T0.""U_Z_SMRaCode"", T0.""U_Z_MgrRaCode"",""U_Z_SelfRemark"",""U_Z_MgrRemark"",""U_Z_SrRemark"" FROM ""@Z_HR_SEAPP3"" T0 INNER JOIN ""@Z_HR_OSEAPP"" T1 ON T1.""DocEntry"" = T0.""DocEntry"" LEFT OUTER JOIN ""@Z_HR_ECOLVL"" T2 ON T1.""U_Z_EmpId"" = T2.""U_Z_HREmpID"" AND T2.""U_Z_CompCode"" = T0.""U_Z_CompCode"" WHERE T0.""DocEntry""='" & objen.AppraisalNumber & "'"
+            objen.StrQry = "SELECT ""U_Z_BussCode"", ""U_Z_BussDesc"", ""U_Z_BussMgrRate"", ""U_Z_BussSelfRate"", ""U_Z_BussWeight"", ""LineId"", ""U_Z_BussSMRate"", ""U_Z_SelfRaCode"", ""U_Z_SMRaCode"", ""U_Z_MgrRaCode"",""U_Z_SelfRemark"",""U_Z_MgrRemark"",""U_Z_SrRemark"",U_Z_BussSelfGrade,U_Z_BussMgrGrade,U_Z_BussSMGrade  FROM ""@Z_HR_SEAPP1"" WHERE ""DocEntry""='" & objen.AppraisalNumber & "';"
+            objen.StrQry += "SELECT ""U_Z_PeopleCode"", ""U_Z_PeopleDesc"", ""U_Z_PeopleCat"", ""U_Z_PeoWeight"", ""U_Z_PeoSelfRate"", ""U_Z_PeoMgrRate"", ""LineId"", ""U_Z_PeoSMRate"", ""U_Z_SelfRaCode"", ""U_Z_SMRaCode"", ""U_Z_MgrRaCode"",""U_Z_SelfRemark"",""U_Z_MgrRemark"",""U_Z_SrRemark"",U_Z_PeoSelfGrade,U_Z_PeoMgrGrade,U_Z_PeoSMGrade,T1.U_Z_CatName from [@Z_HR_SEAPP2] T0 left join [@Z_HR_PECAT] T1 ON  T0.U_Z_PeopleCat=T1.U_Z_CatCode where T0.DocEntry='" & objen.AppraisalNumber & "';"
+            objen.StrQry += "SELECT T0.""U_Z_CompCode"", T0.""U_Z_CompDesc"", T0.""U_Z_CompMgrRate"", T0.""U_Z_CompSelfRate"", T0.""U_Z_CompWeight"", ISNULL(T0.""U_Z_CompLevel"", '0') AS ""U_Z_CompLevel"", T2.""U_Z_CompLevel"" AS ""CurrentLevel"", T0.""U_Z_CompSMRate"", T0.""LineId"", T0.""U_Z_SelfRaCode"", T0.""U_Z_SMRaCode"", T0.""U_Z_MgrRaCode"",""U_Z_SelfRemark"",""U_Z_MgrRemark"",""U_Z_SrRemark"",U_Z_CompSelfGrade,U_Z_CompMgrGrade,U_Z_CompSMGrade FROM ""@Z_HR_SEAPP3"" T0 INNER JOIN ""@Z_HR_OSEAPP"" T1 ON T1.""DocEntry"" = T0.""DocEntry"" LEFT OUTER JOIN ""@Z_HR_ECOLVL"" T2 ON T1.""U_Z_EmpId"" = T2.""U_Z_HREmpID"" AND T2.""U_Z_CompCode"" = T0.""U_Z_CompCode"" WHERE T0.""DocEntry""='" & objen.AppraisalNumber & "'"
             objDA.sqlda = New SqlDataAdapter(objen.StrQry, objDA.con)
             objDA.sqlda.Fill(objDA.ds)
             Return objDA.ds
@@ -127,9 +174,9 @@ Public Class LineMgrAppraisalDA
             objen.StrQry = "SELECT ""DocEntry"", ""U_Z_EmpId"", ""U_Z_EmpName"", CAST(""U_Z_Date"" AS varchar(11)) AS ""U_Z_Date"", ""U_Z_Period"",T1.U_Z_PerDesc,T1.U_Z_PerFrom, "
             objen.StrQry += " T1.U_Z_PerTo,""U_Z_BSelfRemark"", ""U_Z_PSelfRemark"", ""U_Z_CSelfRemark"", ""U_Z_CMgrRemark"", ""U_Z_PMgrRemark"", ""U_Z_BMgrRemark"","
             objen.StrQry += " ""U_Z_CSMrRemark"", ""U_Z_PSMrRemark"", ""U_Z_BSMrRemark"", CASE ""U_Z_Status"" WHEN 'D' THEN 'Draft' WHEN 'F' THEN 'Approved' "
-            objen.StrQry += " WHEN 'S' THEN '2nd Level Approval' WHEN 'L' THEN 'Closed' ELSE 'Canceled' END AS ""U_Z_Status"", CASE ""U_Z_WStatus"" "
+            objen.StrQry += " WHEN 'S' THEN '2nd Level Approval' WHEN 'L' THEN 'Closed' ELSE 'HR Canceled' END AS ""U_Z_Status"", CASE ""U_Z_WStatus"" "
             objen.StrQry += " WHEN 'DR' THEN 'Draft' WHEN 'HR' THEN 'HR Approved' WHEN 'SM' THEN 'Sr.Manager Approved' WHEN 'LM' THEN 'LineManager Approved' "
-            objen.StrQry += " WHEN 'SE' THEN 'SelfApproved' END AS ""U_Z_WStatus"", ""U_Z_BHrRemark"", ""U_Z_PHrRemark"", ""U_Z_CHrRemark"", ""U_Z_GStatus"", "
+            objen.StrQry += " WHEN 'SE' THEN 'SelfApproved' else 'HR Canceled' END AS ""U_Z_WStatus"", ""U_Z_BHrRemark"", ""U_Z_PHrRemark"", ""U_Z_CHrRemark"", ""U_Z_GStatus"", "
             objen.StrQry += " ""U_Z_GRemarks"", CAST(""U_Z_GDate"" AS varchar(11)) AS ""U_Z_GDate"", ""U_Z_GNo"" FROM ""@Z_HR_OSEAPP"" T0 Left Outer Join ""@Z_HR_PERAPP"" T1 on T0.U_Z_Period=T1.U_Z_PerCode  "
             objen.StrQry += " where ""U_Z_EmpId""='" & objen.EmpId & "' and ""DocEntry""='" & objen.AppraisalNumber & "'"
             objDA.sqlda = New SqlDataAdapter(objen.StrQry, objDA.con)
@@ -159,9 +206,9 @@ Public Class LineMgrAppraisalDA
                 objen.strConiditon = "" & objen.SearchCondition & " and ""U_Z_EmpId"" in (" & objen.EmpId & ") Order by ""DocEntry"" Desc"
                 objDA.strQuery = " select DocEntry,U_Z_EmpId,U_Z_EmpName,Convert(Varchar(10),U_Z_Date,103) AS U_Z_Date,U_Z_Period,T1.U_Z_PerDesc,T1.U_Z_PerFrom,"
                 objDA.strQuery += " T1.U_Z_PerTo,case U_Z_Status when 'D' then 'Draft' when 'F' then 'Approved' "
-                objDA.strQuery += " when 'S'then '2nd Level Approval' when 'L' then 'Closed' else 'Canceled' end as U_Z_Status,"
+                objDA.strQuery += " when 'S'then '2nd Level Approval' when 'L' then 'Closed' else 'HR Canceled' end as U_Z_Status,"
                 objDA.strQuery += " case U_Z_WStatus when 'DR' then 'Draft' when 'HR' then 'HR Approved' when 'SM'then 'Sr.Manager Approved' "
-                objDA.strQuery += " when 'LM' then 'LineManager Approved'when 'SE' then 'SelfApproved'  end as 'U_Z_WStatus'   "
+                objDA.strQuery += " when 'LM' then 'LineManager Approved'when 'SE' then 'SelfApproved' else 'HR Canceled'  end as 'U_Z_WStatus'   "
                 objDA.strQuery += " from [@Z_HR_OSEAPP] T0 Left Outer Join ""@Z_HR_PERAPP"" T1 on T0.U_Z_Period=T1.U_Z_PerCode Where " & objen.strConiditon
             End If
             objDA.sqlda = New SqlDataAdapter(objDA.strQuery, objDA.con)
@@ -222,4 +269,5 @@ Public Class LineMgrAppraisalDA
             Throw ex
         End Try
     End Function
+
 End Class

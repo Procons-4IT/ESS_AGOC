@@ -105,6 +105,7 @@ Public Class InternalAppApproval
                     row1.BackColor = Color.White
                 Else
                     row1.BackColor = Color.Orange
+                    dtAppStatus.Visible = True
                 End If
             Next
             ddlAppStatus.SelectedValue = "P"
@@ -232,6 +233,7 @@ Public Class InternalAppApproval
                     dbCon.strmsg = "alert('" & dbCon.strmsg & "')"
                     mess(dbCon.strmsg)
                 End If
+                dtAppStatus.Visible = False
             Else
                 dbCon.strmsg = "alert('Select the request no...')"
                 mess(dbCon.strmsg)

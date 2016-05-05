@@ -554,7 +554,7 @@
                                                                         <asp:TemplateField HeaderText="Comments">
                                                                             <ItemTemplate>
                                                                                 <div align="left">
-                                                                                    &nbsp;<asp:Label ID="lblreason" runat="server" Text='<%#Bind("U_Z_Notes") %>'></asp:Label>
+                                                                                    &nbsp;<asp:LinkButton ID="lblreason" runat="server" Text="View Comments" ToolTip='<%#Bind("U_Z_Notes") %>'></asp:LinkButton>
                                                                                 </div>
                                                                             </ItemTemplate>
                                                                         </asp:TemplateField>

@@ -156,7 +156,7 @@
                                                                                     <asp:TemplateField HeaderText="Comments">
                                                                                         <ItemTemplate>
                                                                                             <div align="left">
-                                                                                                &nbsp;<asp:Label ID="lbleddate" runat="server" Text='<%#Bind("U_Z_Notes") %>'></asp:Label>
+                                                                                                &nbsp;<asp:LinkButton ID="lbleddate" runat="server" Text="View Comments" ToolTip='<%#Bind("U_Z_Notes") %>'  ></asp:LinkButton>
                                                                                             </div>
                                                                                         </ItemTemplate>
                                                                                     </asp:TemplateField>
@@ -329,6 +329,7 @@
                                                                             </div>
                                                                         </td>
                                                                         <td>
+                                                                        <div id="dtAppStatus" runat="server" visible="false">
                                                                             <table width="100%" border="0" cellspacing="0" cellpadding="3" class="main_content">
                                                                                 <tr>
                                                                                     <td>
@@ -368,6 +369,7 @@
                                                                                     </td>
                                                                                 </tr>
                                                                             </table>
+                                                                            </div> 
                                                                         </td>
                                                                     </tr>
                                                                 </table>
@@ -472,7 +474,7 @@
                                                                                     <asp:TemplateField HeaderText="Comments">
                                                                                         <ItemTemplate>
                                                                                             <div align="left">
-                                                                                                &nbsp;<asp:Label ID="lblSeddate" runat="server" Text='<%#Bind("U_Z_Notes") %>'></asp:Label>
+                                                                                                &nbsp;<asp:LinkButton ID="lblSeddate" runat="server" Text="View Comments" ToolTip='<%#Bind("U_Z_Notes") %>'></asp:LinkButton>
                                                                                             </div>
                                                                                         </ItemTemplate>
                                                                                     </asp:TemplateField>

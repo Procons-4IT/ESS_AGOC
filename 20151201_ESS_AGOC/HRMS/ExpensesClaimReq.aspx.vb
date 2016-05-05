@@ -533,13 +533,18 @@ Public Class ExpensesClaimReq
             ElseIf lblOverLap.Text = "Y" Then
                 TransDate = Date.ParseExact(txttrasdt.Text.Trim().Replace("-", "/").Replace(".", "/"), "dd/MM/yyyy", CultureInfo.InvariantCulture)
                 ' Dim StrQuery As String = "select * from [@Z_HR_OTRAREQ] where U_Z_EmpId='" & lblempNo.Text.Trim() & "' and U_Z_AppStatus='A' and '" & TransDate.ToString("yyyy-MM-dd") & "' between U_Z_TraStDate and U_Z_TraEndDate"
-                Dim StrQuery As String = "select * from [@Z_HR_OTRAREQ] where U_Z_EmpId='" & lblempNo.Text.Trim() & "' and U_Z_AppStatus='A' and '" & TransDate.ToString("yyyy-MM-dd") & "' between U_Z_TraStDate and U_Z_TraEndDate"
+                Dim StrQuery As String = "select * from [@Z_HR_OTRAREQ] where U_Z_EmpId='" & lblempNo.Text.Trim() & "' and U_Z_AppStatus<>'R' and '" & TransDate.ToString("yyyy-MM-dd") & "' between U_Z_TraStDate and U_Z_TraEndDate"
                 dbcon.dss4 = dbcon.GetexpensesOverLap(StrQuery)
                 If dbcon.dss4.Tables(0).Rows.Count > 0 Then
                     dbcon.strmsg = "You have an BTA for this date, you cannot proceed with another expense claim."
                     mess(dbcon.strmsg)
                     Return False
                 End If
+                'dbcon.strmsg = dbcon.expenceclaimValidations(lblempNo.Text.Trim(), "Exp", TransDate, TransDate, Session("SAPCompany"), txtexptype.Text.Trim())
+                'If dbcon.strmsg <> "" Then
+                '    mess(dbcon.strmsg)
+                '    Return False
+                'End If
             End If
             Return True
         Catch ex As Exception
@@ -862,6 +867,7 @@ Public Class ExpensesClaimReq
                         oUserTable2.UserFields.Fields.Item("U_Z_Dimension").Value = oRecSet.Fields.Item("U_Dimension").Value
                         oUserTable2.UserFields.Fields.Item("U_Z_CrEmpID").Value = Session("UserCode").ToString()
                         oUserTable2.UserFields.Fields.Item("U_Z_CrEmpName").Value = Session("UserName").ToString()
+                        oUserTable2.UserFields.Fields.Item("U_Z_OverLap").Value = dbcon.GetOverlap(oRecSet.Fields.Item("U_ExpCode").Value.ToString(), "Exp")
                         If oUserTable2.Update <> 0 Then
                             dbcon.strmsg = dbcon.objMainCompany.GetLastErrorDescription
                         Else
@@ -907,6 +913,7 @@ Public Class ExpensesClaimReq
                         oUserTable2.UserFields.Fields.Item("U_Z_Dimension").Value = oRecSet.Fields.Item("U_Dimension").Value
                         oUserTable2.UserFields.Fields.Item("U_Z_CrEmpID").Value = Session("UserCode").ToString()
                         oUserTable2.UserFields.Fields.Item("U_Z_CrEmpName").Value = Session("UserName").ToString()
+                        oUserTable2.UserFields.Fields.Item("U_Z_OverLap").Value = dbcon.GetOverlap(oRecSet.Fields.Item("U_ExpCode").Value.ToString(), "Exp")
                         If oUserTable2.Add <> 0 Then
                             dbcon.strmsg = dbcon.objMainCompany.GetLastErrorDescription
                         Else
@@ -963,6 +970,11 @@ Public Class ExpensesClaimReq
                 Liremove.Visible = False
             Else
                 Liremove.Visible = True
+            End If
+
+            Dim lblcomments As LinkButton = CType(e.Row.FindControl("lblEreason"), LinkButton)
+            If lblcomments.ToolTip = "" Then
+                lblcomments.Text = ""
             End If
 
             Dim rowtotal As Decimal = Convert.ToDecimal(lblTransAmt.Text.Trim())
@@ -1090,6 +1102,11 @@ Public Class ExpensesClaimReq
                 Liview.Visible = False
             End If
 
+            Dim lblcomments As LinkButton = CType(e.Row.FindControl("lblreason"), LinkButton)
+            If lblcomments.ToolTip = "" Then
+                lblcomments.Text = ""
+            End If
+
             Dim rowtotal As Decimal = Convert.ToDecimal(lblTransAmt.Text.Trim())
             grdTotal = grdTotal + rowtotal
 
@@ -1142,6 +1159,11 @@ Public Class ExpensesClaimReq
                 Liview.Visible = True
             Else
                 Liview.Visible = False
+            End If
+
+            Dim lblcomments As LinkButton = CType(e.Row.FindControl("lblRreason"), LinkButton)
+            If lblcomments.ToolTip = "" Then
+                lblcomments.Text = ""
             End If
 
             Dim rowtotal As Decimal = Convert.ToDecimal(lblTransAmt.Text.Trim())

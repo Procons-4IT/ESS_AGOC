@@ -306,64 +306,66 @@
                                                                             </div>
                                                                         </td>
                                                                         <td>
-                                                                            <table border="0" cellpadding="3" cellspacing="0" class="main_content" width="100%">
-                                                                                <tr>
-                                                                                    <td>
-                                                                                        <a class="txtbox" style="text-decoration: underline; font-weight: bold;">Approvar Status</a>
-                                                                                    </td>
-                                                                                    <td>
-                                                                                        <asp:TextBox ID="txtcode" runat="server" CssClass="txtbox" Visible="false"></asp:TextBox>
-                                                                                        <asp:TextBox ID="txtempid" runat="server" CssClass="txtbox" Visible="false"></asp:TextBox><asp:TextBox
-                                                                                            ID="txtlveCode" runat="server" CssClass="txtbox" Visible="false"></asp:TextBox>
-                                                                                    </td>
-                                                                                </tr>
-                                                                                <tr>
-                                                                                    <td>
-                                                                                        Approval Status
-                                                                                    </td>
-                                                                                    <td>
-                                                                                        <asp:DropDownList ID="ddlAppStatus" runat="server" CssClass="txtbox1">
-                                                                                            <asp:ListItem Value="P">Pending</asp:ListItem>
-                                                                                            <asp:ListItem Value="A">Approved</asp:ListItem>
-                                                                                            <asp:ListItem Value="R">Rejected</asp:ListItem>
-                                                                                        </asp:DropDownList>
-                                                                                    </td>
-                                                                                </tr>
-                                                                                <tr>
-                                                                                    <td>
-                                                                                        Payroll Month
-                                                                                    </td>
-                                                                                    <td>
-                                                                                        <asp:DropDownList ID="ddlpaymonth" runat="server" CssClass="txtbox1">
-                                                                                        </asp:DropDownList>
-                                                                                    </td>
-                                                                                </tr>
-                                                                                <tr>
-                                                                                    <td>
-                                                                                        Payroll Year
-                                                                                    </td>
-                                                                                    <td>
-                                                                                        <asp:DropDownList ID="ddlpayYear" runat="server" CssClass="txtbox1">
-                                                                                        </asp:DropDownList>
-                                                                                    </td>
-                                                                                </tr>
-                                                                                <tr>
-                                                                                    <td>
-                                                                                        Remarks
-                                                                                    </td>
-                                                                                    <td>
-                                                                                        <asp:TextBox ID="txtcomments" runat="server" CssClass="txtbox" Height="80px" TextMode="MultiLine"></asp:TextBox>
-                                                                                    </td>
-                                                                                </tr>
-                                                                                <tr>
-                                                                                    <td colspan="2">
-                                                                                        <br />
-                                                                                        <asp:Button ID="btnAdd" runat="server" CssClass="btn" OnClientClick="return Confirmation();"
-                                                                                            Text="Save &amp; Submit" Width="125px" />
-                                                                                        <asp:Button ID="btncancel" runat="server" CssClass="btn" Text="Cancel" Width="85px" />
-                                                                                    </td>
-                                                                                </tr>
-                                                                            </table>
+                                                                            <div id="dtAppStatus" runat="server" visible="false">
+                                                                                <table border="0" cellpadding="3" cellspacing="0" class="main_content" width="100%">
+                                                                                    <tr>
+                                                                                        <td>
+                                                                                            <a class="txtbox" style="text-decoration: underline; font-weight: bold;">Approvar Status</a>
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            <asp:TextBox ID="txtcode" runat="server" CssClass="txtbox" Visible="false"></asp:TextBox>
+                                                                                            <asp:TextBox ID="txtempid" runat="server" CssClass="txtbox" Visible="false"></asp:TextBox><asp:TextBox
+                                                                                                ID="txtlveCode" runat="server" CssClass="txtbox" Visible="false"></asp:TextBox>
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                    <tr>
+                                                                                        <td>
+                                                                                            Approval Status
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            <asp:DropDownList ID="ddlAppStatus" runat="server" CssClass="txtbox1">
+                                                                                                <asp:ListItem Value="P">Pending</asp:ListItem>
+                                                                                                <asp:ListItem Value="A">Approved</asp:ListItem>
+                                                                                                <asp:ListItem Value="R">Rejected</asp:ListItem>
+                                                                                            </asp:DropDownList>
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                    <tr>
+                                                                                        <td>
+                                                                                            Payroll Month
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            <asp:DropDownList ID="ddlpaymonth" runat="server" CssClass="txtbox1">
+                                                                                            </asp:DropDownList>
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                    <tr>
+                                                                                        <td>
+                                                                                            Payroll Year
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            <asp:DropDownList ID="ddlpayYear" runat="server" CssClass="txtbox1">
+                                                                                            </asp:DropDownList>
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                    <tr>
+                                                                                        <td>
+                                                                                            Remarks
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            <asp:TextBox ID="txtcomments" runat="server" CssClass="txtbox" Height="80px" TextMode="MultiLine"></asp:TextBox>
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                    <tr>
+                                                                                        <td colspan="2">
+                                                                                            <br />
+                                                                                            <asp:Button ID="btnAdd" runat="server" CssClass="btn" OnClientClick="return Confirmation();"
+                                                                                                Text="Save &amp; Submit" Width="125px" />
+                                                                                            <asp:Button ID="btncancel" runat="server" CssClass="btn" Text="Cancel" Width="85px" />
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                </table>
+                                                                            </div>
                                                                         </td>
                                                                     </tr>
                                                                 </table>

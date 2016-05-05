@@ -14,6 +14,7 @@
     <AssemblyName>HRMS</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <MyType>Custom</MyType>
+    <UseIISExpress>false</UseIISExpress>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -754,26 +755,6 @@
     <Content Include="DLLs\zh-Hant\System.Spatial.resources.dll" />
     <Content Include="Download.aspx" />
     <Content Include="Error.aspx" />
-    <Content Include="ESS\ChangePwd.aspx" />
-    <Content Include="ESS\ContacUs.aspx" />
-    <Content Include="ESS\EApScheTrain.aspx" />
-    <Content Include="ESS\Emprofile.aspx" />
-    <Content Include="ESS\ESSHome.aspx" />
-    <Content Include="ESS\LeaveReq.aspx" />
-    <Content Include="ESS\PermissReq.aspx" />
-    <Content Include="ESS\Persobj.aspx" />
-    <Content Include="ESS\RequsPerObj.aspx" />
-    <Content Include="ESS\ResingReq.aspx" />
-    <Content Include="ESS\RetrunLevReq.aspx" />
-    <Content Include="ESS\SelfApprais.aspx" />
-    <Content Include="ESS\Travelreq.aspx" />
-    <Content Include="ESS\EmpReqtoHR.aspx" />
-    <Content Include="ESS\ENewTrainingReq.aspx" />
-    <Content Include="ESS\BankTimeReq.aspx" />
-    <Content Include="ESS\ExpClaimRequest.aspx" />
-    <Content Include="ESS\EActivity.aspx" />
-    <Content Include="ESS\ELoanRequest.aspx" />
-    <Content Include="ESS\EmpPaySlip.aspx" />
     <Content Include="Images\Add.jpg" />
     <Content Include="Images\bg.gif" />
     <Content Include="Images\BG_world.png" />
@@ -885,6 +866,8 @@
     <Content Include="MActivity.aspx" />
     <Content Include="MLoanRequest.aspx" />
     <Content Include="LoanApproval.aspx" />
+    <Content Include="LoaneeExpenses.aspx" />
+    <Content Include="LoaneeExpenseApproval.aspx" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AdminUIPages\Admin.Master.designer.vb">
@@ -949,153 +932,6 @@
     <Compile Include="Error.aspx.vb">
       <DependentUpon>Error.aspx</DependentUpon>
       <SubType>ASPXCodebehind</SubType>
-    </Compile>
-    <Compile Include="ESS\ChangePwd.aspx.designer.vb">
-      <DependentUpon>ChangePwd.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="ESS\ChangePwd.aspx.vb">
-      <DependentUpon>ChangePwd.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="ESS\ContacUs.aspx.designer.vb">
-      <DependentUpon>ContacUs.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="ESS\ContacUs.aspx.vb">
-      <DependentUpon>ContacUs.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="ESS\EApScheTrain.aspx.designer.vb">
-      <DependentUpon>EApScheTrain.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="ESS\EApScheTrain.aspx.vb">
-      <DependentUpon>EApScheTrain.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="ESS\Emprofile.aspx.designer.vb">
-      <DependentUpon>Emprofile.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="ESS\Emprofile.aspx.vb">
-      <DependentUpon>Emprofile.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="ESS\ESSMaster.Master.designer.vb">
-      <DependentUpon>ESSMaster.Master</DependentUpon>
-    </Compile>
-    <Compile Include="ESS\ESSMaster.Master.vb">
-      <DependentUpon>ESSMaster.Master</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="ESS\ESSHome.aspx.designer.vb">
-      <DependentUpon>ESSHome.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="ESS\ESSHome.aspx.vb">
-      <DependentUpon>ESSHome.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="ESS\LeaveReq.aspx.designer.vb">
-      <DependentUpon>LeaveReq.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="ESS\LeaveReq.aspx.vb">
-      <DependentUpon>LeaveReq.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="ESS\PermissReq.aspx.designer.vb">
-      <DependentUpon>PermissReq.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="ESS\PermissReq.aspx.vb">
-      <DependentUpon>PermissReq.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="ESS\Persobj.aspx.designer.vb">
-      <DependentUpon>Persobj.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="ESS\Persobj.aspx.vb">
-      <DependentUpon>Persobj.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="ESS\RequsPerObj.aspx.designer.vb">
-      <DependentUpon>RequsPerObj.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="ESS\RequsPerObj.aspx.vb">
-      <DependentUpon>RequsPerObj.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="ESS\ResingReq.aspx.designer.vb">
-      <DependentUpon>ResingReq.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="ESS\ResingReq.aspx.vb">
-      <DependentUpon>ResingReq.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="ESS\RetrunLevReq.aspx.designer.vb">
-      <DependentUpon>RetrunLevReq.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="ESS\RetrunLevReq.aspx.vb">
-      <DependentUpon>RetrunLevReq.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="ESS\SelfApprais.aspx.designer.vb">
-      <DependentUpon>SelfApprais.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="ESS\SelfApprais.aspx.vb">
-      <DependentUpon>SelfApprais.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="ESS\Travelreq.aspx.designer.vb">
-      <DependentUpon>Travelreq.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="ESS\EmpReqtoHR.aspx.designer.vb">
-      <DependentUpon>EmpReqtoHR.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="ESS\EmpReqtoHR.aspx.vb">
-      <DependentUpon>EmpReqtoHR.aspx</DependentUpon>
-      <SubType>ASPXCodebehind</SubType>
-    </Compile>
-    <Compile Include="ESS\ENewTrainingReq.aspx.designer.vb">
-      <DependentUpon>ENewTrainingReq.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="ESS\ENewTrainingReq.aspx.vb">
-      <DependentUpon>ENewTrainingReq.aspx</DependentUpon>
-      <SubType>ASPXCodebehind</SubType>
-    </Compile>
-    <Compile Include="ESS\BankTimeReq.aspx.designer.vb">
-      <DependentUpon>BankTimeReq.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="ESS\BankTimeReq.aspx.vb">
-      <DependentUpon>BankTimeReq.aspx</DependentUpon>
-      <SubType>ASPXCodebehind</SubType>
-    </Compile>
-    <Compile Include="ESS\ExpClaimRequest.aspx.designer.vb">
-      <DependentUpon>ExpClaimRequest.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="ESS\ExpClaimRequest.aspx.vb">
-      <DependentUpon>ExpClaimRequest.aspx</DependentUpon>
-      <SubType>ASPXCodebehind</SubType>
-    </Compile>
-    <Compile Include="ESS\EActivity.aspx.designer.vb">
-      <DependentUpon>EActivity.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="ESS\EActivity.aspx.vb">
-      <DependentUpon>EActivity.aspx</DependentUpon>
-      <SubType>ASPXCodebehind</SubType>
-    </Compile>
-    <Compile Include="ESS\ELoanRequest.aspx.designer.vb">
-      <DependentUpon>ELoanRequest.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="ESS\ELoanRequest.aspx.vb">
-      <DependentUpon>ELoanRequest.aspx</DependentUpon>
-      <SubType>ASPXCodebehind</SubType>
-    </Compile>
-    <Compile Include="ESS\EmpPaySlip.aspx.designer.vb">
-      <DependentUpon>EmpPaySlip.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="ESS\EmpPaySlip.aspx.vb">
-      <DependentUpon>EmpPaySlip.aspx</DependentUpon>
-      <SubType>ASPXCodebehind</SubType>
-    </Compile>
-    <Compile Include="ESS\Travelreq.aspx.vb">
-      <DependentUpon>Travelreq.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Global.asax.vb">
       <DependentUpon>Global.asax</DependentUpon>
@@ -1453,6 +1289,20 @@
       <DependentUpon>LoanApproval.aspx</DependentUpon>
       <SubType>ASPXCodebehind</SubType>
     </Compile>
+    <Compile Include="LoaneeExpenses.aspx.designer.vb">
+      <DependentUpon>LoaneeExpenses.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="LoaneeExpenses.aspx.vb">
+      <DependentUpon>LoaneeExpenses.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="LoaneeExpenseApproval.aspx.designer.vb">
+      <DependentUpon>LoaneeExpenseApproval.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="LoaneeExpenseApproval.aspx.vb">
+      <DependentUpon>LoaneeExpenseApproval.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="bin\Debug\Reports\MonthPaySlip.rpt">
@@ -1487,7 +1337,6 @@
     <Content Include="HRMS.Master" />
     <Content Include="App_Themes\Theme1\SkinFile.skin" />
     <Content Include="AdminUIPages\Admin.Master" />
-    <Content Include="ESS\ESSMaster.Master" />
     <None Include="bin\Debug\BusinessLogic.b1s" />
     <None Include="bin\Debug\DataAccess.b1s" />
     <None Include="bin\Debug\EN.b1s" />

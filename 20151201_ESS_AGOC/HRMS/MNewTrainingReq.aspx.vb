@@ -173,6 +173,13 @@ Public Class MNewTrainingReq
                 dbCon.strmsg = "alert('Training to date must be greater than or equal to Training from date...')"
                 mess(dbCon.strmsg)
                 Return False
+            Else
+                dbCon.strmsg = dbCon.expenceclaimValidations(txtempid.Text.Trim(), "NewTraining", objEn.Fromdate, objEn.Todate, Session("SAPCompany"))
+                If dbCon.strmsg <> "" Then
+                    dbCon.strmsg = "alert('" & dbCon.strmsg & "')"
+                    mess(dbCon.strmsg)
+                    Return False
+                End If
             End If
             Return True
         Catch ex As Exception
@@ -446,11 +453,15 @@ Public Class MNewTrainingReq
         If e.Row.RowType = DataControlRowType.DataRow Then
             Dim LiDocNo As LinkButton = CType(e.Row.FindControl("lbtndocnum"), LinkButton)
             Dim Liview As LinkButton = CType(e.Row.FindControl("lbtAppHistory"), LinkButton)
+            Dim lblcomments As LinkButton = CType(e.Row.FindControl("lblreason"), LinkButton)
             Blflag = dbCon.WithDrawStatus("NewTra", LiDocNo.Text.Trim())
             If Blflag = True Then
                 Liview.Visible = True
             Else
                 Liview.Visible = False
+            End If
+            If lblcomments.ToolTip = "" Then
+                lblcomments.Text = ""
             End If
         End If
     End Sub

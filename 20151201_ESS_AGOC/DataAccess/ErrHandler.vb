@@ -5,7 +5,7 @@ Imports System.Globalization
 Public Class ErrHandler
 
     Public Shared Sub WriteError(ByVal errorMessage As String)
-
+        Dim Err As String
         Try
 
             Dim path As String = "~/Error/" & DateTime.Today.ToString("dd-MM-yy") & ".txt"
@@ -22,9 +22,14 @@ Public Class ErrHandler
 
                 w.WriteLine("{0}", DateTime.Now.ToString(CultureInfo.InvariantCulture))
 
-                Dim err As String = "Error in: " & System.Web.HttpContext.Current.Request.Url.ToString() & ". Error Message:" & errorMessage
+                ' Dim err As String = "Error in: " & System.Web.HttpContext.Current.Request.Url.ToString() & ". Error Message:" & errorMessage
 
-                w.WriteLine(err)
+                '  w.WriteLine(err)
+                Try
+                    Err = "Error in: " & System.Web.HttpContext.Current.Request.Url.ToString() & ". Error Message:" & errorMessage
+                Catch ex As Exception
+                    Err = " Error Message:" & errorMessage
+                End Try
 
                 w.WriteLine("__________________________")
 

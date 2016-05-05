@@ -227,6 +227,7 @@
                                                             <asp:ListItem Value="SM">Sr.Manager Approved</asp:ListItem>
                                                             <asp:ListItem Value="HR">HR Approved</asp:ListItem>
                                                             <asp:ListItem Value="DR">Draft</asp:ListItem>
+                                                            <asp:ListItem Value="C">HR Canceled</asp:ListItem>
                                                         </asp:DropDownList>
                                                     </td>
                                                 </tr>
@@ -261,137 +262,189 @@
                                                                     <table width="100%" border="0" cellspacing="0" cellpadding="3" class="main_content">
                                                                         <tr>
                                                                             <td colspan="4">
-                                                                                <asp:GridView ID="grdBusinessView" runat="server" ShowFooter="false" CellPadding="4"
-                                                                                    CssClass="mGrid" HeaderStyle-CssClass="GridBG" PagerStyle-CssClass="pgr" AlternatingRowStyle-CssClass="alt"
-                                                                                    AllowPaging="True" AutoGenerateColumns="False" Width="100%" PageSize="10" ShowHeaderWhenEmpty="true"
-                                                                                    EmptyDataText="No records Found">
-                                                                                    <Columns>
-                                                                                        <asp:TemplateField HeaderText="Code" Visible="false">
-                                                                                            <ItemTemplate>
-                                                                                                <div align="center">
-                                                                                                    <asp:Label ID="lbbudocnum1" runat="server" Text='<%#Bind("U_Z_BussCode") %>'></asp:Label></div>
-                                                                                            </ItemTemplate>
-                                                                                        </asp:TemplateField>
-                                                                                        <asp:TemplateField HeaderText="Business Objectives">
-                                                                                            <ItemTemplate>
-                                                                                                <div align="left">
-                                                                                                    &nbsp;<asp:Label ID="lblbussname1" runat="server" Text='<%#Bind("U_Z_BussDesc") %>'></asp:Label></div>
-                                                                                            </ItemTemplate>
-                                                                                            <FooterTemplate>
-                                                                                                <div align="right">
-                                                                                                    <asp:Label ID="lblpay4" runat="server" Text="Total(%)"></asp:Label>&nbsp;&nbsp;</div>
-                                                                                            </FooterTemplate>
-                                                                                        </asp:TemplateField>
-                                                                                        <asp:TemplateField HeaderText="Weight(%)" Visible="false">
-                                                                                            <ItemTemplate>
-                                                                                                <div align="Right">
-                                                                                                    &nbsp;<asp:Label ID="lblweight1" runat="server" Text='<%#Bind("U_Z_BussWeight") %>'></asp:Label></div>
-                                                                                            </ItemTemplate>
-                                                                                            <FooterTemplate>
-                                                                                                <div align="right">
-                                                                                                    <asp:Label ID="lblBselfweight" runat="server"></asp:Label>&nbsp;</div>
-                                                                                            </FooterTemplate>
-                                                                                        </asp:TemplateField>
-                                                                                        <asp:TemplateField HeaderText="Self Rating">
-                                                                                            <ItemTemplate>
-                                                                                                <div align="left">
-                                                                                                    &nbsp;<asp:DropDownList ID="ddlbusselfrate" runat="server" AutoPostBack="true" OnSelectedIndexChanged="ddlbusselfrate_SelectedIndexChanged"
-                                                                                                        EnableViewState="true">
-                                                                                                    </asp:DropDownList>
-                                                                                                </div>
-                                                                                            </ItemTemplate>
-                                                                                        </asp:TemplateField>
-                                                                                         <asp:TemplateField HeaderText="Self Remarks">
-                                                                                            <ItemTemplate>
-                                                                                                <div align="left">
-                                                                                                    &nbsp;
-                                                                                                    <asp:TextBox ID="lblBSelfRemark" runat="server" Text='<%#Bind("U_Z_SelfRemark") %>'
-                                                                                                        CssClass="txtbox"></asp:TextBox>
-                                                                                                </div>
-                                                                                            </ItemTemplate>
-                                                                                        </asp:TemplateField>
-                                                                                        <asp:TemplateField HeaderText="Self Rating" Visible="false">
-                                                                                            <ItemTemplate>
-                                                                                                <div align="left">
-                                                                                                    &nbsp;<asp:Label ID="lblbusselfrate" runat="server" Text='<%#Bind("U_Z_SelfRaCode") %>'
-                                                                                                        Visible="false"></asp:Label></div>
-                                                                                                <div align="Right">
-                                                                                                    &nbsp;<asp:Label ID="lblbusself1" runat="server" Text='<%#Bind("U_Z_BussSelfRate") %>'></asp:Label></div>
-                                                                                            </ItemTemplate>
-                                                                                            <FooterTemplate>
-                                                                                                <div align="right">
-                                                                                                    <asp:Label ID="lblBselfrate" runat="server"></asp:Label>&nbsp;</div>
-                                                                                            </FooterTemplate>
-                                                                                        </asp:TemplateField>
-                                                                                        <asp:TemplateField HeaderText="First Level Manager Rating">
-                                                                                            <ItemTemplate>
-                                                                                                <div align="left">
-                                                                                                    &nbsp;<asp:DropDownList ID="ddlbusmgrfrate" runat="server" Enabled="false">
-                                                                                                    </asp:DropDownList>
-                                                                                                </div>
-                                                                                            </ItemTemplate>
-                                                                                        </asp:TemplateField>
-                                                                                          <asp:TemplateField HeaderText="First Level Manager Remarks">
-                                                                                            <ItemTemplate>
-                                                                                                <div align="left">
-                                                                                                    &nbsp;
-                                                                                                    <asp:Label ID="txtBfstmgrRemarks" runat="server" Text='<%#Bind("U_Z_MgrRemark") %>'
-                                                                                                        CssClass="txtbox" Width="100"></asp:Label>
-                                                                                                </div>
-                                                                                            </ItemTemplate>
-                                                                                        </asp:TemplateField>
-                                                                                        <asp:TemplateField HeaderText="Line Manager Rating" Visible="false">
-                                                                                            <ItemTemplate>
-                                                                                                <div align="left">
-                                                                                                    &nbsp;<asp:Label ID="lblbusmgrfrate" runat="server" Text='<%#Bind("U_Z_MgrRaCode") %>'
-                                                                                                        Visible="false"></asp:Label></div>
-                                                                                                <div align="Right">
-                                                                                                    &nbsp;<asp:Label ID="lblmgrrate1" runat="server" Text='<%#Bind("U_Z_BussMgrRate") %>'></asp:Label></div>
-                                                                                            </ItemTemplate>
-                                                                                            <FooterTemplate>
-                                                                                                <div align="right">
-                                                                                                    <asp:Label ID="lblBLinerate" runat="server"></asp:Label>&nbsp;</div>
-                                                                                            </FooterTemplate>
-                                                                                        </asp:TemplateField>
-                                                                                        <asp:TemplateField HeaderText="Second Level Manager Rating">
-                                                                                            <ItemTemplate>
-                                                                                                <div align="left">
-                                                                                                    &nbsp;<asp:DropDownList ID="ddlsmgrfrate" runat="server" Enabled="false">
-                                                                                                    </asp:DropDownList>
-                                                                                                </div>
-                                                                                            </ItemTemplate>
-                                                                                        </asp:TemplateField>
-                                                                                          <asp:TemplateField HeaderText="Second Level Manager Remarks">
-                                                                                            <ItemTemplate>
-                                                                                                <div align="left">
-                                                                                                    &nbsp;
-                                                                                                    <asp:Label ID="lblBSecoMgrRemark" runat="server" Text='<%#Bind("U_Z_SrRemark") %>'
-                                                                                                        CssClass="txtbox"></asp:Label>
-                                                                                                </div>
-                                                                                            </ItemTemplate>
-                                                                                        </asp:TemplateField>
-                                                                                        <asp:TemplateField HeaderText="Senior Manager Rating" Visible="false">
-                                                                                            <ItemTemplate>
-                                                                                                <div align="left">
-                                                                                                    &nbsp;<asp:Label ID="lblsmgrfrate" runat="server" Text='<%#Bind("U_Z_SMRaCode") %>'
-                                                                                                        Visible="false"></asp:Label></div>
-                                                                                                <div align="Right">
-                                                                                                    &nbsp;<asp:Label ID="lblsrmgrrate1" runat="server" Text='<%#Bind("U_Z_BussSMRate") %>'></asp:Label></div>
-                                                                                            </ItemTemplate>
-                                                                                            <FooterTemplate>
-                                                                                                <div align="right">
-                                                                                                    <asp:Label ID="lblBsrrate" runat="server"></asp:Label>&nbsp;</div>
-                                                                                            </FooterTemplate>
-                                                                                        </asp:TemplateField>
-                                                                                        <asp:TemplateField HeaderText="Code" Visible="false">
-                                                                                            <ItemTemplate>
-                                                                                                <div align="center">
-                                                                                                    &nbsp;<asp:Label ID="lblbusCode1" runat="server" Text='<%#Bind("LineId") %>'></asp:Label></div>
-                                                                                            </ItemTemplate>
-                                                                                        </asp:TemplateField>
-                                                                                    </Columns>
-                                                                                    <HeaderStyle HorizontalAlign="Center" Height="25px" BackColor="#CCCCCC" />
-                                                                                </asp:GridView>
+                                                                                <div style="overflow-x: auto; width: 1100px;">
+                                                                                    <asp:GridView ID="grdBusinessView" runat="server" ShowFooter="true" CellPadding="4"
+                                                                                        CssClass="mGrid" HeaderStyle-CssClass="GridBG" PagerStyle-CssClass="pgr" AlternatingRowStyle-CssClass="alt"
+                                                                                        AllowPaging="True" AutoGenerateColumns="False" Width="100%" ShowHeaderWhenEmpty="true"
+                                                                                        EmptyDataText="No records Found">
+                                                                                        <Columns>
+                                                                                            <asp:TemplateField HeaderText="Code" Visible="false">
+                                                                                                <ItemTemplate>
+                                                                                                    <div align="center">
+                                                                                                        <asp:Label ID="lbbudocnum1" runat="server" Text='<%#Bind("U_Z_BussCode") %>'></asp:Label></div>
+                                                                                                </ItemTemplate>
+                                                                                            </asp:TemplateField>
+                                                                                            <asp:TemplateField HeaderText="Business Objectives">
+                                                                                                <ItemTemplate>
+                                                                                                    <div align="left">
+                                                                                                        &nbsp;<asp:Label ID="lblbussname1" runat="server" Text='<%#Bind("U_Z_BussDesc") %>'></asp:Label></div>
+                                                                                                </ItemTemplate>
+                                                                                                <FooterTemplate>
+                                                                                                    <div align="right">
+                                                                                                        <asp:Label ID="lblpay4" runat="server" Text="Total(%)" Visible="false"></asp:Label>&nbsp;&nbsp;</div>
+                                                                                                </FooterTemplate>
+                                                                                            </asp:TemplateField>
+                                                                                            <asp:TemplateField HeaderText="Weight(%)" Visible="false">
+                                                                                                <ItemTemplate>
+                                                                                                    <div align="Right">
+                                                                                                        &nbsp;<asp:Label ID="lblweight1" runat="server" Text='<%#Bind("U_Z_BussWeight") %>'></asp:Label></div>
+                                                                                                </ItemTemplate>
+                                                                                                <FooterTemplate>
+                                                                                                    <div align="right">
+                                                                                                        <asp:Label ID="lblBselfweight" runat="server"></asp:Label>&nbsp;</div>
+                                                                                                </FooterTemplate>
+                                                                                            </asp:TemplateField>
+                                                                                            <asp:TemplateField HeaderText="Self Rating">
+                                                                                                <ItemTemplate>
+                                                                                                    <div align="left">
+                                                                                                        &nbsp;<asp:DropDownList ID="ddlbusselfrate" runat="server" AutoPostBack="true" OnSelectedIndexChanged="ddlbusselfrate_SelectedIndexChanged"
+                                                                                                            EnableViewState="true">
+                                                                                                        </asp:DropDownList>
+                                                                                                    </div>
+                                                                                                </ItemTemplate>
+                                                                                                <FooterTemplate>
+                                                                                                    <div align="right">
+                                                                                                        <asp:Label ID="lblBselfgrd" runat="server" Text="Self Grade :"></asp:Label>&nbsp;</div>
+                                                                                                </FooterTemplate>
+                                                                                            </asp:TemplateField>
+                                                                                            <asp:TemplateField HeaderText="Self Remarks">
+                                                                                                <ItemTemplate>
+                                                                                                    <div align="left">
+                                                                                                        &nbsp;
+                                                                                                        <asp:TextBox ID="lblBSelfRemark" runat="server" Text='<%#Bind("U_Z_SelfRemark") %>'
+                                                                                                            TextMode="MultiLine" CssClass="txtbox"></asp:TextBox>
+                                                                                                    </div>
+                                                                                                </ItemTemplate>
+                                                                                                <FooterTemplate>
+                                                                                                    <div align="left">
+                                                                                                        <asp:Label ID="lblBselfgrade" runat="server"></asp:Label>&nbsp;</div>
+                                                                                                </FooterTemplate>
+                                                                                            </asp:TemplateField>
+                                                                                            <asp:TemplateField HeaderText="Self Grade" Visible="false">
+                                                                                                <ItemTemplate>
+                                                                                                    <div align="left">
+                                                                                                        &nbsp;
+                                                                                                        <asp:Label ID="lblBselGrd" runat="server" Text='<%#Bind("U_Z_BussSelfGrade") %>'
+                                                                                                            CssClass="txtbox"></asp:Label>
+                                                                                                    </div>
+                                                                                                </ItemTemplate>
+                                                                                            </asp:TemplateField>
+                                                                                            <asp:TemplateField HeaderText="Self Rating" Visible="false">
+                                                                                                <ItemTemplate>
+                                                                                                    <div align="left">
+                                                                                                        &nbsp;<asp:Label ID="lblbusselfrate" runat="server" Text='<%#Bind("U_Z_SelfRaCode") %>'
+                                                                                                            Visible="false"></asp:Label></div>
+                                                                                                    <div align="Right">
+                                                                                                        &nbsp;<asp:Label ID="lblbusself1" runat="server" Text='<%#Bind("U_Z_BussSelfRate") %>'></asp:Label></div>
+                                                                                                </ItemTemplate>
+                                                                                                <FooterTemplate>
+                                                                                                    <div align="right">
+                                                                                                        <asp:Label ID="lblBselfrate" runat="server"></asp:Label>&nbsp;</div>
+                                                                                                </FooterTemplate>
+                                                                                            </asp:TemplateField>
+                                                                                            <asp:TemplateField HeaderText="First Level Manager Rating">
+                                                                                                <ItemTemplate>
+                                                                                                    <div align="left">
+                                                                                                        &nbsp;<asp:DropDownList ID="ddlbusmgrfrate" runat="server" Enabled="false">
+                                                                                                        </asp:DropDownList>
+                                                                                                    </div>
+                                                                                                </ItemTemplate>
+                                                                                                <FooterTemplate>
+                                                                                                    <div align="right">
+                                                                                                        <asp:Label ID="lblBmgrgrd" runat="server" Text="First Level Manager Grade :"></asp:Label>&nbsp;</div>
+                                                                                                </FooterTemplate>
+                                                                                            </asp:TemplateField>
+                                                                                            <asp:TemplateField HeaderText="First Level Manager Remarks">
+                                                                                                <ItemTemplate>
+                                                                                                    <div align="left">
+                                                                                                        &nbsp;
+                                                                                                        <asp:LinkButton ID="txtBfstmgrRemarks" runat="server" Text="View Remarks" ToolTip='<%#Bind("U_Z_MgrRemark") %>'
+                                                                                                            CssClass="txtbox" Width="100"></asp:LinkButton>
+                                                                                                    </div>
+                                                                                                </ItemTemplate>
+                                                                                                <FooterTemplate>
+                                                                                                    <div align="left">
+                                                                                                        <asp:Label ID="lblBMgrgrade" runat="server"></asp:Label>&nbsp;</div>
+                                                                                                </FooterTemplate>
+                                                                                            </asp:TemplateField>
+                                                                                            <asp:TemplateField HeaderText="First Level Manager Grade" Visible="false">
+                                                                                                <ItemTemplate>
+                                                                                                    <div align="left">
+                                                                                                        &nbsp;
+                                                                                                        <asp:Label ID="lblBmgrGrd" runat="server" Text='<%#Bind("U_Z_BussMgrGrade") %>' CssClass="txtbox"></asp:Label>
+                                                                                                    </div>
+                                                                                                </ItemTemplate>
+                                                                                            </asp:TemplateField>
+                                                                                            <asp:TemplateField HeaderText="Line Manager Rating" Visible="false">
+                                                                                                <ItemTemplate>
+                                                                                                    <div align="left">
+                                                                                                        &nbsp;<asp:Label ID="lblbusmgrfrate" runat="server" Text='<%#Bind("U_Z_MgrRaCode") %>'
+                                                                                                            Visible="false"></asp:Label></div>
+                                                                                                    <div align="Right">
+                                                                                                        &nbsp;<asp:Label ID="lblmgrrate1" runat="server" Text='<%#Bind("U_Z_BussMgrRate") %>'></asp:Label></div>
+                                                                                                </ItemTemplate>
+                                                                                                <FooterTemplate>
+                                                                                                    <div align="right">
+                                                                                                        <asp:Label ID="lblBLinerate" runat="server"></asp:Label>&nbsp;</div>
+                                                                                                </FooterTemplate>
+                                                                                            </asp:TemplateField>
+                                                                                            <asp:TemplateField HeaderText="Second Level Manager Rating">
+                                                                                                <ItemTemplate>
+                                                                                                    <div align="left">
+                                                                                                        &nbsp;<asp:DropDownList ID="ddlsmgrfrate" runat="server" Enabled="false">
+                                                                                                        </asp:DropDownList>
+                                                                                                    </div>
+                                                                                                </ItemTemplate>
+                                                                                                <FooterTemplate>
+                                                                                                    <div align="right">
+                                                                                                        <asp:Label ID="lblBsmgrgrd" runat="server" Text="Second Level Manager Grade :"></asp:Label>&nbsp;</div>
+                                                                                                </FooterTemplate>
+                                                                                            </asp:TemplateField>
+                                                                                            <asp:TemplateField HeaderText="Second Level Manager Remarks">
+                                                                                                <ItemTemplate>
+                                                                                                    <div align="left">
+                                                                                                        &nbsp;
+                                                                                                        <asp:LinkButton ID="lblBSecoMgrRemark" runat="server" Text="View Remarks" ToolTip='<%#Bind("U_Z_SrRemark") %>'
+                                                                                                            CssClass="txtbox"></asp:LinkButton>
+                                                                                                    </div>
+                                                                                                </ItemTemplate>
+                                                                                                <FooterTemplate>
+                                                                                                    <div align="left">
+                                                                                                        <asp:Label ID="lblBSMgrgrade" runat="server"></asp:Label>&nbsp;</div>
+                                                                                                </FooterTemplate>
+                                                                                            </asp:TemplateField>
+                                                                                            <asp:TemplateField HeaderText="Second Level Manager Grade" Visible="false">
+                                                                                                <ItemTemplate>
+                                                                                                    <div align="left">
+                                                                                                        &nbsp;
+                                                                                                        <asp:Label ID="lblBsmgrGrd" runat="server" Text='<%#Bind("U_Z_BussSMGrade") %>' CssClass="txtbox"></asp:Label>
+                                                                                                    </div>
+                                                                                                </ItemTemplate>
+                                                                                            </asp:TemplateField>
+                                                                                            <asp:TemplateField HeaderText="Senior Manager Rating" Visible="false">
+                                                                                                <ItemTemplate>
+                                                                                                    <div align="left">
+                                                                                                        &nbsp;<asp:Label ID="lblsmgrfrate" runat="server" Text='<%#Bind("U_Z_SMRaCode") %>'
+                                                                                                            Visible="false"></asp:Label></div>
+                                                                                                    <div align="Right">
+                                                                                                        &nbsp;<asp:Label ID="lblsrmgrrate1" runat="server" Text='<%#Bind("U_Z_BussSMRate") %>'></asp:Label></div>
+                                                                                                </ItemTemplate>
+                                                                                                <FooterTemplate>
+                                                                                                    <div align="right">
+                                                                                                        <asp:Label ID="lblBsrrate" runat="server"></asp:Label>&nbsp;</div>
+                                                                                                </FooterTemplate>
+                                                                                            </asp:TemplateField>
+                                                                                            <asp:TemplateField HeaderText="Code" Visible="false">
+                                                                                                <ItemTemplate>
+                                                                                                    <div align="center">
+                                                                                                        &nbsp;<asp:Label ID="lblbusCode1" runat="server" Text='<%#Bind("LineId") %>'></asp:Label></div>
+                                                                                                </ItemTemplate>
+                                                                                            </asp:TemplateField>
+                                                                                        </Columns>
+                                                                                        <HeaderStyle HorizontalAlign="Center" Height="25px" BackColor="#CCCCCC" />
+                                                                                        <FooterStyle Font-Bold="true" />
+                                                                                    </asp:GridView>
+                                                                                </div>
                                                                             </td>
                                                                         </tr>
                                                                         <tr>
@@ -434,143 +487,197 @@
                                                                     <table width="100%" border="0" cellspacing="0" cellpadding="4" class="main_content">
                                                                         <tr>
                                                                             <td colspan="4">
-                                                                                <asp:GridView ID="grdPeopleview" runat="server" ShowFooter="false" CellPadding="4"
-                                                                                    CssClass="mGrid" HeaderStyle-CssClass="GridBG" PagerStyle-CssClass="pgr" AlternatingRowStyle-CssClass="alt"
-                                                                                    AllowPaging="True" Visible="false" AutoGenerateColumns="False" Width="100%" PageSize="10"
-                                                                                    ShowHeaderWhenEmpty="true" EmptyDataText="No records Found">
-                                                                                    <Columns>
-                                                                                        <asp:TemplateField HeaderText="Code" Visible="false">
-                                                                                            <ItemTemplate>
-                                                                                                <div align="center">
-                                                                                                    <asp:Label ID="lbtpedocnum1" runat="server" Text='<%#Bind("U_Z_PeopleCode") %>'></asp:Label></div>
-                                                                                            </ItemTemplate>
-                                                                                        </asp:TemplateField>
-                                                                                        <asp:TemplateField HeaderText="Personal Objectives">
-                                                                                            <ItemTemplate>
-                                                                                                <div align="left">
-                                                                                                    &nbsp;<asp:Label ID="lblpeoname1" runat="server" Text='<%#Bind("U_Z_PeopleDesc") %>'></asp:Label></div>
-                                                                                            </ItemTemplate>
-                                                                                        </asp:TemplateField>
-                                                                                        <asp:TemplateField HeaderText="Category">
-                                                                                            <ItemTemplate>
-                                                                                                <div align="left">
-                                                                                                    &nbsp;<asp:Label ID="lblcate1" runat="server" Text='<%#Bind("U_Z_PeopleCat") %>'></asp:Label></div>
-                                                                                            </ItemTemplate>
-                                                                                            <FooterTemplate>
-                                                                                                <div align="right">
-                                                                                                    <asp:Label ID="lblPPay" runat="server" Text="Total(%)"></asp:Label>&nbsp;&nbsp;</div>
-                                                                                            </FooterTemplate>
-                                                                                        </asp:TemplateField>
-                                                                                        <asp:TemplateField HeaderText="Weight(%)" Visible="false">
-                                                                                            <ItemTemplate>
-                                                                                                <div align="Right">
-                                                                                                    &nbsp;<asp:Label ID="lblpeweight1" runat="server" Text='<%#Bind("U_Z_PeoWeight") %>'></asp:Label></div>
-                                                                                            </ItemTemplate>
-                                                                                            <FooterTemplate>
-                                                                                                <div align="right">
-                                                                                                    <asp:Label ID="lblPselfweight" runat="server"></asp:Label>&nbsp;</div>
-                                                                                            </FooterTemplate>
-                                                                                        </asp:TemplateField>
-                                                                                        <asp:TemplateField HeaderText="Self Rating">
-                                                                                            <ItemTemplate>
-                                                                                                <div align="left">
-                                                                                                    &nbsp;<asp:DropDownList ID="ddlpeselfrate" runat="server" AutoPostBack="true" OnSelectedIndexChanged="ddlpeselfrate_SelectedIndexChanged"
-                                                                                                        EnableViewState="true">
-                                                                                                    </asp:DropDownList>
-                                                                                                </div>
-                                                                                            </ItemTemplate>
-                                                                                        </asp:TemplateField>
-                                                                                         <asp:TemplateField HeaderText="Self Remarks">
-                                                                                            <ItemTemplate>
-                                                                                                <div align="left">
-                                                                                                    &nbsp;
-                                                                                                    <asp:TextBox ID="lblPSelfRemark" runat="server" Text='<%#Bind("U_Z_SelfRemark") %>'
-                                                                                                        CssClass="txtbox"></asp:TextBox>
-                                                                                                </div>
-                                                                                            </ItemTemplate>
-                                                                                        </asp:TemplateField>
-                                                                                        <asp:TemplateField HeaderText="Self Rating" Visible="false">
-                                                                                            <ItemTemplate>
-                                                                                                <div align="left">
-                                                                                                    &nbsp;<asp:Label ID="lblpeselfrate" runat="server" Text='<%#Bind("U_Z_SelfRaCode") %>'
-                                                                                                        Visible="false"></asp:Label></div>
-                                                                                                <div align="Right">
-                                                                                                    &nbsp;<asp:Label ID="lblpeselfrate1" runat="server" Text='<%#Bind("U_Z_PeoSelfRate") %>'></asp:Label></div>
-                                                                                            </ItemTemplate>
-                                                                                            <FooterTemplate>
-                                                                                                <div align="right">
-                                                                                                    <asp:Label ID="lblPselfrate" runat="server"></asp:Label>&nbsp;</div>
-                                                                                            </FooterTemplate>
-                                                                                        </asp:TemplateField>
-                                                                                        <asp:TemplateField HeaderText="First Level Manager Rating">
-                                                                                            <ItemTemplate>
-                                                                                                <div align="left">
-                                                                                                    &nbsp;<asp:DropDownList ID="ddlpesmgrfrate" runat="server" Enabled="false">
-                                                                                                    </asp:DropDownList>
-                                                                                                </div>
-                                                                                            </ItemTemplate>
-                                                                                        </asp:TemplateField>
-                                                                                          <asp:TemplateField HeaderText="First Level Manager Remarks">
-                                                                                            <ItemTemplate>
-                                                                                                <div align="left">
-                                                                                                    &nbsp;
-                                                                                                    <asp:Label ID="txtPfstmgrRemarks" runat="server" Text='<%#Bind("U_Z_MgrRemark") %>'
-                                                                                                        CssClass="txtbox" Width="100"></asp:Label>
-                                                                                                </div>
-                                                                                            </ItemTemplate>
-                                                                                        </asp:TemplateField>
-                                                                                        <asp:TemplateField HeaderText="Line Manager Rating" Visible="false">
-                                                                                            <ItemTemplate>
-                                                                                                <div align="Right">
-                                                                                                    &nbsp;<asp:Label ID="lblpemgrrate1" runat="server" Text='<%#Bind("U_Z_PeoMgrRate") %>'></asp:Label></div>
-                                                                                                <div align="left">
-                                                                                                    &nbsp;<asp:Label ID="lblpesmgrfrate" runat="server" Text='<%#Bind("U_Z_MgrRaCode") %>'
-                                                                                                        Visible="false"></asp:Label></div>
-                                                                                            </ItemTemplate>
-                                                                                            <FooterTemplate>
-                                                                                                <div align="right">
-                                                                                                    <asp:Label ID="lblPLinerate" runat="server"></asp:Label>&nbsp;</div>
-                                                                                            </FooterTemplate>
-                                                                                        </asp:TemplateField>
-                                                                                        <asp:TemplateField HeaderText="Second Level Manager Rating">
-                                                                                            <ItemTemplate>
-                                                                                                <div align="left">
-                                                                                                    &nbsp;<asp:DropDownList ID="ddlsmgrrate" runat="server" Enabled="false">
-                                                                                                    </asp:DropDownList>
-                                                                                                </div>
-                                                                                            </ItemTemplate>
-                                                                                        </asp:TemplateField>
-                                                                                         <asp:TemplateField HeaderText="Second Level Manager Remarks">
-                                                                                            <ItemTemplate>
-                                                                                                <div align="left">
-                                                                                                    &nbsp;
-                                                                                                    <asp:Label ID="lblPSecoMgrRemark" runat="server" Text='<%#Bind("U_Z_SrRemark") %>'
-                                                                                                        CssClass="txtbox"></asp:Label>
-                                                                                                </div>
-                                                                                            </ItemTemplate>
-                                                                                        </asp:TemplateField>
-                                                                                        <asp:TemplateField HeaderText="Senior Manager Rating" Visible="false">
-                                                                                            <ItemTemplate>
-                                                                                                <div align="left">
-                                                                                                    &nbsp;<asp:Label ID="lblsmgrrate" runat="server" Text='<%#Bind("U_Z_SMRaCode") %>'
-                                                                                                        Visible="false"></asp:Label></div>
-                                                                                                <div align="Right">
-                                                                                                    &nbsp;<asp:Label ID="lblsrmgrrate" runat="server" Text='<%#Bind("U_Z_PeoSMRate") %>'></asp:Label></div>
-                                                                                            </ItemTemplate>
-                                                                                            <FooterTemplate>
-                                                                                                <div align="right">
-                                                                                                    <asp:Label ID="lblPsrrate" runat="server"></asp:Label>&nbsp;</div>
-                                                                                            </FooterTemplate>
-                                                                                        </asp:TemplateField>
-                                                                                        <asp:TemplateField HeaderText="Code" Visible="false">
-                                                                                            <ItemTemplate>
-                                                                                                <div align="center">
-                                                                                                    &nbsp;<asp:Label ID="lblpecode1" runat="server" Text='<%#Bind("LineId") %>'></asp:Label></div>
-                                                                                            </ItemTemplate>
-                                                                                        </asp:TemplateField>
-                                                                                    </Columns>
-                                                                                    <HeaderStyle HorizontalAlign="Center" Height="25px" BackColor="#CCCCCC" />
-                                                                                </asp:GridView>
+                                                                                <div style="overflow-x: auto; width: 1100px;">
+                                                                                    <asp:GridView ID="grdPeopleview" runat="server" ShowFooter="true" CellPadding="4"
+                                                                                        CssClass="mGrid" HeaderStyle-CssClass="GridBG" PagerStyle-CssClass="pgr" AlternatingRowStyle-CssClass="alt"
+                                                                                        AllowPaging="True" Visible="false" AutoGenerateColumns="False" Width="100%" ShowHeaderWhenEmpty="true"
+                                                                                        EmptyDataText="No records Found">
+                                                                                        <Columns>
+                                                                                            <asp:TemplateField HeaderText="Code" Visible="false">
+                                                                                                <ItemTemplate>
+                                                                                                    <div align="center">
+                                                                                                        <asp:Label ID="lbtpedocnum1" runat="server" Text='<%#Bind("U_Z_PeopleCode") %>'></asp:Label></div>
+                                                                                                </ItemTemplate>
+                                                                                            </asp:TemplateField>
+                                                                                            <asp:TemplateField HeaderText="Personal Objectives">
+                                                                                                <ItemTemplate>
+                                                                                                    <div align="left">
+                                                                                                        &nbsp;<asp:Label ID="lblpeoname1" runat="server" Text='<%#Bind("U_Z_PeopleDesc") %>'></asp:Label></div>
+                                                                                                </ItemTemplate>
+                                                                                            </asp:TemplateField>
+                                                                                            <asp:TemplateField HeaderText="Category">
+                                                                                                <ItemTemplate>
+                                                                                                    <div align="left">
+                                                                                                        &nbsp;<asp:Label ID="lblcate1" runat="server" Text='<%#Bind("U_Z_PeopleCat") %>'
+                                                                                                            Visible="false"></asp:Label></div>
+                                                                                                    <div align="left">
+                                                                                                        &nbsp;<asp:Label ID="Label1" runat="server" Text='<%#Bind("U_Z_CatName") %>'></asp:Label></div>
+                                                                                                </ItemTemplate>
+                                                                                                <FooterTemplate>
+                                                                                                    <div align="right">
+                                                                                                        <asp:Label ID="lblPPay" runat="server" Text="Total(%)" Visible="false"></asp:Label>&nbsp;&nbsp;</div>
+                                                                                                </FooterTemplate>
+                                                                                            </asp:TemplateField>
+                                                                                            <asp:TemplateField HeaderText="Weight(%)" Visible="false">
+                                                                                                <ItemTemplate>
+                                                                                                    <div align="Right">
+                                                                                                        &nbsp;<asp:Label ID="lblpeweight1" runat="server" Text='<%#Bind("U_Z_PeoWeight") %>'></asp:Label></div>
+                                                                                                </ItemTemplate>
+                                                                                                <FooterTemplate>
+                                                                                                    <div align="right">
+                                                                                                        <asp:Label ID="lblPselfweight" runat="server"></asp:Label>&nbsp;</div>
+                                                                                                </FooterTemplate>
+                                                                                            </asp:TemplateField>
+                                                                                            <asp:TemplateField HeaderText="Self Rating">
+                                                                                                <ItemTemplate>
+                                                                                                    <div align="left">
+                                                                                                        &nbsp;<asp:DropDownList ID="ddlpeselfrate" runat="server" AutoPostBack="true" OnSelectedIndexChanged="ddlpeselfrate_SelectedIndexChanged"
+                                                                                                            EnableViewState="true">
+                                                                                                        </asp:DropDownList>
+                                                                                                    </div>
+                                                                                                </ItemTemplate>
+                                                                                                <FooterTemplate>
+                                                                                                    <div align="right">
+                                                                                                        <asp:Label ID="lblPselfgr" runat="server" Text="Self Grade :"></asp:Label>&nbsp;</div>
+                                                                                                </FooterTemplate>
+                                                                                            </asp:TemplateField>
+                                                                                            <asp:TemplateField HeaderText="Self Remarks">
+                                                                                                <ItemTemplate>
+                                                                                                    <div align="left">
+                                                                                                        &nbsp;
+                                                                                                        <asp:TextBox ID="lblPSelfRemark" runat="server" Text='<%#Bind("U_Z_SelfRemark") %>'
+                                                                                                            TextMode="MultiLine" CssClass="txtbox"></asp:TextBox>
+                                                                                                    </div>
+                                                                                                </ItemTemplate>
+                                                                                                <FooterTemplate>
+                                                                                                    <div align="left">
+                                                                                                        <asp:Label ID="lblPselfgrade" runat="server"></asp:Label>&nbsp;</div>
+                                                                                                </FooterTemplate>
+                                                                                            </asp:TemplateField>
+                                                                                            <asp:TemplateField HeaderText="Self Grade" Visible="false">
+                                                                                                <ItemTemplate>
+                                                                                                    <div align="left">
+                                                                                                        &nbsp;
+                                                                                                        <asp:Label ID="lblPselGrd" runat="server" Text='<%#Bind("U_Z_PeoSelfGrade") %>' CssClass="txtbox"></asp:Label>
+                                                                                                    </div>
+                                                                                                </ItemTemplate>
+                                                                                            </asp:TemplateField>
+                                                                                            <asp:TemplateField HeaderText="Self Rating" Visible="false">
+                                                                                                <ItemTemplate>
+                                                                                                    <div align="left">
+                                                                                                        &nbsp;<asp:Label ID="lblpeselfrate" runat="server" Text='<%#Bind("U_Z_SelfRaCode") %>'
+                                                                                                            Visible="false"></asp:Label></div>
+                                                                                                    <div align="Right">
+                                                                                                        &nbsp;<asp:Label ID="lblpeselfrate1" runat="server" Text='<%#Bind("U_Z_PeoSelfRate") %>'></asp:Label></div>
+                                                                                                </ItemTemplate>
+                                                                                                <FooterTemplate>
+                                                                                                    <div align="right">
+                                                                                                        <asp:Label ID="lblPselfrate" runat="server"></asp:Label>&nbsp;</div>
+                                                                                                </FooterTemplate>
+                                                                                            </asp:TemplateField>
+                                                                                            <asp:TemplateField HeaderText="First Level Manager Rating">
+                                                                                                <ItemTemplate>
+                                                                                                    <div align="left">
+                                                                                                        &nbsp;<asp:DropDownList ID="ddlpesmgrfrate" runat="server" Enabled="false">
+                                                                                                        </asp:DropDownList>
+                                                                                                    </div>
+                                                                                                </ItemTemplate>
+                                                                                                <FooterTemplate>
+                                                                                                    <div align="right">
+                                                                                                        <asp:Label ID="lblPMgrgr" runat="server" Text="First Level Manager Grade :"></asp:Label>&nbsp;</div>
+                                                                                                </FooterTemplate>
+                                                                                            </asp:TemplateField>
+                                                                                            <asp:TemplateField HeaderText="First Level Manager Remarks">
+                                                                                                <ItemTemplate>
+                                                                                                    <div align="left">
+                                                                                                        &nbsp;
+                                                                                                        <asp:LinkButton ID="txtPfstmgrRemarks" runat="server" Text="View Remarks" ToolTip='<%#Bind("U_Z_MgrRemark") %>'
+                                                                                                            CssClass="txtbox" Width="100"></asp:LinkButton>
+                                                                                                    </div>
+                                                                                                </ItemTemplate>
+                                                                                                <FooterTemplate>
+                                                                                                    <div align="left">
+                                                                                                        <asp:Label ID="lblPMgrgrade" runat="server"></asp:Label>&nbsp;</div>
+                                                                                                </FooterTemplate>
+                                                                                            </asp:TemplateField>
+                                                                                            <asp:TemplateField HeaderText="First Level Manager Grade" Visible="false">
+                                                                                                <ItemTemplate>
+                                                                                                    <div align="left">
+                                                                                                        &nbsp;
+                                                                                                        <asp:Label ID="lblPMgrGrd" runat="server" Text='<%#Bind("U_Z_PeoMgrGrade") %>' CssClass="txtbox"></asp:Label>
+                                                                                                    </div>
+                                                                                                </ItemTemplate>
+                                                                                            </asp:TemplateField>
+                                                                                            <asp:TemplateField HeaderText="Line Manager Rating" Visible="false">
+                                                                                                <ItemTemplate>
+                                                                                                    <div align="Right">
+                                                                                                        &nbsp;<asp:Label ID="lblpemgrrate1" runat="server" Text='<%#Bind("U_Z_PeoMgrRate") %>'></asp:Label></div>
+                                                                                                    <div align="left">
+                                                                                                        &nbsp;<asp:Label ID="lblpesmgrfrate" runat="server" Text='<%#Bind("U_Z_MgrRaCode") %>'
+                                                                                                            Visible="false"></asp:Label></div>
+                                                                                                </ItemTemplate>
+                                                                                                <FooterTemplate>
+                                                                                                    <div align="right">
+                                                                                                        <asp:Label ID="lblPLinerate" runat="server"></asp:Label>&nbsp;</div>
+                                                                                                </FooterTemplate>
+                                                                                            </asp:TemplateField>
+                                                                                            <asp:TemplateField HeaderText="Second Level Manager Rating">
+                                                                                                <ItemTemplate>
+                                                                                                    <div align="left">
+                                                                                                        &nbsp;<asp:DropDownList ID="ddlsmgrrate" runat="server" Enabled="false">
+                                                                                                        </asp:DropDownList>
+                                                                                                    </div>
+                                                                                                </ItemTemplate>
+                                                                                                <FooterTemplate>
+                                                                                                    <div align="right">
+                                                                                                        <asp:Label ID="lblPSMMgrgr" runat="server" Text="Second Level Manager Grade :"></asp:Label>&nbsp;</div>
+                                                                                                </FooterTemplate>
+                                                                                            </asp:TemplateField>
+                                                                                            <asp:TemplateField HeaderText="Second Level Manager Remarks">
+                                                                                                <ItemTemplate>
+                                                                                                    <div align="left">
+                                                                                                        &nbsp;
+                                                                                                        <asp:LinkButton ID="lblPSecoMgrRemark" runat="server" Text="View Remarks" ToolTip='<%#Bind("U_Z_SrRemark") %>'
+                                                                                                            CssClass="txtbox"></asp:LinkButton>
+                                                                                                    </div>
+                                                                                                </ItemTemplate>
+                                                                                                <FooterTemplate>
+                                                                                                    <div align="left">
+                                                                                                        <asp:Label ID="lblPSMMgrgrade" runat="server"></asp:Label>&nbsp;</div>
+                                                                                                </FooterTemplate>
+                                                                                            </asp:TemplateField>
+                                                                                            <asp:TemplateField HeaderText="Second Level Manager Grade" Visible="false">
+                                                                                                <ItemTemplate>
+                                                                                                    <div align="left">
+                                                                                                        &nbsp;
+                                                                                                        <asp:Label ID="lblPsmgrGrd" runat="server" Text='<%#Bind("U_Z_PeoSMGrade") %>' CssClass="txtbox"></asp:Label>
+                                                                                                    </div>
+                                                                                                </ItemTemplate>
+                                                                                            </asp:TemplateField>
+                                                                                            <asp:TemplateField HeaderText="Senior Manager Rating" Visible="false">
+                                                                                                <ItemTemplate>
+                                                                                                    <div align="left">
+                                                                                                        &nbsp;<asp:Label ID="lblsmgrrate" runat="server" Text='<%#Bind("U_Z_SMRaCode") %>'
+                                                                                                            Visible="false"></asp:Label></div>
+                                                                                                    <div align="Right">
+                                                                                                        &nbsp;<asp:Label ID="lblsrmgrrate" runat="server" Text='<%#Bind("U_Z_PeoSMRate") %>'></asp:Label></div>
+                                                                                                </ItemTemplate>
+                                                                                                <FooterTemplate>
+                                                                                                    <div align="right">
+                                                                                                        <asp:Label ID="lblPsrrate" runat="server"></asp:Label>&nbsp;</div>
+                                                                                                </FooterTemplate>
+                                                                                            </asp:TemplateField>
+                                                                                            <asp:TemplateField HeaderText="Code" Visible="false">
+                                                                                                <ItemTemplate>
+                                                                                                    <div align="center">
+                                                                                                        &nbsp;<asp:Label ID="lblpecode1" runat="server" Text='<%#Bind("LineId") %>'></asp:Label></div>
+                                                                                                </ItemTemplate>
+                                                                                            </asp:TemplateField>
+                                                                                        </Columns>
+                                                                                        <HeaderStyle HorizontalAlign="Center" Height="25px" BackColor="#CCCCCC" />
+                                                                                        <FooterStyle Font-Bold="true" />
+                                                                                    </asp:GridView>
+                                                                                </div>
                                                                             </td>
                                                                         </tr>
                                                                         <tr>
@@ -613,10 +720,10 @@
                                                                     <table width="100%" border="0" cellspacing="0" cellpadding="4" class="main_content">
                                                                         <tr>
                                                                             <td colspan="4">
-                                                                                <asp:GridView ID="grdCompetenceview" runat="server" ShowFooter="false" CellPadding="4"
+                                                                                <asp:GridView ID="grdCompetenceview" runat="server" ShowFooter="true" CellPadding="4"
                                                                                     CssClass="mGrid" HeaderStyle-CssClass="GridBG" PagerStyle-CssClass="pgr" AlternatingRowStyle-CssClass="alt"
-                                                                                    AllowPaging="True" AutoGenerateColumns="False" Width="100%" PageSize="10" Visible="false"
-                                                                                    ShowHeaderWhenEmpty="true" EmptyDataText="No records Found">
+                                                                                    AllowPaging="True" AutoGenerateColumns="False" Width="100%" Visible="false" ShowHeaderWhenEmpty="true"
+                                                                                    EmptyDataText="No records Found">
                                                                                     <Columns>
                                                                                         <asp:TemplateField HeaderText="Code" Visible="false">
                                                                                             <ItemTemplate>
@@ -643,7 +750,7 @@
                                                                                             </ItemTemplate>
                                                                                             <FooterTemplate>
                                                                                                 <div align="right">
-                                                                                                    <asp:Label ID="lblCPay" runat="server" Text="Total(%)"></asp:Label>&nbsp;&nbsp;</div>
+                                                                                                    <asp:Label ID="lblCPay" runat="server" Text="Total(%)" Visible="false"></asp:Label>&nbsp;&nbsp;</div>
                                                                                             </FooterTemplate>
                                                                                         </asp:TemplateField>
                                                                                         <asp:TemplateField HeaderText="Weight(%)" Visible="false">
@@ -664,13 +771,30 @@
                                                                                                     </asp:DropDownList>
                                                                                                 </div>
                                                                                             </ItemTemplate>
+                                                                                            <FooterTemplate>
+                                                                                                <div align="right">
+                                                                                                    <asp:Label ID="lblCselfgrd" runat="server" Text="Self Grade :"></asp:Label>&nbsp;</div>
+                                                                                            </FooterTemplate>
                                                                                         </asp:TemplateField>
-                                                                                         <asp:TemplateField HeaderText="Self Remarks">
+                                                                                        <asp:TemplateField HeaderText="Self Remarks">
                                                                                             <ItemTemplate>
                                                                                                 <div align="left">
                                                                                                     &nbsp;
                                                                                                     <asp:TextBox ID="lblCSelfRemark" runat="server" Text='<%#Bind("U_Z_SelfRemark") %>'
-                                                                                                        CssClass="txtbox"></asp:TextBox>
+                                                                                                        TextMode="MultiLine" CssClass="txtbox"></asp:TextBox>
+                                                                                                </div>
+                                                                                            </ItemTemplate>
+                                                                                            <FooterTemplate>
+                                                                                                <div align="left">
+                                                                                                    <asp:Label ID="lblCselfgrade" runat="server"></asp:Label>&nbsp;</div>
+                                                                                            </FooterTemplate>
+                                                                                        </asp:TemplateField>
+                                                                                        <asp:TemplateField HeaderText="Self Grade" Visible="false">
+                                                                                            <ItemTemplate>
+                                                                                                <div align="left">
+                                                                                                    &nbsp;
+                                                                                                    <asp:Label ID="lblCSelfGrd" runat="server" Text='<%#Bind("U_Z_CompSelfGrade") %>'
+                                                                                                        CssClass="txtbox"></asp:Label>
                                                                                                 </div>
                                                                                             </ItemTemplate>
                                                                                         </asp:TemplateField>
@@ -694,13 +818,29 @@
                                                                                                     </asp:DropDownList>
                                                                                                 </div>
                                                                                             </ItemTemplate>
+                                                                                            <FooterTemplate>
+                                                                                                <div align="right">
+                                                                                                    <asp:Label ID="lblCmgrgrd" runat="server" Text="First Level Manager Grade :"></asp:Label>&nbsp;</div>
+                                                                                            </FooterTemplate>
                                                                                         </asp:TemplateField>
-                                                                                          <asp:TemplateField HeaderText="First Level Manager Remarks">
+                                                                                        <asp:TemplateField HeaderText="First Level Manager Remarks">
                                                                                             <ItemTemplate>
                                                                                                 <div align="left">
                                                                                                     &nbsp;
-                                                                                                    <asp:Label ID="txtCfstmgrRemarks" runat="server" Text='<%#Bind("U_Z_MgrRemark") %>'
-                                                                                                        CssClass="txtbox" Width="100"></asp:Label>
+                                                                                                    <asp:LinkButton ID="txtCfstmgrRemarks" runat="server" Text="View Remarks" ToolTip='<%#Bind("U_Z_MgrRemark") %>'
+                                                                                                        CssClass="txtbox" Width="100"></asp:LinkButton>
+                                                                                                </div>
+                                                                                            </ItemTemplate>
+                                                                                            <FooterTemplate>
+                                                                                                <div align="left">
+                                                                                                    <asp:Label ID="lblCMgrgrade" runat="server"></asp:Label>&nbsp;</div>
+                                                                                            </FooterTemplate>
+                                                                                        </asp:TemplateField>
+                                                                                        <asp:TemplateField HeaderText="First Level Manager Grade" Visible="false">
+                                                                                            <ItemTemplate>
+                                                                                                <div align="left">
+                                                                                                    &nbsp;
+                                                                                                    <asp:Label ID="lblCmgrGrd" runat="server" Text='<%#Bind("U_Z_CompMgrGrade") %>' CssClass="txtbox"></asp:Label>
                                                                                                 </div>
                                                                                             </ItemTemplate>
                                                                                         </asp:TemplateField>
@@ -724,13 +864,29 @@
                                                                                                     </asp:DropDownList>
                                                                                                 </div>
                                                                                             </ItemTemplate>
+                                                                                            <FooterTemplate>
+                                                                                                <div align="right">
+                                                                                                    <asp:Label ID="lblCsmgrgrd" runat="server" Text="Second Level Manager Grade :"></asp:Label>&nbsp;</div>
+                                                                                            </FooterTemplate>
                                                                                         </asp:TemplateField>
-                                                                                          <asp:TemplateField HeaderText="Second Level Manager Remarks">
+                                                                                        <asp:TemplateField HeaderText="Second Level Manager Remarks">
                                                                                             <ItemTemplate>
                                                                                                 <div align="left">
                                                                                                     &nbsp;
-                                                                                                    <asp:Label ID="lblCSecoMgrRemark" runat="server" Text='<%#Bind("U_Z_SrRemark") %>'
-                                                                                                        CssClass="txtbox"></asp:Label>
+                                                                                                    <asp:LinkButton ID="lblCSecoMgrRemark" runat="server" Text="View Remarks" ToolTip='<%#Bind("U_Z_SrRemark") %>'
+                                                                                                        CssClass="txtbox"></asp:LinkButton>
+                                                                                                </div>
+                                                                                            </ItemTemplate>
+                                                                                            <FooterTemplate>
+                                                                                                <div align="left">
+                                                                                                    <asp:Label ID="lblCSMgrgrade" runat="server"></asp:Label>&nbsp;</div>
+                                                                                            </FooterTemplate>
+                                                                                        </asp:TemplateField>
+                                                                                        <asp:TemplateField HeaderText="Second Level Manager Grade" Visible="false">
+                                                                                            <ItemTemplate>
+                                                                                                <div align="left">
+                                                                                                    &nbsp;
+                                                                                                    <asp:Label ID="lblCsmgrGrd" runat="server" Text='<%#Bind("U_Z_CompSMGrade") %>' CssClass="txtbox"></asp:Label>
                                                                                                 </div>
                                                                                             </ItemTemplate>
                                                                                         </asp:TemplateField>
@@ -755,6 +911,7 @@
                                                                                         </asp:TemplateField>
                                                                                     </Columns>
                                                                                     <HeaderStyle HorizontalAlign="Center" Height="25px" BackColor="#CCCCCC" />
+                                                                                    <FooterStyle Font-Bold="true" />
                                                                                 </asp:GridView>
                                                                             </td>
                                                                         </tr>

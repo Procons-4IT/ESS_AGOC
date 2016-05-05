@@ -184,6 +184,34 @@ Public Class CommonFunctions
             objDA.cmd.ExecuteNonQuery()
             objDA.con.Close()
         End If
+
+        exists = 0
+        objDA.strQuery = "SELECT COUNT(*) FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[U_LEXPCLAIM]') AND type in (N'U')"
+        objDA.cmd = New SqlCommand(objDA.strQuery, objDA.con)
+        objDA.con.Open()
+        objDA.sqlreader = objDA.cmd.ExecuteReader()
+        If objDA.sqlreader.HasRows Then
+            Do
+                While objDA.sqlreader.Read
+                    exists = objDA.sqlreader(0)
+                End While
+            Loop While objDA.sqlreader.NextResult()
+        End If
+        objDA.con.Close()
+        If exists = 0 Then
+            objDA.strQuery = "create table [U_LEXPCLAIM](U_DocEntry int identity NOT NULL,U_SessionId nvarchar(100) NULL,U_TANo nvarchar(100) NULL, U_Empid nvarchar(100) NULL, U_Empname nvarchar(200) NULL, U_SubDate datetime NULL,"
+            objDA.strQuery += " U_Client nvarchar(200) NULL, U_Project nvarchar(200) NULL, U_ClimDate datetime NOT NULL, "
+            objDA.strQuery += " U_City nvarchar(150) NULL, U_Currency nvarchar(100) NULL, U_CurAmt Decimal(18,6) NULL, U_ExcRate Decimal(18,6) NULL,"
+            objDA.strQuery += " U_UsdAmt nvarchar(200) NULL, U_ReImbused nvarchar(10) NULL, U_ReImAmt nvarchar(100) NULL, U_ExpCode nvarchar(100) NULL, U_ExpName nvarchar(200) NULL, U_PayMethod nvarchar(20) NULL, U_Notes nvarchar(max) NULL,"
+            objDA.strQuery += " U_AppStatus nvarchar(10) NULL,U_TraCode nvarchar(100) NULL,U_TraDesc nvarchar(200) NULL,U_Attachment nvarchar(max) NULL,U_CrEmpID nvarchar(50) NULL,U_CrEmpName nvarchar(200) NULL,"
+            objDA.strQuery += " U_TripType nvarchar(40) NULL,U_AllCode nvarchar(100) NULL,U_Year int NULL,U_Month int NULL,U_PayPosted nvarchar(2) NULL,U_DocRefNo nvarchar(40) NULL,U_Code nvarchar(40) NULL,U_DebitCode nvarchar(40) NULL,U_CreditCode nvarchar(40) NULL,U_Posting nvarchar(40) NULL"
+            objDA.strQuery += " ,U_CardCode nvarchar(40) NULL,U_Dimension nvarchar(100) NULL,U_JVNo nvarchar(40) NULL,U_CurApprover nvarchar(100) NULL,U_NxtApprover nvarchar(100) NULL,U_Holidays nvarchar(1) NULL)"
+            objDA.cmd = New SqlCommand(objDA.strQuery, objDA.con)
+            objDA.con.Open()
+            objDA.cmd.ExecuteNonQuery()
+            objDA.con.Close()
+        End If
+
         exists = 0
         objDA.strQuery = "SELECT COUNT(*) FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[U_LOANREQ]') AND type in (N'U')"
         objDA.cmd = New SqlCommand(objDA.strQuery, objDA.con)

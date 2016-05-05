@@ -196,6 +196,7 @@ Public Class SeniorMgrAppraisal
                     objen.Amount = CType(row1.FindControl("lblsrmgrrate1"), Label).Text
                     objen.SelfRating = CType(row1.FindControl("ddlsmgrfrate"), DropDownList).SelectedValue
                     objen.SecondRemarks = CType(row1.FindControl("txtBfstmgrRemarks"), TextBox).Text
+                    objen.BussSelfGrade = CType(row1.FindControl("lblBsmgrGrd"), Label).Text
                     objDA.UpdatesrMgrAppBusiness(objen)
                 Next row1
 
@@ -204,6 +205,7 @@ Public Class SeniorMgrAppraisal
                     objen.Amount = CType(row2.FindControl("lblsrmgrrate"), Label).Text
                     objen.SelfRating = CType(row2.FindControl("ddlsmgrrate"), DropDownList).SelectedValue
                     objen.SecondRemarks = CType(row2.FindControl("txtPfstmgrRemarks"), TextBox).Text
+                    objen.PeoSelfGrade = CType(row2.FindControl("lblPsmgrGrd"), Label).Text
                     objDA.UpdatesrMgrAppPeople(objen)
                 Next row2
 
@@ -212,8 +214,12 @@ Public Class SeniorMgrAppraisal
                     objen.Amount = CType(row3.FindControl("lblsrmgrRate1"), Label).Text
                     objen.SelfRating = CType(row3.FindControl("ddlCompsmgrfrate"), DropDownList).SelectedValue
                     objen.SecondRemarks = CType(row3.FindControl("txtCfstmgrRemarks"), TextBox).Text
+                    objen.CompSelfGrade = CType(row3.FindControl("lblCsmgrGrd"), Label).Text
                     objDA.UpdatesrMgrAppCompetence(objen)
                 Next row3
+
+                objen.AppraisalNumber = txtAppno.Text.Trim()
+                objDA.UpdateLineMgrAppGrade(objen)
             End If
             
 
@@ -327,7 +333,7 @@ Public Class SeniorMgrAppraisal
         grdCompetenceview.Visible = True
         grdPeopleview.Visible = True
         grdBusinessView.Visible = True
-        If strStatus <> "HR Approved" And strStatus <> "Draft" And strStatus <> "SelfApproved" And grvstatus = "-" Then
+        If strStatus <> "HR Approved" And strStatus <> "Draft" And strStatus <> "SelfApproved" And grvstatus = "-" And strStatus <> "HR Canceled" Then
             ddlstatus.Enabled = False
             ddlperiod.Enabled = False
             btnsubmit.Visible = False
@@ -387,6 +393,16 @@ Public Class SeniorMgrAppraisal
             If lblBsmgr <> "" Then
                 smgrddl.Items.FindByValue(lblBsmgr).Selected = True
             End If
+
+            Dim lblcomments As LinkButton = CType(e.Row.FindControl("lblBSelfRemark"), LinkButton)
+            If lblcomments.ToolTip = "" Then
+                lblcomments.Text = ""
+            End If
+
+            Dim lblcomments1 As LinkButton = CType(e.Row.FindControl("lblBstmgremark"), LinkButton)
+            If lblcomments1.ToolTip = "" Then
+                lblcomments1.Text = ""
+            End If
         End If
         If e.Row.RowType = DataControlRowType.DataRow Then
             Dim rowtotal As Decimal = Convert.ToDecimal(DataBinder.Eval(e.Row.DataItem, "U_Z_BussWeight"))
@@ -407,6 +423,13 @@ Public Class SeniorMgrAppraisal
             lbl2.Text = grdTotal2.ToString()
             Dim lbl3 As Label = CType(e.Row.FindControl("lblBsrrate"), Label)
             lbl3.Text = grdTotal3.ToString()
+
+            Dim lblgr1 As Label = CType(e.Row.FindControl("lblBselfgrade"), Label)
+            lblgr1.Text = dbcon.GetAppraisalGrade(CDbl(grdTotal1)) ' grdTotal22.ToString()
+            Dim lblgr2 As Label = CType(e.Row.FindControl("lblBMgrgrade"), Label)
+            lblgr2.Text = dbcon.GetAppraisalGrade(CDbl(grdTotal2)) ' grdTotal23.ToString()
+            Dim lblgr3 As Label = CType(e.Row.FindControl("lblBSMgrgrade"), Label)
+            lblgr3.Text = dbcon.GetAppraisalGrade(CDbl(grdTotal3)) ' grdTotal24.ToString()
         End If
     End Sub
 
@@ -430,6 +453,16 @@ Public Class SeniorMgrAppraisal
             If lblBsmgr <> "" Then
                 smgrddl.Items.FindByValue(lblBsmgr).Selected = True
             End If
+
+            Dim lblcomments As LinkButton = CType(e.Row.FindControl("lblCSelfRemark"), LinkButton)
+            If lblcomments.ToolTip = "" Then
+                lblcomments.Text = ""
+            End If
+
+            Dim lblcomments1 As LinkButton = CType(e.Row.FindControl("lblCSecoMgrRemark"), LinkButton)
+            If lblcomments1.ToolTip = "" Then
+                lblcomments1.Text = ""
+            End If
         End If
         If e.Row.RowType = DataControlRowType.DataRow Then
             Dim rowtotal As Decimal = Convert.ToDecimal(DataBinder.Eval(e.Row.DataItem, "U_Z_CompWeight"))
@@ -450,6 +483,13 @@ Public Class SeniorMgrAppraisal
             lbl2.Text = grdTotal13.ToString()
             Dim lbl3 As Label = CType(e.Row.FindControl("lblCsrrate"), Label)
             lbl3.Text = grdTotal14.ToString()
+
+            Dim lblgr1 As Label = CType(e.Row.FindControl("lblCselfgrade"), Label)
+            lblgr1.Text = dbcon.GetAppraisalGrade(CDbl(grdTotal12)) ' grdTotal22.ToString()
+            Dim lblgr2 As Label = CType(e.Row.FindControl("lblCMgrgrade"), Label)
+            lblgr2.Text = dbcon.GetAppraisalGrade(CDbl(grdTotal13)) ' grdTotal23.ToString()
+            Dim lblgr3 As Label = CType(e.Row.FindControl("lblCSMgrgrade"), Label)
+            lblgr3.Text = dbcon.GetAppraisalGrade(CDbl(grdTotal14)) ' grdTotal24.ToString()
         End If
     End Sub
 
@@ -473,6 +513,16 @@ Public Class SeniorMgrAppraisal
             If lblBsmgr <> "" Then
                 smgrddl.Items.FindByValue(lblBsmgr).Selected = True
             End If
+
+            Dim lblcomments As LinkButton = CType(e.Row.FindControl("lblPSelfRemark"), LinkButton)
+            If lblcomments.ToolTip = "" Then
+                lblcomments.Text = ""
+            End If
+
+            Dim lblcomments1 As LinkButton = CType(e.Row.FindControl("lblPSecoMgrRemark"), LinkButton)
+            If lblcomments1.ToolTip = "" Then
+                lblcomments1.Text = ""
+            End If
         End If
         If e.Row.RowType = DataControlRowType.DataRow Then
             Dim rowtotal As Decimal = Convert.ToDecimal(DataBinder.Eval(e.Row.DataItem, "U_Z_PeoWeight"))
@@ -493,10 +543,16 @@ Public Class SeniorMgrAppraisal
             lbl2.Text = grdTotal23.ToString()
             Dim lbl3 As Label = CType(e.Row.FindControl("lblPsrrate"), Label)
             lbl3.Text = grdTotal24.ToString()
+
+            Dim lblgr1 As Label = CType(e.Row.FindControl("lblPselfgrade"), Label)
+            lblgr1.Text = dbcon.GetAppraisalGrade(CDbl(grdTotal22)) ' grdTotal22.ToString()
+            Dim lblgr2 As Label = CType(e.Row.FindControl("lblPMgrgrade"), Label)
+            lblgr2.Text = dbcon.GetAppraisalGrade(CDbl(grdTotal23)) ' grdTotal23.ToString()
+            Dim lblgr3 As Label = CType(e.Row.FindControl("lblPSMMgrgrade"), Label)
+            lblgr3.Text = dbcon.GetAppraisalGrade(CDbl(grdTotal24)) ' grdTotal24.ToString()
         End If
     End Sub
     Protected Sub btnsavesubmit_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnsavesubmit.Click
-        System.Threading.Thread.Sleep(3000)
         If AddUDOUpdate("SaveSubmit") = True Then
             dbcon.strmsg = "alert('Senior Manager Appraisal Request Approved successfully...')"
             mess(dbcon.strmsg)
@@ -518,6 +574,7 @@ Public Class SeniorMgrAppraisal
         Dim ddl As DropDownList = DirectCast(grdBusinessView.Rows(i).FindControl("ddlsmgrfrate"), DropDownList)
         Dim strweight As String = DirectCast(grdBusinessView.Rows(i).FindControl("lblweight1"), Label).Text
         Dim txtself As Label = DirectCast(grdBusinessView.Rows(i).FindControl("lblsrmgrrate1"), Label)
+        Dim lblBSelfgrd As Label = DirectCast(grdBusinessView.Rows(i).FindControl("lblBsmgrGrd"), Label)
         objen.Ratings = ddl.SelectedValue
         dbcon.ds2 = objBL.SelectionChange(objen)
         If dbcon.ds2.Tables(0).Rows.Count > 0 Then
@@ -525,6 +582,7 @@ Public Class SeniorMgrAppraisal
             dblweight = CDbl(strweight)
             dblVate = dblVate * dblweight
             txtself.Text = dblVate / 100
+            lblBSelfgrd.Text = dbcon.GetAppraisalGrade(txtself.Text.Trim())
         End If
 
     End Sub
@@ -536,6 +594,7 @@ Public Class SeniorMgrAppraisal
         Dim ddl As DropDownList = DirectCast(grdPeopleview.Rows(i).FindControl("ddlsmgrrate"), DropDownList)
         Dim strweight As String = DirectCast(grdPeopleview.Rows(i).FindControl("lblpeweight1"), Label).Text
         Dim txtself As Label = DirectCast(grdPeopleview.Rows(i).FindControl("lblsrmgrrate"), Label)
+        Dim lblPSelfgrd As Label = DirectCast(grdPeopleview.Rows(i).FindControl("lblPsmgrGrd"), Label)
         objen.Ratings = ddl.SelectedValue
         dbcon.ds2 = objBL.SelectionChange(objen)
         If dbcon.ds2.Tables(0).Rows.Count > 0 Then
@@ -543,6 +602,7 @@ Public Class SeniorMgrAppraisal
             dblweight = CDbl(strweight)
             dblVate = dblVate * dblweight
             txtself.Text = dblVate / 100
+            lblPSelfgrd.Text = dbcon.GetAppraisalGrade(txtself.Text.Trim())
         End If
     End Sub
     Protected Sub ddlCompsmgrfrate_SelectedIndexChanged(ByVal sender As Object, ByVal e As System.EventArgs)
@@ -555,7 +615,7 @@ Public Class SeniorMgrAppraisal
         Dim lbllevels As Label = DirectCast(grdCompetenceview.Rows(i).FindControl("lblCompLevel"), Label)
         Dim lblcurrlevel As Label = DirectCast(grdCompetenceview.Rows(i).FindControl("lblCurrLevel"), Label)
         Dim txtself As Label = DirectCast(grdCompetenceview.Rows(i).FindControl("lblsrmgrRate1"), Label)
-
+        Dim lblCSelfgrd As Label = DirectCast(grdCompetenceview.Rows(i).FindControl("lblCsmgrGrd"), Label)
         dblweight = CDbl(strweight)
         objen.Ratings = ddl.SelectedValue
         dbcon.ds2 = objBL.SelectionChange(objen)
@@ -564,6 +624,7 @@ Public Class SeniorMgrAppraisal
             dblweight = CDbl(strweight)
             dblSelfRate = dblSelfRate * dblweight
             txtself.Text = dblSelfRate / 100
+            lblCSelfgrd.Text = dbcon.GetAppraisalGrade(txtself.Text.Trim())
         Else
             txtself.Text = 0
         End If

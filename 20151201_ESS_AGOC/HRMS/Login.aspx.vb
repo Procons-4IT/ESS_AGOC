@@ -58,25 +58,25 @@ Public Class Login
                 Response.Redirect("Home.aspx", False)
             End If
             'Response.Redirect("Home.aspx", False)
-        ElseIf (objDA.ESSUsercheck(objEn)) = True Then
-            Session("UserCode") = objDA.GetCardCode(objEn)
-            objEn.SessionUid = Session("UserCode")
-            Session("UserName") = objDA.GetCardName(objEn)
-            Session("SAPCompany") = Application("DBName")
-            Session("SAPCompany") = Application("DBName")
-            Session("SessionId") = objDA.SessionDetails(Session("UserCode").ToString())
-            Session("EmpUserName") = ConfigurationManager.AppSettings("SAPuserName")
-            Session("UserPwd") = ConfigurationManager.AppSettings("SAPpassword")
-            Session("BadgeNo") = objDA.GetBadgeNo(Session("UserCode").ToString())
-            If objDA.CheckFirstLogin(objEn) = False Then
-                ModalPopupExtender6.Enabled = True
-                ModalPopupExtender6.Show()
-            Else
-                objPwd.EmpId = Session("UserCode").ToString()
-                objPwd.Formid = Session("UserName").ToString()
-                objLDA.InsertFirstLogin(objPwd)
-                Response.Redirect("ESS/ESSHome.aspx", False)
-            End If
+            'ElseIf (objDA.ESSUsercheck(objEn)) = True Then
+            '    Session("UserCode") = objDA.GetCardCode(objEn)
+            '    objEn.SessionUid = Session("UserCode")
+            '    Session("UserName") = objDA.GetCardName(objEn)
+            '    Session("SAPCompany") = Application("DBName")
+            '    Session("SAPCompany") = Application("DBName")
+            '    Session("SessionId") = objDA.SessionDetails(Session("UserCode").ToString())
+            '    Session("EmpUserName") = ConfigurationManager.AppSettings("SAPuserName")
+            '    Session("UserPwd") = ConfigurationManager.AppSettings("SAPpassword")
+            '    Session("BadgeNo") = objDA.GetBadgeNo(Session("UserCode").ToString())
+            '    If objDA.CheckFirstLogin(objEn) = False Then
+            '        ModalPopupExtender6.Enabled = True
+            '        ModalPopupExtender6.Show()
+            '    Else
+            '        objPwd.EmpId = Session("UserCode").ToString()
+            '        objPwd.Formid = Session("UserName").ToString()
+            '        objLDA.InsertFirstLogin(objPwd)
+            '        Response.Redirect("ESS/ESSHome.aspx", False)
+            '    End If
             ' Response.Redirect("ESS/ESSHome.aspx", False)
         ElseIf (dbCon.AdminUserAuthentication(objEn)) = True Then
             Session("SAPCompany") = Application("DBName")
